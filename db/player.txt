@@ -1,0 +1,5 @@
+ejemplo de datos del player
+name: Juan carlos
+attack: 200
+life: 300
+description: sfkskdks
