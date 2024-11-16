@@ -1,17 +1,9 @@
 #include <ncurses.h>
 #include <iostream>
-#include <thread>
-#include <chrono>
 
 using namespace std;
 
-void eyes(int y, int x, char eyes){
-    mvaddch( y + 2, x + 2, eyes);
-    mvaddch( y + 2, x + 4, eyes);
-}
-
 void player( int y, int x ){
-
 
      //Sombrero o casco
     mvaddch( y, x , ACS_ULCORNER);
@@ -79,28 +71,120 @@ void player( int y, int x ){
     mvaddch( y + 8, x + 5, ACS_HLINE );
     mvaddch( y + 8, x + 6, ACS_LRCORNER );
 
-    printw("Bienvenido");
-
-    //Animacion de parpadeo de ojos del personaje
-    int seconds = 0;
-    while (true) {
-        char eyeChar = (seconds % 2 == 0) ? '-' : '0'; 
-        eyes(y, x, eyeChar);                           
-        refresh();                                     
-        this_thread::sleep_for( chrono::milliseconds(1500) ); 
-        seconds++;
-    }
+    //ojos
+    mvaddch( y + 2, x + 2, '0');
+    mvaddch( y + 2, x + 4, '0'); 
     
 }
 
-int main(){
-    initscr();  
+void removePlayer( int y, int x ){
 
-    player(5, 5);
-   
-    refresh(); 
-    getch();   
-    endwin();  
+     //Sombrero o casco
+    mvaddch( y, x , ' ');
+    mvaddch( y, x + 1, ' ');
+    mvaddch( y, x + 2, ' ');
+    mvaddch( y, x + 3, ' ');
+    mvaddch( y, x + 4, ' ');
+    mvaddch( y, x + 5, ' ');
+    mvaddch( y + 1, x - 1 , ' ');
+    mvaddch( y + 1, x, ' ');
+    mvaddch( y + 1, x + 1, ' ');
+    mvaddch( y + 1, x + 2, ' ');
+    mvaddch( y + 1, x + 3, ' ');
+    mvaddch( y + 1, x + 4, ' ');
+    mvaddch( y + 1, x + 5, ' ');
+    mvaddch( y + 1, x + 6, ' ');
+
+    //Cabeza
+    mvaddch( y + 2, x, ' ');
+
+    //boca
+    mvaddch( y + 2, x + 3 , '_');
+
+    mvaddch( y + 2, x + 5, ' ');
+
+    //barbilla
+    mvaddch( y + 3, x,' ');
+    mvaddch( y + 3, x + 5, ' ');
+
+    //cuerpo
+    mvaddch( y + 3, x + 6, ' ');
+    mvaddch( y + 3, x - 1, ' ');
+    mvaddch( y + 5, x, ' ');
+    mvaddch( y + 5, x + 1, ' ');
+    mvaddch( y + 5, x + 2, ' ');
+    mvaddch( y + 5, x + 3, ' ');
+    mvaddch( y + 5, x + 4, ' ');
+    mvaddch( y + 5, x + 5, ' ');
+    
+    //Brazo izquierdo
+    mvaddch( y + 4, x - 2, ' ');
+    mvaddch( y + 4 , x, ' ');
+    mvaddch( y + 5, x - 2, ' ' );
+    //Brazo derecho
+    mvaddch( y + 4, x + 5, ' ');
+    mvaddch( y + 4, x + 7, ' ');
+    mvaddch( y + 5, x + 7, ' ' );
+
+    //piernas
+    mvaddch( y + 6 , x, ' ' );
+    mvaddch( y + 6, x + 5, ' ' );
+    mvaddch( y + 7, x, ' ' );
+    mvaddch( y + 7, x + 5, ' ' );
+
+    mvaddch( y + 8, x, ' ' );
+    mvaddch( y + 8, x + 1, ' ' );
+    mvaddch( y + 8, x + 2, ' ' );
+    mvaddch( y + 7 , x + 2, '_');
+    mvaddch( y + 7 , x + 2, '_');
+    mvaddch( y + 7 , x + 3, ' ');
+    mvaddch( y + 8 , x + 3, ' ' );
+    mvaddch( y + 7, x + 4, '_');
+    mvaddch( y + 8, x + 5, '_');
+    mvaddch( y + 8, x + 4, ' ' );
+    mvaddch( y + 8, x + 5, ' ' );
+    mvaddch( y + 8, x + 6, ' ' );
+
+    //ojos
+    mvaddch( y + 2, x + 2, ' ');
+    mvaddch( y + 2, x + 4, ' '); 
+
+}
+
+
+void Player(int initialPositionX,  int initialPositionY){
+
+    int maxPosition = 70;
+    int movents = 0;
+
+    int key;
+    while( (key = getch()) != 'q' ){
+        switch (key)
+        {
+        case KEY_RIGHT:
+            if( initialPositionX == maxPosition ){
+                break;
+            }else{
+                removePlayer( initialPositionY, initialPositionX -1 );
+                player( initialPositionY, initialPositionX);
+                initialPositionX++;
+                refresh();
+            }
+            break;
+        case KEY_LEFT:
+        if( initialPositionX == 2 ){
+                break;
+            }else{
+                removePlayer( initialPositionY, initialPositionX + 1 );
+                player( initialPositionY, initialPositionX);
+                initialPositionX--;
+                refresh();
+            }
+            break;
+        default:
+            break;
+        }
+    }
 
 
 }

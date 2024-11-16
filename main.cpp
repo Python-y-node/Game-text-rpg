@@ -1,14 +1,18 @@
 #include <iostream>
-#include "./loader/definitions.h"
+#include "./screens/index.h"
 
 using namespace std;
 
 int main(){
-    if( isAuthenticated ){
-        cout << "Hello world !" << "\n";
-    }
-    else {
-        cout << "No puedes entrar!" << "\n";
-    }
+    initscr(); 
+    curs_set(0); 
+    keypad(stdscr, TRUE);
+    Player(4,4);
+
+    refresh(); 
+    getch();   
+    endwin();  
+    
+    
 
 }
