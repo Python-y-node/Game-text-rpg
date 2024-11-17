@@ -7,12 +7,10 @@ int main(){
     initscr(); 
     curs_set(0); 
     keypad(stdscr, TRUE);
-    Player(4,4);
+    
+    Player( 4, 8, "dinamic", true , false); 
+    refresh();
 
-    refresh(); 
-    getch();   
+    getch();
     endwin();  
-    
-    
-
 }
