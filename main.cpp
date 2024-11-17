@@ -4,13 +4,5 @@
 using namespace std;
 
 int main(){
-    initscr(); 
-    curs_set(0); 
-    keypad(stdscr, TRUE);
-    
-    Player( 4, 8, "dinamic", true , false); 
-    refresh();
-
-    getch();
-    endwin();  
+    finalFightScreen();  
 }
