@@ -11,8 +11,8 @@ void inicializar_juego(int &item)
     item = rand() % 3; // Número aleatorio entre 0 y 2
 }
 
-// Función recursiva para pedir la respuesta sobre si quiere jugar
-void pedir_respuesta()
+// Función para pedir la respuesta sobre si quiere jugar
+bool pedir_respuesta()
 {
     // Pedir respuesta sobre si quiere jugar
     cout << "Te apetece jugar? (sí/no): ";
@@ -25,18 +25,18 @@ void pedir_respuesta()
 
     if (respuesta == "si")
     {
-        // Iniciar el juego si la respuesta es afirmativa
         cout << "¡Genial! Vamos a jugar. \n";
+        return true; // El jugador quiere jugar
     }
     else if (respuesta == "no")
     {
         cout << "Esta bien! Tal vez en otra ocasion. \n";
-        return; // Si no quiere jugar, termina el programa
+        return false; // El jugador no quiere jugar
     }
     else
     {
         cout << "Respuesta invalida. Por favor, responde con 'si' o 'no'. \n";
-        pedir_respuesta(); // Volver a pedir la respuesta si es inválida
+        return pedir_respuesta(); // Volver a pedir la respuesta si es inválida
     }
 }
 
@@ -77,7 +77,10 @@ void jugar()
     cout << "Te tengo una propuesta. Que tal si jugamos un juego? \n";
 
     // Pedir si desea jugar
-    pedir_respuesta();
+    if (!pedir_respuesta()) // Si no quiere jugar, terminamos
+    {
+        return;
+    }
 
     // Continuar con la lógica del juego
     int intento;
