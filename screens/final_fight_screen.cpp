@@ -13,22 +13,29 @@ void finalFightScreen(){
     Player( 4, 50, "static", true, true); 
 
     move( 15, 4 );
-    printw("Espadazo(e) \t  Golpe normal \t  Lujuria \t Bola de fuejo");
+    printw("Espadazo(e) \t Bola de fuejo(f)");
     char options;
 
+    move(18, 4);
     while( ( options = getch() ) != 'q' ){
         switch (options)
         {
         case 'e':
-            cout << "Ha dado espadazo" << endl;
+            swordStroke();
+            Player( 4, 50, "static", true, true);
+            refresh();
+            break;
+        case 'f':
+            fireBall();
+            Player( 4, 50, "static", true, true);
+            refresh();
             break;
         
         default:
             break;
         }
+        refresh();
     }
-
-    getch();
 
     endwin();
 }

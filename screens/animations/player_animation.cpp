@@ -1,5 +1,7 @@
 #include <ncurses.h>
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
@@ -331,5 +333,188 @@ void Player(int initialPositionY, int initialPositionX, string typePlayer, bool 
                 break;
             }
         }
+    }
+}
+
+
+void sword(int y, int x){
+    mvaddch( y, x , ACS_ULCORNER);
+    mvaddch( y - 1, x, ACS_LLCORNER);
+    mvaddch( y, x - 1, ACS_HLINE);
+    mvaddch( y - 1, x - 1, ACS_HLINE);
+    mvaddch( y, x , ACS_VLINE);
+    mvaddch( y - 1, x, ACS_VLINE);
+
+    mvaddch( y - 1, x + 1, ACS_HLINE);
+    mvaddch( y - 1, x + 2, ACS_HLINE);
+    mvaddch( y - 1, x + 3, ACS_HLINE);
+    mvaddch( y - 1, x + 4, ACS_HLINE);
+    mvaddch( y - 1, x + 5, ACS_HLINE);
+    mvaddch( y - 1, x + 6, ACS_HLINE);
+    mvaddch( y - 1, x + 7, ACS_HLINE);
+
+    mvaddch( y, x + 1, ACS_HLINE);
+    mvaddch( y, x + 2, ACS_HLINE);
+    mvaddch( y, x + 3, ACS_HLINE);
+    mvaddch( y, x + 4, ACS_HLINE);
+    mvaddch( y, x + 5, ACS_HLINE);
+    mvaddch( y, x + 6, ACS_HLINE);
+    mvaddch( y, x + 7, ACS_HLINE);
+
+    
+    mvaddch( y - 1, x + 8, ACS_URCORNER );
+    mvaddch( y, x + 8, ACS_LRCORNER );
+}
+
+void removeSword(int y, int x){
+    mvaddch( y, x , ' ');
+    mvaddch( y - 1, x, ' ');
+    mvaddch( y, x - 1, ' ');
+    mvaddch( y - 1, x - 1, ' ');
+    mvaddch( y, x , ' ');
+    mvaddch( y - 1, x, ' ');
+
+    mvaddch( y - 1, x + 1, ' ');
+    mvaddch( y - 1, x + 2, ' ');
+    mvaddch( y - 1, x + 3, ' ');
+    mvaddch( y - 1, x + 4, ' ');
+    mvaddch( y - 1, x + 5, ' ');
+    mvaddch( y - 1, x + 6, ' ');
+    mvaddch( y - 1, x + 7, ' ');
+
+    mvaddch( y, x + 1, ' ');
+    mvaddch( y, x + 2, ' ');
+    mvaddch( y, x + 3, ' ');
+    mvaddch( y, x + 4, ' ');
+    mvaddch( y, x + 5, ' ');
+    mvaddch( y, x + 6, ' ');
+    mvaddch( y, x + 7, ' ');
+
+    
+    mvaddch( y - 1, x + 8, ' ');
+    mvaddch( y, x + 8, ' ' );
+}
+
+void swordStroke(){
+
+    int initialPositonX = 20;
+    int initialPositionY = 9;
+
+    int move = 0;
+
+    while( true ){
+       
+       sword( initialPositionY, initialPositonX + move );
+       refresh();
+       this_thread::sleep_for( chrono::milliseconds(150) );
+       removeSword( initialPositionY, initialPositonX + move );
+       refresh();
+       move++;
+
+       if(move == 25) break;
+
+    }
+}
+
+void ball(int y, int x){
+
+    mvaddch( y + 2, x -1, '@' );
+
+    mvaddch( y + 1, x , '@' );
+    mvaddch( y + 2, x, '@' );
+    mvaddch( y + 3, x, '@' );
+
+    mvaddch( y , x + 1, '@' );
+    mvaddch(y + 1, x + 1, '@' );
+    mvaddch( y + 2, x + 1, '@' );
+    mvaddch( y + 3, x + 1, '@' );
+    mvaddch( y + 4,x + 1, '@' );
+
+    mvaddch( y,  x + 2, '@' );
+    mvaddch(y + 1,  x + 2, '@' );
+    mvaddch( y + 2,  x + 2, '@' );
+    mvaddch( y + 3,  x + 2, '@' );
+    mvaddch( y + 4, x + 2, '@' );
+    
+    mvaddch( y, x + 3, '@' );
+    mvaddch(y + 1, x + 3, '@' );
+    mvaddch( y + 2, x + 3, '@' );
+    mvaddch( y + 3, x + 3, '@' );
+    mvaddch( y + 4, x + 3, '@' );
+
+    mvaddch( y, x + 4, '@' );
+    mvaddch(y + 1, x + 4, '@' );
+    mvaddch( y + 2, x + 4, '@' );
+    mvaddch( y + 3, x + 4, '@' );
+    mvaddch( y + 4, x + 4, '@' );
+
+    mvaddch(y + 1, x + 5, '@' );
+    mvaddch( y + 2, x + 5, '@' );
+    mvaddch( y + 3, x + 5, '@' );
+    
+    mvaddch( y + 1, x + 6, ACS_DIAMOND );
+    mvaddch( y + 2, x + 6, ACS_DIAMOND );
+    mvaddch( y + 3, x + 6, ACS_DIAMOND );
+}
+
+void removeBall(int y, int x){
+   mvaddch( y + 2, x -1, ' ' );
+
+    mvaddch( y + 1, x , ' ' );
+    mvaddch( y + 2, x, ' ' );
+    mvaddch( y + 3, x, ' ' );
+
+    mvaddch( y , x + 1, ' ' );
+    mvaddch(y + 1, x + 1, ' ' );
+    mvaddch( y + 2, x + 1, ' ' );
+    mvaddch( y + 3, x + 1, ' ' );
+    mvaddch( y + 4,x + 1, ' ' );
+
+    mvaddch( y,  x + 2, ' ' );
+    mvaddch(y + 1,  x + 2, ' ' );
+    mvaddch( y + 2,  x + 2, ' ' );
+    mvaddch( y + 3,  x + 2, ' ' );
+    mvaddch( y + 4, x + 2, ' ' );
+    
+    mvaddch( y, x + 3, ' ' );
+    mvaddch(y + 1, x + 3, ' ' );
+    mvaddch( y + 2, x + 3, ' ' );
+    mvaddch( y + 3, x + 3, ' ' );
+    mvaddch( y + 4, x + 3, ' ' );
+
+    mvaddch( y, x + 4, ' ' );
+    mvaddch(y + 1, x + 4, ' ' );
+    mvaddch( y + 2, x + 4, ' ' );
+    mvaddch( y + 3, x + 4, ' ' );
+    mvaddch( y + 4, x + 4, ' ' );
+
+    mvaddch(y + 1, x + 5, ' ' );
+    mvaddch( y + 2, x + 5, ' ' );
+    mvaddch( y + 3, x + 5, ' ' );
+    
+    mvaddch( y + 1, x + 6, ' ' );
+    mvaddch( y + 2, x + 6, ' ' );
+    mvaddch( y + 3, x + 6, ' ' );
+}
+
+
+void fireBall(){
+
+    int initialPositonX = 20;
+    int initialPositionY = 6;
+
+    int move = 0;
+
+    while( true ){
+       
+       ball( initialPositionY, initialPositonX + move );
+       refresh();
+       this_thread::sleep_for( chrono::milliseconds(150) );
+       removeBall( initialPositionY, initialPositonX + move );
+       refresh();
+       move++;
+
+       if(move == 25) break;
+
     }
 }
