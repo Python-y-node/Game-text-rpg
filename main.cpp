@@ -23,16 +23,27 @@ do{
     switch (opcion)
     {
     case 1:
-        cout<< " Ingrese su usuario: "<<endl;
+        cout << "Ingrese su usuario: " << endl;
         cin >> user;
-        cout<< " Ingrese su contraseña: "<<endl;
+        cout << "Ingrese su contraseña: " << endl;
         cin >> password;
         
-        for(int i = 0; i <10; i++) {
-           usuarioEncontrado = users[i] == user;
+        usuarioEncontrado = false;
+        for(int i = 0; i < usuariosRegistrados; i++) {
+            if (users[i] == user && passwords[i] == password){
+                usuarioEncontrado = true;
+                cout << "Usuario Encontrado: " << usuarioEncontrado << endl;
+                cout << "Usuario 1: " << users[0] << endl;
+                break;
+            }
+           if (usuarioEncontrado){
+            cout<< "Usuario encontrado correctamente, bienvenido "<<endl;
+           } else{
+            cout<< "Usuario o contraseña incorrecta, por favor intente de nuevo "<<endl;
+           }
+           break;
+
         }
-        cout<< " Usuario Encontrado: " << usuarioEncontrado<<endl;
-        cout<< " Usuario 1: "<<users[0]<<endl;
         
         
         
@@ -44,10 +55,23 @@ do{
         cin >> user;
         cout<< " Ingrese su contraseña:"<<endl;
         cin >> password;
-        users[usuariosRegistrados] = user;
-        passwords[usuariosRegistrados] = password;
-        usuariosRegistrados++; 
-        cout<< " Usuario registrado correctamente ";
+        
+        usuarioEncontrado = false; //booleano para verdadero o falso
+        for ( int i = 0; i < usuarioEncontrado; i++){ 
+            if (users[i] == user){
+                usuarioEncontrado = true;
+                break;
+            }
+          
+        }
+          if (usuariosRegistrados){
+                cout<< " Usuario registrado, por favor intente con otro nombre de usuario "<<endl;
+            } else{
+                users[usuariosRegistrados] = user;
+                passwords[usuariosRegistrados] = password;
+                usuariosRegistrados++; 
+                cout<< " Usuario registrado correctamente ";
+            }
         break;
 
     case 3: 
