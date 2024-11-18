@@ -1,0 +1,26 @@
+1-Cambiar los nombres de pantallas:
+
+menu1.cpp = menu_screen.cpp
+- cambiar "Nuevo personaje a: (Iniciar sesion)"
+- cambiar "Nuevo cargar personaje: ( Crear usuario )"
+
+menu2.cpp = create_user_screen.cpp
+- en la parte del titulo que dice crear debes poner "Crear Usuario" 
+- Poner las entradas de usuario y password correspondientes.
+-imprimir la entrada de username y password despues de haber dado enter(eso desde
+la variable temporalUser)
+
+menu3.cpp = login_user_screen.cpp
+- Agregar titulo
+- Poner las entradas de usuario y password correspondientes
+
+menu4.cpp = home_screen.cpp
+- escoger opcion e imprimir la opcion.
+- mover con key right y key left
+
+Generales:
+
+-Cambiar colores de texto y fondo.
+
+NOTA: remover este archivo
+

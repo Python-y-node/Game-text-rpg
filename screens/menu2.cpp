@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string>
 #include <curses.h>
+
+#include "../loader/loader.h"
+
 using namespace std;
 
 //FUNCION QUE CREA UNA VENTANA EMERGENTE
@@ -35,6 +38,10 @@ int main(int argc, char const *argv[])
   noecho();
   curs_set(0);
   keypad(stdscr, TRUE);
+
+  string username = "";
+
+
 
   int yMax, xMax;
   getmaxyx(stdscr, yMax, xMax);
@@ -76,6 +83,10 @@ int main(int argc, char const *argv[])
       break;
     }
   }
+
+  temporalUser.username = username;
+
+  cout << temporalUser.username << endl;
   //MOSTRAR EL MENSAJE EMERGENTE
   //NO FUNCIONA TODAVIA LA VENTANA EMERGENTE PORQUE CUANDO SE ACTIVARA CUANDO EL USUARIO CREE EL PERSONAJE
   show_popup("Personaje guardado exitosamente!");
