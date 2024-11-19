@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string>
 #include <curses.h>
+
+#include "animations/index.h"
+
 using namespace std;
 
 //FUNCION QUE CREA UNA VENTANA EMERGENTE
@@ -11,9 +14,9 @@ void show_popup(const string &message)
   int yMax, xMax;
   getmaxyx(stdscr, yMax, xMax);
 
-  int height=7, width=message.length() +4;
-  int start_y= (yMax - height)/2;
-  int star_x= (xMax - width);
+  int height = 7, width=message.length() +4;
+  int start_y = (yMax - height)/2;
+  int star_x = (xMax - width);
 
   //CODIGO PARA CREAR LA VENTANA EMERGENTE
   WINDOW *popup = newwin(height, width, start_y, star_x);
@@ -28,54 +31,64 @@ void show_popup(const string &message)
   getch();
   delwin(popup);
 }
-int main(int argc, char const *argv[])
+int loginUserScreen()
 {
   //INICIA NCURSES
   initscr();
   noecho();
   curs_set(0);
   keypad(stdscr, TRUE);
-
+  
   int yMax, xMax;
   getmaxyx(stdscr, yMax, xMax);
 
   //CREACION DE LA VENTANA
-  WINDOW * win = newwin(yMax/2, xMax/2, yMax/4, xMax/4);
+  WINDOW * win = newwin(yMax, xMax, 0, 0);
   box(win, 0, 0);
 
+  //Dibujar escena
+  drawHouse( win, 15, 2 );
+  drawCastle( win, 10, 45 );
   //OPCIONES DEL MENU
+  mvwprintw( win, 3, 20, "Bienvenido para continuar inicia sesion!");
+
   mvwprintw(win, 6, 10, "Usuario");
-  mvwprintw(win, 8, 10, "Contraseña");
+  mvwprintw(win, 6, 25, "Contraseña");
+
+ 
 
   //LOOP
-  char ch;
+  int ch;
   while (ch = wgetch(win))
   {
     switch (ch)
     {
-      case 'u':
+      case KEY_LEFT:
         wattron(win, A_STANDOUT);
         mvwprintw(win, 6, 10, "Usuario");
         wattroff(win, A_STANDOUT);
       break;
-      case 'c':
+      case KEY_RIGHT:
         wattron(win, A_STANDOUT);
-        mvwprintw(win, 8, 10, "Contraseña");
+        mvwprintw(win, 6, 25, "Contraseña");
         wattroff(win, A_STANDOUT);
       break;
       default:
         mvwprintw(win, 6, 10, "Usuario");
-        mvwprintw(win, 8, 10, "Contraseña");
+        mvwprintw(win, 6, 14, "Contraseña");
       break;
     }
   }
+
+
   //MOSTRAR EL MENSAJE EMERGENTE
   //NO FUNCIONA TODAVIA LA VENTANA EMERGENTE PORQUE CUANDO SE ACTIVARA CUANDO EL USUARIO O CONTRASENA SEA LA INCORRECTA
   show_popup("Usuario invalido");
   show_popup("Contraseña invalida");
 
   wgetch(win);
-  //FINALIZA NCURSES
+  //Finaliza ncurses
+  getch();
   endwin();
   return 0;
 }
