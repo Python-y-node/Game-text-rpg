@@ -51,7 +51,7 @@ int main(int argc, char const *argv[])
   box(win, 0, 0);
 
   //OPCIONES DEL MENU
-  mvwprintw(win, 4, 10, "Crear");
+  mvwprintw(win, 4, 10, "Crear usuario");
   mvwprintw(win, 6, 10, "Ingrese usuario");
   mvwprintw(win, 8, 10, "Ingrese contrasenña");
 
@@ -61,11 +61,6 @@ int main(int argc, char const *argv[])
   {
     switch (ch)
     {
-      case 'c':
-        wattron(win, A_STANDOUT);
-        mvwprintw(win, 4, 10, "Crear");
-        wattroff(win, A_STANDOUT);
-      break;
       case 'u':
         wattron(win, A_STANDOUT);
         mvwprintw(win, 6, 10, "Ingrese usuario");
@@ -77,7 +72,6 @@ int main(int argc, char const *argv[])
         wattroff(win, A_STANDOUT);
       break;
       default:
-        mvwprintw(win, 4, 10, "Crear");
         mvwprintw(win, 6, 10, "Ingrese usuario");
         mvwprintw(win, 8, 10, "Ingrese contraseña");
       break;
@@ -96,4 +90,3 @@ int main(int argc, char const *argv[])
   endwin();
   return 0;
 }
-  
