@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include <string>
 #include <curses.h>
-using namespace std;
 
-int main(int argc, char const *argv[])
+void homeScreen()
 {
   //INICIA NCURSES
   initscr();
@@ -50,5 +49,5 @@ int main(int argc, char const *argv[])
   wgetch(win);
   //FINALIZA NCURSES
   endwin();
-  return 0;
+  
 }

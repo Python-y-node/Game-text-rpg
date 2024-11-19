@@ -3,12 +3,10 @@
 #include <string>
 #include <curses.h>
 
-#include "../loader/loader.h"
-
 using namespace std;
 
 //FUNCION QUE CREA UNA VENTANA EMERGENTE
-void show_popup(const string &message)
+void warningError(const string &message)
 {
   //PARAMETROS PARA LA VENTANA EMERGENTE
   int yMax, xMax;
@@ -31,45 +29,67 @@ void show_popup(const string &message)
   getch();
   delwin(popup);
 }
-int main(int argc, char const *argv[])
+
+void createUserScreen()
 {
   //INICIA NCURSES
   initscr();
   noecho();
   curs_set(0);
   keypad(stdscr, TRUE);
+  start_color();
 
-  string username = "";
-
-
+  init_pair(1, COLOR_GREEN, COLOR_BLACK);
+  init_pair(2, COLOR_CYAN, COLOR_BLACK);
 
   int yMax, xMax;
   getmaxyx(stdscr, yMax, xMax);
 
   //CREACION DE LA VENTANA
-  WINDOW * win = newwin(yMax/2, xMax/2, yMax/4, xMax/4);
+  WINDOW * win = newwin(yMax, xMax, 0, 0);
   box(win, 0, 0);
 
+  wattron(win, COLOR_PAIR(1));
+  drawTree(win, 15, 2);
+  wattroff(win, COLOR_PAIR(1));
+
+  wattron(win, COLOR_PAIR(2));
+  drawHouse(win, 15, 51);
+  wattroff(win, COLOR_PAIR(2));
+
+  wattron(win, COLOR_PAIR(1));
+  drawTree(win, 15, 42);
+  wattroff(win, COLOR_PAIR(1));
+
+  wattron(win, COLOR_PAIR(2));
+  drawHouse(win, 15, 63);
+  wattroff(win, COLOR_PAIR(2));
+
   //OPCIONES DEL MENU
-  mvwprintw(win, 4, 10, "Crear usuario");
-  mvwprintw(win, 6, 10, "Ingrese usuario");
-  mvwprintw(win, 8, 10, "Ingrese contrasenña");
+  wattron(win, A_STANDOUT);
+  mvwprintw(win, 3, 10, "Bienvenido para continuar cree un usuario.");
+  wattroff(win, A_STANDOUT);
+  mvwprintw(win, 8, 10, "Ingrese contraseña");
+
+  
 
   //LOOP
-  char ch;
+  int ch;
   while (ch = wgetch(win))
   {
     switch (ch)
     {
-      case 'u':
+      case 117:
         wattron(win, A_STANDOUT);
         mvwprintw(win, 6, 10, "Ingrese usuario");
         wattroff(win, A_STANDOUT);
+        wgetch(win);
       break;
-      case 'i':
+      case 112:
         wattron(win, A_STANDOUT);
         mvwprintw(win, 8, 10, "Ingrese contraseña");
         wattroff(win, A_STANDOUT);
+        wgetch(win);
       break;
       default:
         mvwprintw(win, 6, 10, "Ingrese usuario");
@@ -78,15 +98,11 @@ int main(int argc, char const *argv[])
     }
   }
 
-  temporalUser.username = username;
 
-  cout << temporalUser.username << endl;
   //MOSTRAR EL MENSAJE EMERGENTE
   //NO FUNCIONA TODAVIA LA VENTANA EMERGENTE PORQUE CUANDO SE ACTIVARA CUANDO EL USUARIO CREE EL PERSONAJE
-  show_popup("Personaje guardado exitosamente!");
+  warningError("Usuario guardado exitosamente!");
 
-  wgetch(win);
-  //FINALIZA NCURSES
   endwin();
-  return 0;
+  
 }

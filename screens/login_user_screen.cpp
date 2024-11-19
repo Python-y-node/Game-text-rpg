@@ -3,9 +3,6 @@
 #include <string>
 #include <curses.h>
 
-#include "animations/index.h"
-
-using namespace std;
 
 //FUNCION QUE CREA UNA VENTANA EMERGENTE
 void show_popup(const string &message)
@@ -31,7 +28,8 @@ void show_popup(const string &message)
   getch();
   delwin(popup);
 }
-int loginUserScreen()
+
+void loginUserScreen()
 {
   //INICIA NCURSES
   initscr();
@@ -90,5 +88,4 @@ int loginUserScreen()
   //Finaliza ncurses
   getch();
   endwin();
-  return 0;
 }

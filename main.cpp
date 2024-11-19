@@ -1,8 +1,21 @@
 #include <iostream>
 #include "./screens/index.h"
 
-using namespace std;
 
 int main(){
-    loginUserScreen();
+
+    while (routerMenu >= 0)
+    {
+        if( routerMenu == 0 ){
+            menuScreen();
+        }
+
+        if( routerMenu == 1 ){
+            loginUserScreen();
+        }
+        if( routerMenu == 2 ){
+            createUserScreen();
+        }
+    }
+    
 }
