@@ -3,11 +3,6 @@
 
 using namespace std;
 
-<<<<<<< HEAD
-int main(){
-    finalFightScreen();  
-}
-=======
 int main (){
 
     
@@ -95,4 +90,3 @@ do{
 
   return 0;
 }
->>>>>>> de843575a72d3d8bd9d60c6dd0ee3c7d962cd404

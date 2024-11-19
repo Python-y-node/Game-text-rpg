@@ -1,0 +1,27 @@
+Cambios
+
+1-ir al services/user_services.cpp y programar las funciones userLogin()
+,userExits() y createUser().
+
+ -userExits( string username ): debes recibir como parametro el username, luego abrir el archivo
+    /db/users.txt y verificar si existe un usuario con el username que te han mandado, si si existe
+    le retornas true si no retornar false.
+
+ -verifyPassword( string password): debes de recibir el password, luego verificar 
+   si la contraseña del usuario es igual al password que te han mandado, si la contraseña
+   es igual al password retornar true, si no false
+
+  -userLogin( string username, string password ): se recibe el username y password, luego 
+  se verficia que el usuario exista( ejecutando userExits ) y luego si la contraseña es correcta
+  con verifyPassword, luego si ambas son true se llama a la variable global: globalUser y se le 
+  dan los valores de username.
+
+  -createUser( string username, string password ): se recibe el username y password, luego
+  se verifica que el user no exista con userExits(), ( aqui es importante que userExits() retorne false
+  ya que si retorna true significa que existe el usuario con ese nombre y ya que usamos el username 
+  como identificador unico no puede ser repetido ), luego mandamos a escribir en la ultima fila la informacion
+  del nuevo usuario retornando por ultimo true. 
+
+2-luego de hacer la logica probarlo en archivo main.cpp
+
+NOTA: Al terminar eliminar este archivo
