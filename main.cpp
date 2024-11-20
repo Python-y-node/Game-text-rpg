@@ -1,11 +1,16 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
-int main (){
+struct usuario {
+    string user;
+    string passwords;
+};
 
+int main (){
     
-    string users[10];
+    string usuarios[10];
     string passwords[10];
     string user, password;
     bool usuarioEncontrado;
@@ -23,69 +28,66 @@ do{
     switch (opcion)
     {
     case 1:
-        cout << "Ingrese su usuario: " << endl;
+        cout << "Username: " << endl;
         cin >> user;
-        cout << "Ingrese su contraseña: " << endl;
+        cout << "Password: " << endl;
         cin >> password;
         
         usuarioEncontrado = false;
         for(int i = 0; i < usuariosRegistrados; i++) {
-            if (users[i] == user && passwords[i] == password){
+            if (usuarios[i] == user && passwords[i] == password){
                 usuarioEncontrado = true;
                 cout << "Usuario Encontrado: " << usuarioEncontrado << endl;
-                cout << "Usuario 1: " << users[0] << endl;
+                cout << "Usuario 1: " << usuarios[0] << endl;
                 break;
             }
+        }
+    
            if (usuarioEncontrado){
-            cout<< "Usuario encontrado correctamente, bienvenido "<<endl;
+            cout << "Usuario encontrado correctamente, bienvenido"<<endl;
            } else{
-            cout<< "Usuario o contraseña incorrecta, por favor intente de nuevo "<<endl;
+            cout << "Usuario o contraseña incorrecta, por favor intente de nuevo"<<endl;
            }
            break;
 
-        }
         
-        
-        
-        
-        break;
 
     case 2:
-        cout<< " Ingrese su usuario: "<<endl;
-        cin >> user;
-        cout<< " Ingrese su contraseña:"<<endl;
+        cout << "Ingrese su usuario:"<<endl;
+        cin  >> user;
+        cout << "Ingrese su contraseña:"<<endl;
         cin >> password;
         
         usuarioEncontrado = false; //booleano para verdadero o falso
-        for ( int i = 0; i < usuarioEncontrado; i++){ 
-            if (users[i] == user){
+        for ( int i = 0; i < usuariosRegistrados; i++){ 
+            if (usuarios[i] == user){
                 usuarioEncontrado = true;
                 break;
             }
           
         }
-          if (usuariosRegistrados){
-                cout<< " Usuario registrado, por favor intente con otro nombre de usuario "<<endl;
+          if (usuarioEncontrado){
+                cout << "Usuario registrado, por favor intente con otro nombre de usuario"<<endl;
             } else{
-                users[usuariosRegistrados] = user;
+                usuarios[usuariosRegistrados] = user;
                 passwords[usuariosRegistrados] = password;
                 usuariosRegistrados++; 
-                cout<< " Usuario registrado correctamente ";
+                cout <<"Usuario registrado correctamente";
             }
         break;
 
     case 3: 
-        cout<< " ¡Haz salido correctamente!  "<<endl;
+        cout << "¡Haz salido correctamente!"<<endl;
         break;
 
     
     default: 
-        cout<< " --Haz ingresado un numero incorrecto-- ";
+        cout <<"--Haz ingresado un numero incorrecto--";
         break;
     }
 
     
-}  while ( opcion != 3);
+    } while ( opcion != 3);
 
   return 0;
 }
