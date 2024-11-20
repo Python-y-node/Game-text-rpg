@@ -1,102 +1,124 @@
 #include <iostream>
-#include <cstdlib> // Para usar rand y srand
-#include <ctime>   // Para usar time
+#include <cstdlib>   // Para usar rand y srand
+#include <ctime>     // Para usar time
+#include <ncurses.h> // Para ncurses
 
 using namespace std;
 
 // Función para iniciar el juego
 void inicializar_juego(int &item)
 {
-    // Generación un número aleatorio
     item = rand() % 3; // Número aleatorio entre 0 y 2
 }
 
 // Función para pedir la respuesta sobre si quiere jugar
 bool pedir_respuesta()
 {
-    // Pedir respuesta sobre si quiere jugar
-    cout << "Te apetece jugar? (sí/no): ";
+    printw("Te apetece jugar? (sí/no): ");
+    refresh();
     string respuesta;
-    getline(cin, respuesta); // Capturamos la respuesta del jugador
+    char c;
 
-    // Convertimos la respuesta a minúsculas para no tener problemas con mayúsculas/minúsculas
-    for (auto &c : respuesta)
-        c = tolower(c);
+    while (true)
+    {
+        c = getch(); // Obtener un carácter
+        if (c == '\n') break;
+        respuesta.push_back(tolower(c));
+    }
 
     if (respuesta == "si")
     {
-        cout << "¡Genial! Vamos a jugar. \n";
-        return true; // El jugador quiere jugar
+        printw("\n¡Genial! Vamos a jugar.\n");
+        refresh();
+        return true;
     }
     else if (respuesta == "no")
     {
-        cout << "Esta bien! Tal vez en otra ocasion. \n";
-        return false; // El jugador no quiere jugar
+        printw("\nEstá bien. Tal vez en otra ocasión.\n");
+        refresh();
+        return false;
     }
     else
     {
-        cout << "Respuesta invalida. Por favor, responde con 'si' o 'no'. \n";
-        return pedir_respuesta(); // Volver a pedir la respuesta si es inválida
+        printw("\nRespuesta inválida. Por favor, responde con 'sí' o 'no'.\n");
+        refresh();
+        return pedir_respuesta();
     }
 }
 
+// Función para pedir el intento del usuario
 void pedir_intento(int &intento, int item)
 {
-    // Pedir al jugador que adivine la posición del objeto
-    cout << "Introduce el número de la columna donde crees que está el objeto (1, 2 o 3): ";
-    cin >> intento;
+    printw("Introduce el número de la columna donde crees que está el objeto (1, 2 o 3): ");
+    refresh();
+    intento = -1;
 
-    // Validar que el intento esté en el rango correcto
-    if (intento < 1 || intento > 3)
+    while (true)
     {
-        cout << "Opción inválida. Debes elegir un número entre 1 y 3. \n";
-        pedir_intento(intento, item); // Volver a pedir el intento si es inválido
+        char c = getch();
+        if (c >= '1' && c <= '3')
+        {
+            intento = c - '0';
+            printw("\nElegiste la columna %d.\n", intento);
+            refresh();
+            break;
+        }
+        else
+        {
+            printw("\nOpción inválida. Debes elegir un número entre 1 y 3.\n");
+            refresh();
+            printw("Introduce nuevamente tu elección (1, 2 o 3): ");
+            refresh();
+        }
     }
 }
 
-// Función del juego
+// Función principal del juego
 void jugar()
 {
-    // Esto nos asegura que el número que se genere no se repita entre intentos
-    srand(static_cast<unsigned int>(time(0)));
-
-    // Matriz de 1x3
+    srand(static_cast<unsigned int>(time(0))); // Semilla para números aleatorios
     int matriz[3] = {0};
-
-    // La posición del objeto se almacena en una variable
     int item;
-
-    // Inicializamos el juego (y el objeto aleatorio)
     inicializar_juego(item);
+    matriz[item] = 1;
 
-    // Colocamos el objeto en la posición aleatoria
-    matriz[item] = 1; // Marcamos con 1 la posición del objeto
+    initscr();     // Inicializa ncurses
+    start_color(); // Inicia colores
 
-    // Mostrar el mensaje de bienvenida
-    cout << "Bienvenido a mis aposentos. Se que viniste en busca de mi poder para poder cumplir tu aventura. \n";
-    cout << "Te tengo una propuesta. Que tal si jugamos un juego? \n";
+    init_color(201, 1000, 0, 1000); 
+    init_pair(1, 201, COLOR_BLACK);
 
-    // Pedir si desea jugar
-    if (!pedir_respuesta()) // Si no quiere jugar, terminamos
+    attron(COLOR_PAIR(1));
+    printw("Bienvenido a mis aposentos. Se que viniste en busca de mi poder para cumplir tu aventura.\n");
+    printw("Te tengo una propuesta. Qué tal si jugamos un juego?\n");
+    attroff(COLOR_PAIR(1));
+
+    if (!pedir_respuesta())
     {
+        endwin();
         return;
     }
 
-    // Continuar con la lógica del juego
     int intento;
-    pedir_intento(intento, item); // Pedir el intento al jugador
+    pedir_intento(intento, item);
 
-    // Comprobar si la adivinanza es correcta
+    attron(COLOR_PAIR(1));
     if (intento - 1 == item)
     {
-        cout << "Felicidades! Has ganado. Por lo tanto, te entrego mi poder para que puedas continuar. \n";
+        printw("¡Felicidades! Has ganado. Por lo tanto, te entrego mi poder para que puedas continuar.\n");
     }
     else
     {
-        cout << "Lo siento pero has fallado. No has mostrado ser digno de mi poder. \n";
+        printw("Lo siento, pero has fallado. No has mostrado ser digno de mi poder.\n");
     }
+    attroff(COLOR_PAIR(1));
 
-    cout << "Hasta la proxima, Aventurero.\n";
+    printw("Hasta la próxima, Aventurero.\n");
+    printw("Presiona cualquier tecla para salir.");
+    refresh();
+
+    getch(); // Esperar a que el usuario presione una tecla
+    endwin(); // Finaliza ncurses
 }
 
 int main()
