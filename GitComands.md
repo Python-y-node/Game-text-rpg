@@ -64,3 +64,18 @@ git status
 
 - Este es muy util ya que nos dice si el repositorio tiene trabajo no guardado, o si esta actualizado, etc.
 
+### 8) Cambiar de rama.
+
+```
+git checkout <nombre de la rama>
+```
+
+- Este cambiara de rama si es que la rama existe.
+
+### 9) Borrar alguna rama.
+
+```
+git branch -D <nombre de la rama>
+```
+
+- Esta borrara la rama solo si te encuentras en una rama diferente y si eres el creador de la misma, de lo contrario no lo hara.
