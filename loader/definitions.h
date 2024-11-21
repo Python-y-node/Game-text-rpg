@@ -10,7 +10,6 @@ int avance = 0; // 5 valores posibles ( 0, 25, 50, 75, 100 )
 //tipos
 struct UserType{
     string username;
-    string password;
 };
 
 struct PlayerType{
