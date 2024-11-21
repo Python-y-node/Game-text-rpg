@@ -1,6 +1,8 @@
 #include <iostream>
 #include <ncurses.h>
 
+#include "loader/loader.h"
+
 using namespace std;
 
 
@@ -70,11 +72,14 @@ void basePlayer(int y, int x, bool hasSword, bool hasShield) {
     mvaddch(y + 5, x + 5, ACS_LRCORNER);
 
     
-
     // Brazo derecho
     mvaddch(y + 4, x + 5, ACS_VLINE);
     mvaddch(y + 4, x + 7, ACS_VLINE);
     mvaddch(y + 5, x + 7, ACS_LRCORNER);
+        // Brazo izquierdo
+    mvaddch(y + 4, x - 2, ACS_VLINE);
+    mvaddch(y + 4, x, ACS_VLINE);
+    mvaddch(y + 5, x - 2, ACS_HLINE);
 
     // Piernas
     mvaddch(y + 6, x, ACS_VLINE);
@@ -237,6 +242,7 @@ void Player(int initialPositionY, int initialPositionX, string typePlayer, bool 
             default:
                 break;
             }
+            if( isMoving == false ){ break;}
         }
     }
 }

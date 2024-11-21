@@ -25,16 +25,17 @@ int main()
 
     getch();
 
-    Player(0,0,"dinamic", FALSE, FALSE) ;
-    basePlayerNoHat(10, 90);
+    Player(4,5,"static", FALSE, FALSE) ;
+    basePlayerNoHat(10, 30);
 
     mostrarInstrucciones();
     turnoJugador(jugador, intento);
     turnoHerrero(herrero);
     elegirGanador(jugador, herrero);
 
-
-  
+    if( isMoving == true ){
+        Player(4,5,"dinamic", FALSE, FALSE) ;
+    }
     refresh();
     getch();
     endwin();
@@ -174,6 +175,8 @@ int turnoHerrero(int herrero){
     }
 
     printw("\nPresiona cualquier tecla para salir...");
+
+    isMoving = true;
 
     return 0;
 }

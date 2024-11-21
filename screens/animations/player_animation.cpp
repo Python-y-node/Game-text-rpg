@@ -290,7 +290,7 @@ void Player(int initialPositionY, int initialPositionX, string typePlayer, bool 
 {
 
     int maxPosition = 70;
-    int movents = 0;
+
 
     if (typePlayer == "static")
     {
