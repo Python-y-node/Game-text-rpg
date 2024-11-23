@@ -14,8 +14,12 @@ int elegirGanador(int jugador, int herrero);
 
 int main()
 {
-    int jugador = 0, herrero = 0;
-    char intento; // Variable para capturar la opción del jugador como carácter
+    int jugador = 0, herrero = 0 , empate = 0;
+    int yMax, xMax;
+    int height, width, star_x, start_y;
+    height = 10;
+    width = 20;
+    char intento ; // Variable para capturar la opción del jugador como carácter
 
     // Inicializar ncurses
     initscr();
@@ -25,13 +29,38 @@ int main()
 
     getch();
 
+  //CODIGO PARA CREAR LA VENTANA EMERGENTE
+  WINDOW *juego = newwin(height, width, start_y, star_x);
+
+  wprintw(juego, " Ayuda");
+  
+  box(juego, 0, 0);
+ wrefresh(juego);
+
     Player(4,5,"static", FALSE, FALSE) ;
     basePlayerNoHat(10, 30);
 
     mostrarInstrucciones();
-    turnoJugador(jugador, intento);
-    turnoHerrero(herrero);
-    elegirGanador(jugador, herrero);
+    
+       do {
+        
+        jugador = turnoJugador(jugador, intento);
+        herrero = turnoHerrero(herrero);
+
+        
+        if (jugador == herrero) {
+            
+            attron(COLOR_PAIR(1));
+            printw("\n'¡Es un empate! Juguemos otra vez.'\n");
+            attroff(COLOR_PAIR(1));
+            refresh();
+            getch();
+            empate = true; // Vuele a jugar si empate
+        } else {
+            elegirGanador(jugador, herrero);
+            empate = false; // Ya no lo repite
+        }
+    } while (empate);
 
     if( isMoving == true ){
         Player(4,5,"dinamic", FALSE, FALSE) ;
@@ -152,15 +181,8 @@ int turnoHerrero(int herrero){
 
 
       // Determinar el ganador
-    if (jugador == herrero)
-    {
-        attron(COLOR_PAIR(1));
-
-        printw("\n'¡Es un empate!'\n");
-         attroff(COLOR_PAIR(1));
-
-    }
-    else if ((jugador == 1 && herrero == 3) || (jugador == 2 && herrero == 1) || (jugador == 3 && herrero == 2))
+  
+    if ((jugador == 1 && herrero == 3) || (jugador == 2 && herrero == 1) || (jugador == 3 && herrero == 2))
     {
         attron(COLOR_PAIR(1));
         printw("\n'¡Rayos, me has vencido! Te he otorgado un escudo.'\n");
