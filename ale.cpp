@@ -16,9 +16,9 @@ int main()
 {
     int jugador = 0, herrero = 0 , empate = 0;
     int yMax, xMax;
-    int height, width, star_x, start_y;
-    height = 10;
-    width = 20;
+    int start_x, start_y;
+    int height = 10;
+    int width = 20;
     char intento ; // Variable para capturar la opción del jugador como carácter
 
     // Inicializar ncurses
@@ -30,12 +30,23 @@ int main()
     getch();
 
   //CODIGO PARA CREAR LA VENTANA EMERGENTE
-  WINDOW *juego = newwin(height, width, start_y, star_x);
+   getmaxyx(stdscr, yMax, xMax);
 
-  wprintw(juego, " Ayuda");
-  
-  box(juego, 0, 0);
- wrefresh(juego);
+    // Centrar la ventana
+    start_y = (yMax - height) / 2;
+    start_x = (xMax - width) / 2;
+
+    // Crear ventana emergente
+    WINDOW *juego = newwin(height, width, start_y, start_x);
+    box(juego, 0, 0);
+    wprintw(juego, " Ayuda");
+    wrefresh(juego);
+
+    // Esperar entrada del usuario para cerrar
+    getch();
+
+    // Finalizar ncurses
+    endwin();
 
     Player(4,5,"static", FALSE, FALSE) ;
     basePlayerNoHat(10, 30);
