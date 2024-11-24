@@ -1,34 +1,42 @@
 #include <fstream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
-bool userLogin( string user, string password ){
+bool userLogin( string username, string password ){
 
-    fstream archivoUsuarios;
-    string linea;
-    archivoUsuarios.open("usuarios.txt", ios::in);  // Abrir archivo solo para lectura
-    if (!archivoUsuarios) {
+}
+
+bool userExits( string username ){
+    
+    fstream userFile;
+    string line;
+    
+    userFile.open("usuarios.txt", ios::in);  // Abrir archivo solo para lectura
+    
+    if (!userFile) {
         return false;
     }
 
-    while (getline(archivoUsuarios, linea)) {
-        stringstream ss(linea);
+    while ( getline(userFile, line) ) {
+       
+        stringstream ss(line);
+        
         string archivoUser, archivoPassword;
+
         if (getline(ss, archivoUser, ' ') && getline(ss, archivoPassword)) {
             // Verificar si el usuario y la contraseña coinciden
-            if (archivoUser == user && archivoPassword == password) {
-                archivoUsuarios.close();
+            if (archivoUser == username ) {
+                userFile.close();
                 return true;  // Usuario y contraseña correctos
             }
         }
     }
 
-    archivoUsuarios.close();
+    userFile.close();
     return false;  // Usuario no encontrado o contraseña incorrecta
 }
-
-bool userExits(){}
 
 bool verifyPassword(){}
 
@@ -39,7 +47,6 @@ bool createUser(){
     // Verificar si el usuario ya existe en el archivo
     archivoUsuarios.open("usuarios.txt", ios::in);
     if (!archivoUsuarios) {
-        cout << "Error al abrir el archivo de usuarios." << endl;
         return false;
     }
 

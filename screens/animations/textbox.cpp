@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int main()
+void textBox(WINDOW* mainWindow)
 {
 
 //Initializes the screen
@@ -14,27 +14,34 @@ curs_set(1);
 
 //Valores del marco de la caja de texto
 int height, width, stary, starx1, starx2, stary2;
-height=5, width=20;
+
+height=3, width=20;
+
 stary=(LINES - height)/2;
+
 starx1=(COLS - (2 * width + 2))/2;
-starx2= starx1 + width + 2;
-stary2= stary + 2;
+starx2= starx1;
+stary2= stary + 6;
 
 //Creacion de la ventana
-WINDOW *txt_box1= newwin(height, width, stary, starx1);
+WINDOW *txt_box1= subwin(mainWindow, height, width, stary, starx1);
 box(txt_box1, 0 ,0 );
 wrefresh(txt_box1);
 
-WINDOW * txt_box2= newwin(height, width,stary2, starx2);
-box(txt_box2, 20, 20);
+WINDOW * txt_box2= subwin(mainWindow, height, width, stary2, starx2 );
+box(txt_box2, 0, 0);
 wrefresh(txt_box2);
 
 //Entrada de texto
 char user_input[256]={0};
 char password_input[256]={0};
 
-mvwgetnstr(txt_box1, 2, 2, user_input, sizeof(user_input) - 1);
-mvwgetnstr(txt_box2, 2, 2, password_input, sizeof(password_input) - 1);
+echo();
+mvwgetnstr(txt_box1, 1, 1, user_input, sizeof(user_input) - 1);
+noecho();
+
+mvwgetnstr(txt_box2, 1, 1, password_input, sizeof(password_input) - 1);
+
 
 //Eliminar las cajas de texto
 wclear(txt_box1);
@@ -51,6 +58,4 @@ refresh();
 getch();
 endwin();
 
-
-return 0;
 }

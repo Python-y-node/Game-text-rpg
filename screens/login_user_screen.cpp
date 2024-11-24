@@ -3,6 +3,8 @@
 #include <string>
 #include <curses.h>
 
+// #include "animations/textbox.cpp"
+// #include "animations/scene_animation.h"
 
 //FUNCION QUE CREA UNA VENTANA EMERGENTE
 void show_popup(const string &message)
@@ -53,30 +55,8 @@ void loginUserScreen()
   mvwprintw(win, 6, 10, "Usuario");
   mvwprintw(win, 6, 25, "Contraseña");
 
+  // textBox(win);
  
-
-  //LOOP
-  int ch;
-  while (ch = wgetch(win))
-  {
-    switch (ch)
-    {
-      case KEY_LEFT:
-        wattron(win, A_STANDOUT);
-        mvwprintw(win, 6, 10, "Usuario");
-        wattroff(win, A_STANDOUT);
-      break;
-      case KEY_RIGHT:
-        wattron(win, A_STANDOUT);
-        mvwprintw(win, 6, 25, "Contraseña");
-        wattroff(win, A_STANDOUT);
-      break;
-      default:
-        mvwprintw(win, 6, 10, "Usuario");
-        mvwprintw(win, 6, 14, "Contraseña");
-      break;
-    }
-  }
 
 
   //MOSTRAR EL MENSAJE EMERGENTE

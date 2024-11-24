@@ -3,6 +3,9 @@
 #include <string>
 #include <curses.h>
 
+//importaciones locales
+// #include "animations/scene_animation.h"
+
 using namespace std;
 
 //FUNCION QUE CREA UNA VENTANA EMERGENTE
