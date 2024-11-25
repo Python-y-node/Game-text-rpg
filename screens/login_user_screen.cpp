@@ -3,8 +3,7 @@
 #include <string>
 #include <curses.h>
 
-// #include "animations/textbox.cpp"
-// #include "animations/scene_animation.h"
+#include "animations/index.h"
 
 //FUNCION QUE CREA UNA VENTANA EMERGENTE
 void show_popup(const string &message)
@@ -55,7 +54,7 @@ void loginUserScreen()
   mvwprintw(win, 6, 10, "Usuario");
   mvwprintw(win, 6, 25, "Contraseña");
 
-  // textBox(win);
+  textBox(win);
  
 
 

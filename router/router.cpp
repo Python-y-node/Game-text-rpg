@@ -1,9 +1,7 @@
-
+#include "../loader/loader.h"
 
 //importacion de pantallas
-#include "../screens/menu_screen.cpp"
-#include "../screens/login_user_screen.cpp"
-#include "../screens/create_user_screen.cpp"
+#include "../screens/index.h"
 
 void router(){
 

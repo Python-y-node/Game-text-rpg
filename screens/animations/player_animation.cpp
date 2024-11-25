@@ -3,8 +3,6 @@
 #include <thread>
 #include <chrono>
 
-using namespace std;
-
 void basePlayer(int y, int x, bool hasSword, bool hasShield)
 {
 
@@ -286,7 +284,7 @@ void removePlayer(int y, int x, bool hasSword, bool hasShield)
     }
 }
 
-void Player(int initialPositionY, int initialPositionX, string typePlayer, bool hasSword, bool hasShield)
+void Player(int initialPositionY, int initialPositionX, std::string typePlayer, bool hasSword, bool hasShield)
 {
 
     int maxPosition = 70;
@@ -406,7 +404,7 @@ void swordStroke(){
        
        sword( initialPositionY, initialPositonX + move );
        refresh();
-       this_thread::sleep_for( chrono::milliseconds(150) );
+       std::this_thread::sleep_for( std::chrono::milliseconds(150) );
        removeSword( initialPositionY, initialPositonX + move );
        refresh();
        move++;
@@ -509,7 +507,7 @@ void fireBall(){
        
        ball( initialPositionY, initialPositonX + move );
        refresh();
-       this_thread::sleep_for( chrono::milliseconds(150) );
+       std::this_thread::sleep_for( std::chrono::milliseconds(150) );
        removeBall( initialPositionY, initialPositonX + move );
        refresh();
        move++;

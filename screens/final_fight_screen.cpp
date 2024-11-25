@@ -1,6 +1,4 @@
-#include "animations/player_animation.cpp"
-
-
+#include "animations/index.h"
 
 void finalFightScreen(){
     initscr(); 

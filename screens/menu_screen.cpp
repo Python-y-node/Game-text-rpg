@@ -3,7 +3,7 @@
 #include <string>
 #include <curses.h>
 
-#include "animations/scene_animation.h"
+#include "animations/index.h"
 #include "../loader/loader.h"
 
 

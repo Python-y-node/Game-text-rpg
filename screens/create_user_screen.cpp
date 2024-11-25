@@ -4,7 +4,7 @@
 #include <curses.h>
 
 //importaciones locales
-// #include "animations/scene_animation.h"
+#include "animations/index.h"
 
 using namespace std;
 
