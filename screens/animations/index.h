@@ -1,7 +1,6 @@
 #ifndef ANIMATIONS_H
 #define ANIMATIONS_H
 
-#include "textbox.cpp"
 #include "player_animation.cpp"
 #include "boss_animation.cpp"
 #include "scene_animation.cpp"

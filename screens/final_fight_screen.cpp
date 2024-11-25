@@ -1,38 +1,47 @@
 #include "animations/index.h"
 
 void finalFightScreen(){
-    initscr(); 
-    curs_set(0); 
 
-    keypad(stdscr, TRUE);
+    //Variables a las cuales se les dara el maximo de columnas y filas de la pantalla estandar
+    int maxColumns, maxRows;
+    //Esta funcion asigna a las variables el maximo de tamaño de columnas y filas de la pantalla estanda stdsrc
+    getmaxyx(stdscr, maxColumns, maxRows);
 
-    Player( 4, 8, "static", true, true); 
+    //Se crea una pantalla con los valores esta funcion recibe( tamaño de columnas, tamaño de filas, inicio en y, inicio en x )
+    WINDOW* window = newwin( maxColumns, maxRows, 0, 0);
+    //Le crea un marco a la ventana
+    box(window, 0,0);
+     
+    Player( window, 4, 8, "static", true, true); 
 
-    Player( 4, 50, "static", true, true); 
+    Boss( window, 3, 50);
+    
+    wattron(window, COLOR_PAIR(1));
+       drawTree(window, 5, 70);
+    wattroff( window, COLOR_PAIR(1));
 
-    move( 15, 4 );
-    printw("Espadazo(e) \t Bola de fuejo(f)");
+    mvwprintw(window, 15, 4, "Espadazo(e) \t Bola de fuejo(f)");
     char options;
 
     move(18, 4);
-    while( ( options = getch() ) != 'q' ){
+    while( ( options = wgetch(window) ) != 'q' ){
         switch (options)
         {
         case 'e':
-            swordStroke();
-            Player( 4, 50, "static", true, true);
-            refresh();
+            swordStroke(window);
+            Boss( window, 3, 50);
+            wrefresh(window);
             break;
         case 'f':
-            fireBall();
-            Player( 4, 50, "static", true, true);
-            refresh();
+            fireBall(window);
+            Boss( window, 3, 50);
+            wrefresh(window);
             break;
         
         default:
             break;
         }
-        refresh();
+        wrefresh(window);
     }
 
     endwin();
