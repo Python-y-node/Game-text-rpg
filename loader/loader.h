@@ -7,5 +7,8 @@
 UserType temporalUser;
 int routerMenu =0;
 
+
+
+
 #endif // !LOADER_H
 

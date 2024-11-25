@@ -432,8 +432,9 @@ void swordStroke(WINDOW* window){
        move++;
 
        if(move == 30) break;
-
     }
+
+    bossMaxLife -=70;
 }
 
 void ball(WINDOW* window, int y, int x){
@@ -541,6 +542,6 @@ void fireBall(WINDOW* window){
        move++;
 
        if(move == 30) break;
-
     }
+    bossMaxLife -=170;
 }
