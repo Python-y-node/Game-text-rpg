@@ -3,6 +3,9 @@
 #include <string>
 #include <curses.h>
 
+//importaciones locales
+#include "animations/index.h"
+
 using namespace std;
 
 //FUNCION QUE CREA UNA VENTANA EMERGENTE
@@ -32,12 +35,6 @@ void warningError(const string &message)
 
 void createUserScreen()
 {
-  //INICIA NCURSES
-  initscr();
-  noecho();
-  curs_set(0);
-  keypad(stdscr, TRUE);
-  start_color();
 
   init_pair(1, COLOR_GREEN, COLOR_BLACK);
   init_pair(2, COLOR_CYAN, COLOR_BLACK);
