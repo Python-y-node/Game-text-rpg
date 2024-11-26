@@ -1,5 +1,4 @@
-#include "animacion.h"
-#include "animacion2.h"
+
 #include <iostream>
 #include <ctime>
 #include <limits>
