@@ -3,7 +3,7 @@
 #include <thread>
 #include <chrono>
 
-#include "../loader/loader.h"
+#include "../../loader/loader.h"
 
 void basePlayer(WINDOW *window, int y, int x, bool hasSword, bool hasShield)
 {
