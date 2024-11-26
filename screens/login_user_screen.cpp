@@ -3,6 +3,7 @@
 #include <string>
 #include <curses.h>
 
+#include "animations/index.h"
 //importar variable del router 
  #include "../loader/loader.h"
 
