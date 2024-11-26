@@ -1,5 +1,4 @@
 username:Cdev31,password:jsbdkuwewe22sa
 username:Juan32,password:8jsasddskuwewe10
 username:JLino1,password:2jsbajjsuwewe23
-username: Lex98,password: molina98
-username: Kalet23,password: 1234
+username:Mario21,password:Molina98

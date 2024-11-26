@@ -85,15 +85,26 @@ bool createUser(const string &username, const string &password)
     }
 
     fstream userFile;
-    userFile.open(USERS_FILE, ios::app); // Abrir archivo en modo append
+    userFile.open(USERS_FILE, ios::in | ios::out | ios::app); // Abrir archivo en modo append
     if (!userFile)
     {
         cerr << "Error: No se ha podido abrir el archivo de usuarios (" << USERS_FILE << ") para escritura." << endl;
         return false;
     }
 
-    // Escribir el usuario y contraseña en una sola línea, separados por una coma
-    userFile << "username: " << username << ",password: " << password << endl;
+    // Verificar si el archivo termina con un salto de línea
+    userFile.seekg(-1, ios::end); // Moverse al último carácter
+    char lastChar;
+    userFile.get(lastChar);
+
+    if (lastChar != '\n') // Si no hay salto de línea, agregar uno
+    {
+        userFile.seekp(0, ios::end); // Moverse al final para escribir
+        userFile.put('\n');
+    }
+
+    // Escribir el usuario y contraseña en una sola línea
+    userFile << "username:" << username << ",password:" << password << endl;
     userFile.close();
 
     return true; // Usuario registrado exitosamente
@@ -103,10 +114,10 @@ int main()
 {
     string username, password;
 
-    cout << "Ingrese su usuario:";
+    cout << "Ingrese su usuario: ";
     cin >> username;
 
-    cout << "Ingrese su contraseña:";
+    cout << "Ingrese su contraseña: ";
     cin >> password;
 
     if (userExits(username))
