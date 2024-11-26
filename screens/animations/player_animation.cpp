@@ -310,7 +310,7 @@ void Player(WINDOW* window ,int initialPositionY, int initialPositionX, std::str
 {
 
     int maxPosition = 70;
-    int movents = 0;
+
 
     if (typePlayer == "static")
     {
