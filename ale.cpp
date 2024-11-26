@@ -17,8 +17,6 @@ int main()
     int jugador = 0, herrero = 0 , empate = 0;
     int yMax, xMax;
     int start_x, start_y;
-    int height = 10;
-    int width = 20;
     char intento ; // Variable para capturar la opción del jugador como carácter
 
     // Inicializar ncurses
@@ -27,29 +25,27 @@ int main()
     noecho();             // No mostrar los caracteres que ingresa el usuario
     keypad(stdscr, TRUE); // Habilitar teclas especiales
 
-    getch();
+    
 
   //CODIGO PARA CREAR LA VENTANA EMERGENTE
    getmaxyx(stdscr, yMax, xMax);
 
-    // Centrar la ventana
-    start_y = (yMax - height) / 2;
-    start_x = (xMax - width) / 2;
 
     // Crear ventana emergente
-    WINDOW *juego = newwin(height, width, start_y, start_x);
+    WINDOW *juego = newwin(yMax, xMax, 0, 0);
     box(juego, 0, 0);
-    wprintw(juego, " Ayuda");
+
+    Player(4,5,"static", FALSE, FALSE) ;
+    basePlayerNoHat(juego, 10, 30);
+
     wrefresh(juego);
 
     // Esperar entrada del usuario para cerrar
-    getch();
+    wgetch(juego);
 
     // Finalizar ncurses
     endwin();
 
-    Player(4,5,"static", FALSE, FALSE) ;
-    basePlayerNoHat(10, 30);
 
     mostrarInstrucciones();
     
