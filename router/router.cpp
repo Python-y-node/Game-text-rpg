@@ -34,7 +34,6 @@ void router(){
     //         homeScreen();
     //     }
     // }
-
-    finalFightScreen();
+    blackSmithScreen();
     
 }

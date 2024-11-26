@@ -3,6 +3,8 @@
 #include <thread>
 #include <chrono>
 
+#include "../loader/loader.h"
+
 void basePlayer(WINDOW *window, int y, int x, bool hasSword, bool hasShield)
 {
     init_pair(2, COLOR_GREEN, COLOR_BLACK);
