@@ -5,12 +5,7 @@
 
 void homeScreen()
 {
-  //INICIA NCURSES
-  initscr();
-  noecho();
-  curs_set(0);
-  keypad(stdscr, TRUE);
-
+ 
   int yMax, xMax;
   getmaxyx(stdscr, yMax, xMax);
 

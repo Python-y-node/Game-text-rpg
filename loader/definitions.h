@@ -10,24 +10,19 @@ int avance = 0; // 5 valores posibles ( 0, 25, 50, 75, 100 )
 //tipos
 struct UserType{
     string username;
-    string password;
 };
 
-struct PlayerType{
-    string name = "";
-    int maxDamagePerAttack = 0;
-    int maxLife = 0;
-    int shield = 0;
-    string description = "";
-};
+//informacion del player
+string playeName = "Steve";
+int playeMaxDamagePerAttack = 300;
+int playerMaxLife = 1200;
+int plusLife = 0;
+int plusAttack= 0;
+string description = "";
 
-struct FinalBossType
-{
-    string name = "";
-    int maxDamagePerAttack = 0;
-    int maxLife = 0;
-    string description = "";
-};
+string bossName = "";
+int bossMaxDamagePerAttack = 0;
+int bossMaxLife = 3000;
 
 struct GameType
 {
@@ -37,6 +32,10 @@ struct GameType
     bool isSave = false;
 };
 
+
+//Definicion de variables globales
+
+
 //funcion global que verifica si estas autenticado
 bool isUserAuthenticated( ){
     return ( isAuthenticated == true ) ? true : false;
@@ -44,7 +43,7 @@ bool isUserAuthenticated( ){
 
 //definiciones de el cargador de la partida y el reinicio de ella
 void loadGame(){
-   //TODO
+    
 }
 
 void unloadGame(){

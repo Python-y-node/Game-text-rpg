@@ -3,290 +3,310 @@
 #include <thread>
 #include <chrono>
 
-using namespace std;
-
-void basePlayer(int y, int x, bool hasSword, bool hasShield)
+void basePlayer(WINDOW *window, int y, int x, bool hasSword, bool hasShield)
 {
+    init_pair(2, COLOR_GREEN, COLOR_BLACK);
+    init_pair(3, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(4, COLOR_YELLOW, COLOR_BLACK);
 
-    // Sombrero o casco
-    mvaddch(y, x, ACS_ULCORNER);
-    mvaddch(y, x + 1, ACS_HLINE);
-    mvaddch(y, x + 2, ACS_HLINE);
-    mvaddch(y, x + 3, ACS_HLINE);
-    mvaddch(y, x + 4, ACS_HLINE);
-    mvaddch(y, x + 5, ACS_URCORNER);
-    mvaddch(y + 1, x - 1, ACS_LLCORNER);
-    mvaddch(y + 1, x, ACS_HLINE);
-    mvaddch(y + 1, x + 1, ACS_HLINE);
-    mvaddch(y + 1, x + 2, ACS_HLINE);
-    mvaddch(y + 1, x + 3, ACS_HLINE);
-    mvaddch(y + 1, x + 4, ACS_HLINE);
-    mvaddch(y + 1, x + 5, ACS_HLINE);
-    mvaddch(y + 1, x + 6, ACS_LRCORNER);
+    wattron( window, A_STANDOUT);
+    wattron( window, COLOR_PAIR(2));
+        // Sombrero o casco
+        mvwaddch(window, y, x, ACS_ULCORNER);
+        mvwaddch(window, y, x + 1, ACS_HLINE);
+        mvwaddch(window, y, x + 2, ACS_HLINE);
+        mvwaddch(window, y, x + 3, ACS_HLINE);
+        mvwaddch(window, y, x + 4, ACS_HLINE);
+        mvwaddch(window, y, x + 5, ACS_URCORNER);
+        mvwaddch(window, y + 1, x - 1, ACS_LLCORNER);
+        mvwaddch(window, y + 1, x, ACS_HLINE);
+        mvwaddch(window, y + 1, x + 1, ACS_HLINE);
+        mvwaddch(window, y + 1, x + 2, ACS_HLINE);
+        mvwaddch(window, y + 1, x + 3, ACS_HLINE);
+        mvwaddch(window, y + 1, x + 4, ACS_HLINE);
+        mvwaddch(window, y + 1, x + 5, ACS_HLINE);
+        mvwaddch(window, y + 1, x + 6, ACS_LRCORNER);
+    wattroff( window, A_STANDOUT);
+    wattroff( window, COLOR_PAIR(2));
 
     // Cabeza
-    mvaddch(y + 2, x, ACS_VLINE);
+    mvwaddch(window, y + 2, x, ACS_VLINE);
 
     // boca
-    mvaddch(y + 2, x + 3, '_');
+    mvwaddch(window, y + 2, x + 3, '_');
 
-    mvaddch(y + 2, x + 5, ACS_VLINE);
+    mvwaddch(window, y + 2, x + 5, ACS_VLINE);
 
     // barbilla
-    mvaddch(y + 3, x, ACS_LLCORNER);
-    mvaddch(y + 3, x + 5, ACS_LRCORNER);
+    mvwaddch(window, y + 3, x, ACS_LLCORNER);
+    mvwaddch(window, y + 3, x + 5, ACS_LRCORNER);
 
-    // cuerpo
-    mvaddch(y + 3, x + 6, ACS_HLINE);
-    mvaddch(y + 3, x - 1, ACS_HLINE);
-    mvaddch(y + 5, x, ACS_LLCORNER);
-    mvaddch(y + 5, x + 1, ACS_HLINE);
-    mvaddch(y + 5, x + 2, ACS_HLINE);
-    mvaddch(y + 5, x + 3, ACS_HLINE);
-    mvaddch(y + 5, x + 4, ACS_HLINE);
-    mvaddch(y + 5, x + 5, ACS_LRCORNER);
+    wattron( window, COLOR_PAIR(4));
+        // cuerpo
+        mvwaddch(window, y + 3, x + 6, ACS_HLINE);
+        mvwaddch(window, y + 3, x - 1, ACS_HLINE);
+        mvwaddch(window, y + 5, x, ACS_LLCORNER);
+        mvwaddch(window, y + 5, x + 1, ACS_HLINE);
+        mvwaddch(window, y + 5, x + 2, ACS_HLINE);
+        mvwaddch(window, y + 5, x + 3, ACS_HLINE);
+        mvwaddch(window, y + 5, x + 4, ACS_HLINE);
+        mvwaddch(window, y + 5, x + 5, ACS_LRCORNER);
 
-    // Brazo izquierdo
-    mvaddch(y + 4, x - 2, ACS_VLINE);
-    mvaddch(y + 4, x, ACS_VLINE);
-    mvaddch(y + 5, x - 2, ACS_LLCORNER);
-    // Brazo derecho
-    mvaddch(y + 4, x + 5, ACS_VLINE);
-    mvaddch(y + 4, x + 7, ACS_VLINE);
-    mvaddch(y + 5, x + 7, ACS_LRCORNER);
+        // Brazo izquierdo
+        mvwaddch(window, y + 4, x - 2, ACS_VLINE);
+        mvwaddch(window, y + 4, x, ACS_VLINE);
+        mvwaddch(window, y + 5, x - 2, ACS_LLCORNER);
+        // Brazo derecho
+        mvwaddch(window, y + 4, x + 5, ACS_VLINE);
+        mvwaddch(window, y + 4, x + 7, ACS_VLINE);
+        mvwaddch(window, y + 5, x + 7, ACS_LRCORNER);
+    wattroff( window, COLOR_PAIR(4));
 
     // piernas
-    mvaddch(y + 6, x, ACS_VLINE);
-    mvaddch(y + 6, x + 5, ACS_VLINE);
-    mvaddch(y + 7, x, ACS_VLINE);
-    mvaddch(y + 7, x + 5, ACS_VLINE);
+    mvwaddch(window, y + 6, x, ACS_VLINE);
+    mvwaddch(window, y + 6, x + 5, ACS_VLINE);
+    mvwaddch(window, y + 7, x, ACS_VLINE);
+    mvwaddch(window, y + 7, x + 5, ACS_VLINE);
 
-    mvaddch(y + 8, x, ACS_LLCORNER);
-    mvaddch(y + 8, x + 1, ACS_HLINE);
-    mvaddch(y + 8, x + 2, ACS_HLINE);
-    mvaddch(y + 7, x + 2, '_');
-    mvaddch(y + 7, x + 2, '_');
-    mvaddch(y + 7, x + 3, ACS_VLINE);
-    mvaddch(y + 8, x + 3, ACS_BTEE);
-    mvaddch(y + 7, x + 4, '_');
-    mvaddch(y + 8, x + 5, '_');
-    mvaddch(y + 8, x + 4, ACS_HLINE);
-    mvaddch(y + 8, x + 5, ACS_HLINE);
-    mvaddch(y + 8, x + 6, ACS_LRCORNER);
+    mvwaddch(window, y + 8, x, ACS_LLCORNER);
+    mvwaddch(window, y + 8, x + 1, ACS_HLINE);
+    mvwaddch(window, y + 8, x + 2, ACS_HLINE);
+    mvwaddch(window, y + 7, x + 2, '_');
+    mvwaddch(window, y + 7, x + 2, '_');
+    mvwaddch(window, y + 7, x + 3, ACS_VLINE);
+    mvwaddch(window, y + 8, x + 3, ACS_BTEE);
+    mvwaddch(window, y + 7, x + 4, '_');
+    mvwaddch(window, y + 8, x + 5, '_');
+    mvwaddch(window, y + 8, x + 4, ACS_HLINE);
+    mvwaddch(window, y + 8, x + 5, ACS_HLINE);
+    mvwaddch(window, y + 8, x + 6, ACS_LRCORNER);
 
+    wattron( window, COLOR_PAIR(3));
     // ojos
-    mvaddch(y + 2, x + 2, '0');
-    mvaddch(y + 2, x + 4, '0');
+        mvwaddch(window, y + 2, x + 2, '0');
+        mvwaddch(window, y + 2, x + 4, '0');
+    wattroff( window, COLOR_PAIR(3));
 
     if(hasSword){
         //cambio de mano
-        mvaddch(y + 5, x + 7, ' ');
-        mvaddch(y + 4, x + 8, ACS_URCORNER);
-        mvaddch(y + 5, x + 7, ACS_HLINE);
-        mvaddch(y + 5, x + 8, ACS_HLINE);
-        mvaddch(y + 5, x + 9, ACS_LRCORNER);
-        //mango
-        mvaddch( y + 4, x + 8, ACS_URCORNER );
-        mvaddch( y + 4, x + 9, ACS_ULCORNER );
+        mvwaddch(window, y + 5, x + 7, ' ');
+        mvwaddch(window, y + 4, x + 8, ACS_URCORNER);
+        mvwaddch(window, y + 5, x + 7, ACS_HLINE);
+        mvwaddch(window, y + 5, x + 8, ACS_HLINE);
+        mvwaddch(window, y + 5, x + 9, ACS_LRCORNER);
 
-        //filo izquierdo
-        mvaddch( y + 3, x + 8, ACS_VLINE );
-        mvaddch( y + 2, x + 8, ACS_VLINE );
-        mvaddch( y + 1, x + 8, ACS_VLINE );
-        mvaddch( y , x + 8, ACS_ULCORNER );
-        //filo derecho
-        mvaddch( y + 3, x + 9, ACS_VLINE );
-        mvaddch( y + 2, x + 9, ACS_VLINE );
-        mvaddch( y + 1, x + 9, ACS_VLINE );
-        mvaddch( y , x + 9, ACS_URCORNER );
+        //mango
+        mvwaddch(window,  y + 4, x + 8, ACS_URCORNER );
+        mvwaddch(window,  y + 4, x + 9, ACS_ULCORNER );
+
+        wattron( window, COLOR_PAIR(2));
+            //filo izquierdo
+            mvwaddch(window,  y + 3, x + 8, ACS_VLINE );
+            mvwaddch(window,  y + 2, x + 8, ACS_VLINE );
+            mvwaddch(window,  y + 1, x + 8, ACS_VLINE );
+            mvwaddch(window,  y , x + 8, ACS_ULCORNER );
+            //filo derecho
+            mvwaddch(window,  y + 3, x + 9, ACS_VLINE );
+            mvwaddch(window,  y + 2, x + 9, ACS_VLINE );
+            mvwaddch(window,  y + 1, x + 9, ACS_VLINE );
+            mvwaddch(window,  y , x + 9, ACS_URCORNER );
+        wattroff( window, COLOR_PAIR(2));
        
     }
 
     if( hasShield ){
         //cambiar cuerpo
-        mvaddch(y + 5, x, ' ');
-        mvaddch(y + 7, x, ' ');
-        mvaddch(y + 6, x, ' ');
-        //cambiar hombro
-        mvaddch(y + 4, x - 2, ' ');
-        mvaddch(y + 5, x - 2, ' ');
-        mvaddch(y + 3, x - 2, ACS_ULCORNER);
+        mvwaddch(window, y + 5, x, ' ');
+        mvwaddch(window, y + 7, x, ' ');
+        mvwaddch(window, y + 6, x, ' ');
+        
+        wattron( window, COLOR_PAIR(4));
+            //cambiar hombro
+            mvwaddch(window, y + 4, x - 2, ' ');
+            mvwaddch(window, y + 5, x - 2, ' ');
+            mvwaddch(window, y + 3, x - 2, ACS_ULCORNER);
+        wattroff( window, COLOR_PAIR(4));
 
-        //parte izquierda del escudo
-        mvaddch(y + 4, x - 2, ACS_HLINE);
-        mvaddch(y + 4, x - 1, ACS_HLINE);
-        mvaddch(y + 4, x - 3, ACS_HLINE);
-        mvaddch(y + 4, x - 4, ACS_ULCORNER);
-        mvaddch(y + 4, x , ACS_HLINE);
-        mvaddch(y + 4, x + 1 , ACS_URCORNER);
+        wattron( window, A_STANDOUT);
+        wattron( window, COLOR_PAIR(2));
+            //parte izquierda del escudo
+            mvwaddch(window, y + 4, x - 2, ACS_HLINE);
+            mvwaddch(window, y + 4, x - 1, ACS_HLINE);
+            mvwaddch(window, y + 4, x - 3, ACS_HLINE);
+            mvwaddch(window, y + 4, x - 4, ACS_ULCORNER);
+            mvwaddch(window, y + 4, x , ACS_HLINE);
+            mvwaddch(window, y + 4, x + 1 , ACS_URCORNER);
 
-        //parte derecha del escudo
-        mvaddch(y + 5, x + 1 , ACS_VLINE);
-        mvaddch(y + 6, x + 1 , ACS_VLINE);
-        mvaddch(y + 7, x + 1 , '/');
+            //parte derecha del escudo
+            mvwaddch(window, y + 5, x + 1 , ACS_VLINE);
+            mvwaddch(window, y + 6, x + 1 , ACS_VLINE);
+            mvwaddch(window, y + 7, x + 1 , '/');
 
-        //parte izquierda del escudo
-        mvaddch(y + 5, x - 4, ACS_VLINE);
-        mvaddch(y + 6, x - 4 , ACS_VLINE);
-        mvaddch(y + 7, x - 4 , '\\');
+            //parte izquierda del escudo
+            mvwaddch(window, y + 5, x - 4, ACS_VLINE);
+            mvwaddch(window, y + 6, x - 4 , ACS_VLINE);
+            mvwaddch(window, y + 7, x - 4 , '\\');
 
-        //parte derecha del escudo
-        mvaddch(y + 7, x , ACS_HLINE);
-        mvaddch(y + 7 ,x - 2, ACS_HLINE);
-        mvaddch(y + 7, x - 1, ACS_HLINE);
-        mvaddch(y + 7, x - 3, ACS_HLINE);
+            //parte derecha del escudo
+            mvwaddch(window, y + 7, x , ACS_HLINE);
+            mvwaddch(window, y + 7 ,x - 2, ACS_HLINE);
+            mvwaddch(window, y + 7, x - 1, ACS_HLINE);
+            mvwaddch(window, y + 7, x - 3, ACS_HLINE);
+        wattroff( window, A_STANDOUT);
+        wattroff( window, COLOR_PAIR(2));
 
-        //cuadro del centro
-        mvaddch( y + 5, x - 1, ACS_DIAMOND);
-        mvaddch( y + 5, x - 2, ACS_DIAMOND);
-        mvaddch( y + 6, x - 1, ACS_DIAMOND);
-        mvaddch( y + 6, x - 2, ACS_DIAMOND);
-
+        wattron( window, COLOR_PAIR(2));
+            //cuadro del centro
+            mvwaddch(window,  y + 5, x - 1, ACS_DIAMOND);
+            mvwaddch(window,  y + 5, x - 2, ACS_DIAMOND);
+            mvwaddch(window,  y + 6, x - 1, ACS_DIAMOND);
+            mvwaddch(window,  y + 6, x - 2, ACS_DIAMOND);
+        wattroff( window, COLOR_PAIR(2));
     }
 }
 
-void removePlayer(int y, int x, bool hasSword, bool hasShield)
+void removePlayer(WINDOW* window, int y, int x, bool hasSword, bool hasShield)
 {
 
     // Sombrero o casco
-    mvaddch(y, x, ' ');
-    mvaddch(y, x + 1, ' ');
-    mvaddch(y, x + 2, ' ');
-    mvaddch(y, x + 3, ' ');
-    mvaddch(y, x + 4, ' ');
-    mvaddch(y, x + 5, ' ');
-    mvaddch(y + 1, x - 1, ' ');
-    mvaddch(y + 1, x, ' ');
-    mvaddch(y + 1, x + 1, ' ');
-    mvaddch(y + 1, x + 2, ' ');
-    mvaddch(y + 1, x + 3, ' ');
-    mvaddch(y + 1, x + 4, ' ');
-    mvaddch(y + 1, x + 5, ' ');
-    mvaddch(y + 1, x + 6, ' ');
+    mvwaddch(window, y, x, ' ');
+    mvwaddch(window, y, x + 1, ' ');
+    mvwaddch(window, y, x + 2, ' ');
+    mvwaddch(window, y, x + 3, ' ');
+    mvwaddch(window, y, x + 4, ' ');
+    mvwaddch(window, y, x + 5, ' ');
+    mvwaddch(window, y + 1, x - 1, ' ');
+    mvwaddch(window, y + 1, x, ' ');
+    mvwaddch(window, y + 1, x + 1, ' ');
+    mvwaddch(window, y + 1, x + 2, ' ');
+    mvwaddch(window, y + 1, x + 3, ' ');
+    mvwaddch(window, y + 1, x + 4, ' ');
+    mvwaddch(window, y + 1, x + 5, ' ');
+    mvwaddch(window, y + 1, x + 6, ' ');
 
     // Cabeza
-    mvaddch(y + 2, x, ' ');
+    mvwaddch(window, y + 2, x, ' ');
 
     // boca
-    mvaddch(y + 2, x + 3, '_');
+    mvwaddch(window, y + 2, x + 3, '_');
 
-    mvaddch(y + 2, x + 5, ' ');
+    mvwaddch(window, y + 2, x + 5, ' ');
 
     // barbilla
-    mvaddch(y + 3, x, ' ');
-    mvaddch(y + 3, x + 5, ' ');
+    mvwaddch(window, y + 3, x, ' ');
+    mvwaddch(window, y + 3, x + 5, ' ');
 
     // cuerpo
-    mvaddch(y + 3, x + 6, ' ');
-    mvaddch(y + 3, x - 1, ' ');
-    mvaddch(y + 5, x, ' ');
-    mvaddch(y + 5, x + 1, ' ');
-    mvaddch(y + 5, x + 2, ' ');
-    mvaddch(y + 5, x + 3, ' ');
-    mvaddch(y + 5, x + 4, ' ');
-    mvaddch(y + 5, x + 5, ' ');
+    mvwaddch(window, y + 3, x + 6, ' ');
+    mvwaddch(window, y + 3, x - 1, ' ');
+    mvwaddch(window, y + 5, x, ' ');
+    mvwaddch(window, y + 5, x + 1, ' ');
+    mvwaddch(window, y + 5, x + 2, ' ');
+    mvwaddch(window, y + 5, x + 3, ' ');
+    mvwaddch(window, y + 5, x + 4, ' ');
+    mvwaddch(window, y + 5, x + 5, ' ');
 
     // Brazo izquierdo
-    mvaddch(y + 4, x - 2, ' ');
-    mvaddch(y + 4, x, ' ');
-    mvaddch(y + 5, x - 2, ' ');
+    mvwaddch(window, y + 4, x - 2, ' ');
+    mvwaddch(window, y + 4, x, ' ');
+    mvwaddch(window, y + 5, x - 2, ' ');
     // Brazo derecho
-    mvaddch(y + 4, x + 5, ' ');
-    mvaddch(y + 4, x + 7, ' ');
-    mvaddch(y + 5, x + 7, ' ');
+    mvwaddch(window, y + 4, x + 5, ' ');
+    mvwaddch(window, y + 4, x + 7, ' ');
+    mvwaddch(window, y + 5, x + 7, ' ');
 
     // piernas
-    mvaddch(y + 6, x, ' ');
-    mvaddch(y + 6, x + 5, ' ');
-    mvaddch(y + 7, x, ' ');
-    mvaddch(y + 7, x + 5, ' ');
+    mvwaddch(window, y + 6, x, ' ');
+    mvwaddch(window, y + 6, x + 5, ' ');
+    mvwaddch(window, y + 7, x, ' ');
+    mvwaddch(window, y + 7, x + 5, ' ');
 
-    mvaddch(y + 8, x, ' ');
-    mvaddch(y + 8, x + 1, ' ');
-    mvaddch(y + 8, x + 2, ' ');
-    mvaddch(y + 7, x + 2, '_');
-    mvaddch(y + 7, x + 2, '_');
-    mvaddch(y + 7, x + 3, ' ');
-    mvaddch(y + 8, x + 3, ' ');
-    mvaddch(y + 7, x + 4, '_');
-    mvaddch(y + 8, x + 5, '_');
-    mvaddch(y + 8, x + 4, ' ');
-    mvaddch(y + 8, x + 5, ' ');
-    mvaddch(y + 8, x + 6, ' ');
+    mvwaddch(window, y + 8, x, ' ');
+    mvwaddch(window, y + 8, x + 1, ' ');
+    mvwaddch(window, y + 8, x + 2, ' ');
+    mvwaddch(window, y + 7, x + 2, '_');
+    mvwaddch(window, y + 7, x + 2, '_');
+    mvwaddch(window, y + 7, x + 3, ' ');
+    mvwaddch(window, y + 8, x + 3, ' ');
+    mvwaddch(window, y + 7, x + 4, '_');
+    mvwaddch(window, y + 8, x + 5, '_');
+    mvwaddch(window, y + 8, x + 4, ' ');
+    mvwaddch(window, y + 8, x + 5, ' ');
+    mvwaddch(window, y + 8, x + 6, ' ');
 
     // ojos
-    mvaddch(y + 2, x + 2, ' ');
-    mvaddch(y + 2, x + 4, ' ');
+    mvwaddch(window, y + 2, x + 2, ' ');
+    mvwaddch(window, y + 2, x + 4, ' ');
 
     if(hasSword){
         //cambio de mano
-        mvaddch(y + 5, x + 7, ' ');
-        mvaddch(y + 4, x + 8, ' ');
-        mvaddch(y + 5, x + 7, ' ');
-        mvaddch(y + 5, x + 8, ' ');
-        mvaddch(y + 5, x + 9, ' ');
+        mvwaddch(window, y + 5, x + 7, ' ');
+        mvwaddch(window, y + 4, x + 8, ' ');
+        mvwaddch(window, y + 5, x + 7, ' ');
+        mvwaddch(window, y + 5, x + 8, ' ');
+        mvwaddch(window, y + 5, x + 9, ' ');
         //mango
-        mvaddch( y + 4, x + 8, ' ' );
-        mvaddch( y + 4, x + 9, ' ' );
+        mvwaddch(window,  y + 4, x + 8, ' ' );
+        mvwaddch(window,  y + 4, x + 9, ' ' );
 
         //filo izquierdo
-        mvaddch( y + 3, x + 8, ' ' );
-        mvaddch( y + 2, x + 8, ' ' );
-        mvaddch( y + 1, x + 8, ' ' );
-        mvaddch( y , x + 8, ' ');
+        mvwaddch(window,  y + 3, x + 8, ' ' );
+        mvwaddch(window,  y + 2, x + 8, ' ' );
+        mvwaddch(window,  y + 1, x + 8, ' ' );
+        mvwaddch(window,  y , x + 8, ' ');
         //filo derecho
-        mvaddch( y + 3, x + 9, ' ' );
-        mvaddch( y + 2, x + 9, ' ' );
-        mvaddch( y + 1, x + 9, ' ' );
-        mvaddch( y , x + 9, ' ' );
+        mvwaddch(window,  y + 3, x + 9, ' ' );
+        mvwaddch(window,  y + 2, x + 9, ' ' );
+        mvwaddch(window,  y + 1, x + 9, ' ' );
+        mvwaddch(window,  y , x + 9, ' ' );
        
     }
 
 
     if( hasShield ){
         //cambiar cuerpo
-        mvaddch(y + 5, x, ' ');
-        mvaddch(y + 7, x, ' ');
-        mvaddch(y + 6, x, ' ');
+        mvwaddch(window, y + 5, x, ' ');
+        mvwaddch(window, y + 7, x, ' ');
+        mvwaddch(window, y + 6, x, ' ');
         //cambiar hombro
-        mvaddch(y + 4, x - 2, ' ');
-        mvaddch(y + 5, x - 2, ' ');
-        mvaddch(y + 3, x - 2, ' ');
+        mvwaddch(window, y + 4, x - 2, ' ');
+        mvwaddch(window, y + 5, x - 2, ' ');
+        mvwaddch(window, y + 3, x - 2, ' ');
 
         //parte izquierda del escudo
-        mvaddch(y + 4, x - 2, ' ');
-        mvaddch(y + 4, x - 1, ' ');
-        mvaddch(y + 4, x - 3, ' ');
-        mvaddch(y + 4, x - 4, ' ');
-        mvaddch(y + 4, x , ' ');
-        mvaddch(y + 4, x + 1 , ' ');
+        mvwaddch(window, y + 4, x - 2, ' ');
+        mvwaddch(window, y + 4, x - 1, ' ');
+        mvwaddch(window, y + 4, x - 3, ' ');
+        mvwaddch(window, y + 4, x - 4, ' ');
+        mvwaddch(window, y + 4, x , ' ');
+        mvwaddch(window, y + 4, x + 1 , ' ');
 
         //parte derecha del escudo
-        mvaddch(y + 5, x + 1 , ' ');
-        mvaddch(y + 6, x + 1 , ' ');
-        mvaddch(y + 7, x + 1 , '/');
+        mvwaddch(window, y + 5, x + 1 , ' ');
+        mvwaddch(window, y + 6, x + 1 , ' ');
+        mvwaddch(window, y + 7, x + 1 , '/');
 
         //parte izquierda del escudo
-        mvaddch(y + 5, x - 4, ' ');
-        mvaddch(y + 6, x - 4 , ' ');
-        mvaddch(y + 7, x - 4 , ' ');
+        mvwaddch(window, y + 5, x - 4, ' ');
+        mvwaddch(window, y + 6, x - 4 , ' ');
+        mvwaddch(window, y + 7, x - 4 , ' ');
 
         //parte derecha del escudo
-        mvaddch(y + 7, x , ' ');
-        mvaddch(y + 7 ,x - 2, ' ');
-        mvaddch(y + 7, x - 1, ' ');
-        mvaddch(y + 7, x - 3, ' ');
+        mvwaddch(window, y + 7, x , ' ');
+        mvwaddch(window, y + 7 ,x - 2, ' ');
+        mvwaddch(window, y + 7, x - 1, ' ');
+        mvwaddch(window, y + 7, x - 3, ' ');
 
         //cuadro del centro
-        mvaddch( y + 5, x - 1, ' ');
-        mvaddch( y + 5, x - 2, ' ');
-        mvaddch( y + 6, x - 1, ' ');
-        mvaddch( y + 6, x - 2, ' ');
+        mvwaddch(window,  y + 5, x - 1, ' ');
+        mvwaddch(window,  y + 5, x - 2, ' ');
+        mvwaddch(window,  y + 6, x - 1, ' ');
+        mvwaddch(window,  y + 6, x - 2, ' ');
 
     }
 }
 
-void Player(int initialPositionY, int initialPositionX, string typePlayer, bool hasSword, bool hasShield)
+void Player(WINDOW* window ,int initialPositionY, int initialPositionX, std::string typePlayer, bool hasSword, bool hasShield)
 {
 
     int maxPosition = 70;
@@ -294,7 +314,7 @@ void Player(int initialPositionY, int initialPositionX, string typePlayer, bool 
 
     if (typePlayer == "static")
     {
-        basePlayer(initialPositionY, initialPositionX, hasSword, hasShield);
+        basePlayer(window, initialPositionY, initialPositionX, hasSword, hasShield);
     }
     else if (typePlayer == "dinamic")
     {
@@ -310,10 +330,10 @@ void Player(int initialPositionY, int initialPositionX, string typePlayer, bool 
                 }
                 else
                 {
-                    removePlayer(initialPositionY, initialPositionX - 1, hasSword, hasShield);
-                    basePlayer(initialPositionY, initialPositionX, hasSword, hasShield);
+                    removePlayer(window, initialPositionY, initialPositionX - 1, hasSword, hasShield);
+                    basePlayer(window, initialPositionY, initialPositionX, hasSword, hasShield);
                     initialPositionX++;
-                    refresh();
+                    wrefresh(window);
                 }
                 break;
             case KEY_LEFT:
@@ -323,10 +343,10 @@ void Player(int initialPositionY, int initialPositionX, string typePlayer, bool 
                 }
                 else
                 {
-                    removePlayer(initialPositionY, initialPositionX + 1, hasSword, hasShield);
-                    basePlayer(initialPositionY, initialPositionX, hasSword, hasShield);
+                    removePlayer(window, initialPositionY, initialPositionX + 1, hasSword, hasShield);
+                    basePlayer(window, initialPositionY, initialPositionX, hasSword, hasShield);
                     initialPositionX--;
-                    refresh();
+                    wrefresh(window);
                 }
                 break;
             default:
@@ -337,65 +357,65 @@ void Player(int initialPositionY, int initialPositionX, string typePlayer, bool 
 }
 
 
-void sword(int y, int x){
-    mvaddch( y, x , ACS_ULCORNER);
-    mvaddch( y - 1, x, ACS_LLCORNER);
-    mvaddch( y, x - 1, ACS_HLINE);
-    mvaddch( y - 1, x - 1, ACS_HLINE);
-    mvaddch( y, x , ACS_VLINE);
-    mvaddch( y - 1, x, ACS_VLINE);
+void sword(WINDOW* window, int y, int x){
+    mvwaddch(window,  y, x , ACS_ULCORNER);
+    mvwaddch(window,  y - 1, x, ACS_LLCORNER);
+    mvwaddch(window,  y, x - 1, ACS_HLINE);
+    mvwaddch(window,  y - 1, x - 1, ACS_HLINE);
+    mvwaddch(window,  y, x , ACS_VLINE);
+    mvwaddch(window,  y - 1, x, ACS_VLINE);
 
-    mvaddch( y - 1, x + 1, ACS_HLINE);
-    mvaddch( y - 1, x + 2, ACS_HLINE);
-    mvaddch( y - 1, x + 3, ACS_HLINE);
-    mvaddch( y - 1, x + 4, ACS_HLINE);
-    mvaddch( y - 1, x + 5, ACS_HLINE);
-    mvaddch( y - 1, x + 6, ACS_HLINE);
-    mvaddch( y - 1, x + 7, ACS_HLINE);
+    mvwaddch(window,  y - 1, x + 1, ACS_HLINE);
+    mvwaddch(window,  y - 1, x + 2, ACS_HLINE);
+    mvwaddch(window,  y - 1, x + 3, ACS_HLINE);
+    mvwaddch(window,  y - 1, x + 4, ACS_HLINE);
+    mvwaddch(window,  y - 1, x + 5, ACS_HLINE);
+    mvwaddch(window,  y - 1, x + 6, ACS_HLINE);
+    mvwaddch(window,  y - 1, x + 7, ACS_HLINE);
 
-    mvaddch( y, x + 1, ACS_HLINE);
-    mvaddch( y, x + 2, ACS_HLINE);
-    mvaddch( y, x + 3, ACS_HLINE);
-    mvaddch( y, x + 4, ACS_HLINE);
-    mvaddch( y, x + 5, ACS_HLINE);
-    mvaddch( y, x + 6, ACS_HLINE);
-    mvaddch( y, x + 7, ACS_HLINE);
-
-    
-    mvaddch( y - 1, x + 8, ACS_URCORNER );
-    mvaddch( y, x + 8, ACS_LRCORNER );
-}
-
-void removeSword(int y, int x){
-    mvaddch( y, x , ' ');
-    mvaddch( y - 1, x, ' ');
-    mvaddch( y, x - 1, ' ');
-    mvaddch( y - 1, x - 1, ' ');
-    mvaddch( y, x , ' ');
-    mvaddch( y - 1, x, ' ');
-
-    mvaddch( y - 1, x + 1, ' ');
-    mvaddch( y - 1, x + 2, ' ');
-    mvaddch( y - 1, x + 3, ' ');
-    mvaddch( y - 1, x + 4, ' ');
-    mvaddch( y - 1, x + 5, ' ');
-    mvaddch( y - 1, x + 6, ' ');
-    mvaddch( y - 1, x + 7, ' ');
-
-    mvaddch( y, x + 1, ' ');
-    mvaddch( y, x + 2, ' ');
-    mvaddch( y, x + 3, ' ');
-    mvaddch( y, x + 4, ' ');
-    mvaddch( y, x + 5, ' ');
-    mvaddch( y, x + 6, ' ');
-    mvaddch( y, x + 7, ' ');
+    mvwaddch(window,  y, x + 1, ACS_HLINE);
+    mvwaddch(window,  y, x + 2, ACS_HLINE);
+    mvwaddch(window,  y, x + 3, ACS_HLINE);
+    mvwaddch(window,  y, x + 4, ACS_HLINE);
+    mvwaddch(window,  y, x + 5, ACS_HLINE);
+    mvwaddch(window,  y, x + 6, ACS_HLINE);
+    mvwaddch(window,  y, x + 7, ACS_HLINE);
 
     
-    mvaddch( y - 1, x + 8, ' ');
-    mvaddch( y, x + 8, ' ' );
+    mvwaddch(window,  y - 1, x + 8, ACS_URCORNER );
+    mvwaddch(window,  y, x + 8, ACS_LRCORNER );
 }
 
-void swordStroke(){
+void removeSword(WINDOW* window, int y, int x){
+    mvwaddch(window,  y, x , ' ');
+    mvwaddch(window,  y - 1, x, ' ');
+    mvwaddch(window,  y, x - 1, ' ');
+    mvwaddch(window,  y - 1, x - 1, ' ');
+    mvwaddch(window,  y, x , ' ');
+    mvwaddch(window,  y - 1, x, ' ');
+
+    mvwaddch(window,  y - 1, x + 1, ' ');
+    mvwaddch(window,  y - 1, x + 2, ' ');
+    mvwaddch(window,  y - 1, x + 3, ' ');
+    mvwaddch(window,  y - 1, x + 4, ' ');
+    mvwaddch(window,  y - 1, x + 5, ' ');
+    mvwaddch(window,  y - 1, x + 6, ' ');
+    mvwaddch(window,  y - 1, x + 7, ' ');
+
+    mvwaddch(window,  y, x + 1, ' ');
+    mvwaddch(window,  y, x + 2, ' ');
+    mvwaddch(window,  y, x + 3, ' ');
+    mvwaddch(window,  y, x + 4, ' ');
+    mvwaddch(window,  y, x + 5, ' ');
+    mvwaddch(window,  y, x + 6, ' ');
+    mvwaddch(window,  y, x + 7, ' ');
+
+    
+    mvwaddch(window,  y - 1, x + 8, ' ');
+    mvwaddch(window,  y, x + 8, ' ' );
+}
+
+void swordStroke(WINDOW* window){
 
     int initialPositonX = 20;
     int initialPositionY = 9;
@@ -404,101 +424,108 @@ void swordStroke(){
 
     while( true ){
        
-       sword( initialPositionY, initialPositonX + move );
-       refresh();
-       this_thread::sleep_for( chrono::milliseconds(150) );
-       removeSword( initialPositionY, initialPositonX + move );
-       refresh();
+       sword(window, initialPositionY, initialPositonX + move );
+       wrefresh(window);
+       std::this_thread::sleep_for( std::chrono::milliseconds(80) );
+       removeSword(window, initialPositionY, initialPositonX + move );
+       wrefresh(window);
        move++;
 
-       if(move == 25) break;
-
+       if(move == 30) break;
     }
+
+    bossMaxLife -=70;
 }
 
-void ball(int y, int x){
+void ball(WINDOW* window, int y, int x){
 
-    mvaddch( y + 2, x -1, '@' );
+    init_pair( 5, COLOR_RED, COLOR_BLACK );
 
-    mvaddch( y + 1, x , '@' );
-    mvaddch( y + 2, x, '@' );
-    mvaddch( y + 3, x, '@' );
+    wattron( window, A_STANDOUT);
+    wattron( window, COLOR_PAIR(5));
+        mvwaddch(window, y + 2, x -1, ACS_DIAMOND );
 
-    mvaddch( y , x + 1, '@' );
-    mvaddch(y + 1, x + 1, '@' );
-    mvaddch( y + 2, x + 1, '@' );
-    mvaddch( y + 3, x + 1, '@' );
-    mvaddch( y + 4,x + 1, '@' );
+        mvwaddch(window, y + 1, x , ACS_DIAMOND );
+        mvwaddch(window, y + 2, x, ACS_DIAMOND );
+        mvwaddch(window, y + 3, x, ACS_DIAMOND );
 
-    mvaddch( y,  x + 2, '@' );
-    mvaddch(y + 1,  x + 2, '@' );
-    mvaddch( y + 2,  x + 2, '@' );
-    mvaddch( y + 3,  x + 2, '@' );
-    mvaddch( y + 4, x + 2, '@' );
-    
-    mvaddch( y, x + 3, '@' );
-    mvaddch(y + 1, x + 3, '@' );
-    mvaddch( y + 2, x + 3, '@' );
-    mvaddch( y + 3, x + 3, '@' );
-    mvaddch( y + 4, x + 3, '@' );
+        mvwaddch(window, y , x + 1, ACS_DIAMOND );
+        mvwaddch(window,y + 1, x + 1, ACS_DIAMOND );
+        mvwaddch(window, y + 2, x + 1, ACS_DIAMOND );
+        mvwaddch(window, y + 3, x + 1, ACS_DIAMOND );
+        mvwaddch(window, y + 4,x + 1, ACS_DIAMOND );
 
-    mvaddch( y, x + 4, '@' );
-    mvaddch(y + 1, x + 4, '@' );
-    mvaddch( y + 2, x + 4, '@' );
-    mvaddch( y + 3, x + 4, '@' );
-    mvaddch( y + 4, x + 4, '@' );
+        mvwaddch(window, y,  x + 2, ACS_DIAMOND );
+        mvwaddch(window,y + 1,  x + 2, ACS_DIAMOND );
+        mvwaddch(window, y + 2,  x + 2, ACS_DIAMOND );
+        mvwaddch(window, y + 3,  x + 2, ACS_DIAMOND );
+        mvwaddch(window, y + 4, x + 2, ACS_DIAMOND );
+        
+        mvwaddch(window, y, x + 3, ACS_DIAMOND );
+        mvwaddch(window,y + 1, x + 3, ACS_DIAMOND );
+        mvwaddch(window, y + 2, x + 3, ACS_DIAMOND );
+        mvwaddch(window, y + 3, x + 3, ACS_DIAMOND );
+        mvwaddch(window, y + 4, x + 3, ACS_DIAMOND );
 
-    mvaddch(y + 1, x + 5, '@' );
-    mvaddch( y + 2, x + 5, '@' );
-    mvaddch( y + 3, x + 5, '@' );
-    
-    mvaddch( y + 1, x + 6, ACS_DIAMOND );
-    mvaddch( y + 2, x + 6, ACS_DIAMOND );
-    mvaddch( y + 3, x + 6, ACS_DIAMOND );
+        mvwaddch(window, y, x + 4, ACS_DIAMOND );
+        mvwaddch(window,y + 1, x + 4, ACS_DIAMOND );
+        mvwaddch(window, y + 2, x + 4, ACS_DIAMOND );
+        mvwaddch(window, y + 3, x + 4, ACS_DIAMOND );
+        mvwaddch(window, y + 4, x + 4, ACS_DIAMOND );
+
+        mvwaddch(window,y + 1, x + 5, ACS_DIAMOND );
+        mvwaddch(window, y + 2, x + 5, ACS_DIAMOND );
+        mvwaddch(window, y + 3, x + 5, ACS_DIAMOND );
+        
+        mvwaddch(window, y + 1, x + 6, ACS_DIAMOND );
+        mvwaddch(window, y + 2, x + 6, ACS_DIAMOND );
+        mvwaddch(window, y + 3, x + 6, ACS_DIAMOND );
+    wattroff( window, A_STANDOUT);
+    wattroff( window, COLOR_PAIR(5));
 }
 
-void removeBall(int y, int x){
-   mvaddch( y + 2, x -1, ' ' );
+void removeBall(WINDOW* window, int y, int x){
+   mvwaddch(window,  y + 2, x -1, ' ' );
 
-    mvaddch( y + 1, x , ' ' );
-    mvaddch( y + 2, x, ' ' );
-    mvaddch( y + 3, x, ' ' );
+    mvwaddch(window,  y + 1, x , ' ' );
+    mvwaddch(window,  y + 2, x, ' ' );
+    mvwaddch(window,  y + 3, x, ' ' );
 
-    mvaddch( y , x + 1, ' ' );
-    mvaddch(y + 1, x + 1, ' ' );
-    mvaddch( y + 2, x + 1, ' ' );
-    mvaddch( y + 3, x + 1, ' ' );
-    mvaddch( y + 4,x + 1, ' ' );
+    mvwaddch(window,  y , x + 1, ' ' );
+    mvwaddch(window, y + 1, x + 1, ' ' );
+    mvwaddch(window,  y + 2, x + 1, ' ' );
+    mvwaddch(window,  y + 3, x + 1, ' ' );
+    mvwaddch(window,  y + 4,x + 1, ' ' );
 
-    mvaddch( y,  x + 2, ' ' );
-    mvaddch(y + 1,  x + 2, ' ' );
-    mvaddch( y + 2,  x + 2, ' ' );
-    mvaddch( y + 3,  x + 2, ' ' );
-    mvaddch( y + 4, x + 2, ' ' );
+    mvwaddch(window,  y,  x + 2, ' ' );
+    mvwaddch(window, y + 1,  x + 2, ' ' );
+    mvwaddch(window,  y + 2,  x + 2, ' ' );
+    mvwaddch(window,  y + 3,  x + 2, ' ' );
+    mvwaddch(window,  y + 4, x + 2, ' ' );
     
-    mvaddch( y, x + 3, ' ' );
-    mvaddch(y + 1, x + 3, ' ' );
-    mvaddch( y + 2, x + 3, ' ' );
-    mvaddch( y + 3, x + 3, ' ' );
-    mvaddch( y + 4, x + 3, ' ' );
+    mvwaddch(window,  y, x + 3, ' ' );
+    mvwaddch(window, y + 1, x + 3, ' ' );
+    mvwaddch(window,  y + 2, x + 3, ' ' );
+    mvwaddch(window,  y + 3, x + 3, ' ' );
+    mvwaddch(window,  y + 4, x + 3, ' ' );
 
-    mvaddch( y, x + 4, ' ' );
-    mvaddch(y + 1, x + 4, ' ' );
-    mvaddch( y + 2, x + 4, ' ' );
-    mvaddch( y + 3, x + 4, ' ' );
-    mvaddch( y + 4, x + 4, ' ' );
+    mvwaddch(window,  y, x + 4, ' ' );
+    mvwaddch(window, y + 1, x + 4, ' ' );
+    mvwaddch(window,  y + 2, x + 4, ' ' );
+    mvwaddch(window,  y + 3, x + 4, ' ' );
+    mvwaddch(window,  y + 4, x + 4, ' ' );
 
-    mvaddch(y + 1, x + 5, ' ' );
-    mvaddch( y + 2, x + 5, ' ' );
-    mvaddch( y + 3, x + 5, ' ' );
+    mvwaddch(window, y + 1, x + 5, ' ' );
+    mvwaddch(window,  y + 2, x + 5, ' ' );
+    mvwaddch(window,  y + 3, x + 5, ' ' );
     
-    mvaddch( y + 1, x + 6, ' ' );
-    mvaddch( y + 2, x + 6, ' ' );
-    mvaddch( y + 3, x + 6, ' ' );
+    mvwaddch(window,  y + 1, x + 6, ' ' );
+    mvwaddch(window,  y + 2, x + 6, ' ' );
+    mvwaddch(window,  y + 3, x + 6, ' ' );
 }
 
 
-void fireBall(){
+void fireBall(WINDOW* window){
 
     int initialPositonX = 20;
     int initialPositionY = 6;
@@ -507,14 +534,14 @@ void fireBall(){
 
     while( true ){
        
-       ball( initialPositionY, initialPositonX + move );
-       refresh();
-       this_thread::sleep_for( chrono::milliseconds(150) );
-       removeBall( initialPositionY, initialPositonX + move );
-       refresh();
+       ball( window, initialPositionY, initialPositonX + move );
+       wrefresh(window);
+       std::this_thread::sleep_for( std::chrono::milliseconds(80) );
+       removeBall( window, initialPositionY, initialPositonX + move );
+       wrefresh(window);
        move++;
 
-       if(move == 25) break;
-
+       if(move == 30) break;
     }
+    bossMaxLife -=170;
 }
