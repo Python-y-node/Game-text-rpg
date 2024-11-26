@@ -31,7 +31,7 @@ bool userExits(const string &username)
             if (archivoUser == username)
             {
                 userFile.close();
-                return true; // Usuario encontrado 
+                return true; // Usuario encontrado
             }
         }
     }
