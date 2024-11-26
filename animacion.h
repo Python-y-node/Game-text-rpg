@@ -8,30 +8,12 @@ using namespace std;
 
 
 // Declaración de la función basePlayer
-void basePlayer(int juego, y, int x, bool hasSword, bool hasShield);
-void Player(int initialPositionY, int initialPositionX, string typePlayer, bool hasSword, bool hasShield);
-void removePlayer(int juego, y, int x, bool hasSword, bool hasShield);
+void basePlayer(WINDOW*juego, int  y, int x, bool hasSword, bool hasShield);
+void Player(WINDOW*juego, int initialPositionY, int initialPositionX, string typePlayer, bool hasSword, bool hasShield);
+void removePlayer(WINDOW*juego, int y, int x, bool hasSword, bool hasShield);
 
-int m() {
-    // Inicializar ncurses
-    initscr();
-    cbreak();      // Entrada sin esperar Enter
-    noecho();      // No mostrar la entrada del usuario
-    keypad(stdscr, TRUE); // Habilitar teclas especiales
 
-    // Crear al jugador
-    Player(0,0,"dinamic", FALSE, FALSE);
-
-    // Esperar una tecla para salir
-    getch();
-
-    // Finalizar ncurses
-    endwin();
-
-    return 0;
-}
-
-void basePlayer(WINDOW*juego, int y, int x, bool hasSword, bool hasShield) {
+void basePlayer(WINDOW *juego, int y, int x, bool hasSword, bool hasShield) {
     // Dibuja un personaje con detalles
     // Sombrero o casco
     mvwaddch(juego, y, x, ACS_ULCORNER);
@@ -121,7 +103,7 @@ void basePlayer(WINDOW*juego, int y, int x, bool hasSword, bool hasShield) {
     }
 }
 
-void removePlayer(int juego, y, int x, bool hasSword, bool hasShield)
+void removePlayer(WINDOW*juego, int y, int x, bool hasSword, bool hasShield)
 {
 
     // Sombrero o casco
@@ -195,7 +177,7 @@ void removePlayer(int juego, y, int x, bool hasSword, bool hasShield)
     mvwaddch(juego, y + 2, x + 4, ' ');
 }
 
-void Player(int initialPositionY, int initialPositionX, string typePlayer, bool hasSword, bool hasShield)
+void Player(WINDOW*juego, int initialPositionY, int initialPositionX, string typePlayer, bool hasSword, bool hasShield)
 {
 
     int maxPosition = 70;
@@ -203,14 +185,14 @@ void Player(int initialPositionY, int initialPositionX, string typePlayer, bool 
 
     if (typePlayer == "static")
     {
-        basePlayer(initialPositionY, initialPositionX, hasSword, hasShield);
+        basePlayer(juego, initialPositionY, initialPositionX, hasSword, hasShield);
     }
     else if (typePlayer == "dinamic")
     {
         int key;
         while ((key = getch()) != 'q')
         {
-            basePlayer(initialPositionY, initialPositionX, hasSword, hasShield);
+            basePlayer(juego, initialPositionY, initialPositionX, hasSword, hasShield);
             switch (key)
             {
             case KEY_RIGHT:
@@ -220,8 +202,8 @@ void Player(int initialPositionY, int initialPositionX, string typePlayer, bool 
                 }
                 else
                 {
-                    removePlayer(initialPositionY, initialPositionX - 1, hasSword, hasShield);
-                    basePlayer(initialPositionY, initialPositionX, hasSword, hasShield);
+                    removePlayer(juego, initialPositionY, initialPositionX - 1, hasSword, hasShield);
+                    basePlayer(juego, initialPositionY, initialPositionX, hasSword, hasShield);
                     initialPositionX++;
                     refresh();
                 }
@@ -233,8 +215,8 @@ void Player(int initialPositionY, int initialPositionX, string typePlayer, bool 
                 }
                 else
                 {
-                    removePlayer(initialPositionY, initialPositionX + 1, hasSword, hasShield);
-                    basePlayer(initialPositionY, initialPositionX, hasSword, hasShield);
+                    removePlayer(juego, initialPositionY, initialPositionX + 1, hasSword, hasShield);
+                    basePlayer(juego, initialPositionY, initialPositionX, hasSword, hasShield);
                     initialPositionX--;
                     refresh();
                 }

@@ -10,13 +10,6 @@
 void menuScreen()
 {
 
-  //INICIA NCURSES
-  initscr();
-  noecho();
-  curs_set(0);
-  keypad(stdscr, TRUE);
-  start_color();
-
   init_pair(1, COLOR_GREEN, COLOR_BLACK);
 
   int yMax, xMax;

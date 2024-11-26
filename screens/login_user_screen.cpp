@@ -3,89 +3,84 @@
 #include <string>
 #include <curses.h>
 
+//importar variable del router 
+ #include "../loader/loader.h"
 
-//FUNCION QUE CREA UNA VENTANA EMERGENTE
-void show_popup(const string &message)
-{
-  //PARAMETROS PARA LA VENTANA EMERGENTE
-  int yMax, xMax;
-  getmaxyx(stdscr, yMax, xMax);
+void showMessage(const string message) {
+    int yMax, xMax;
+    getmaxyx(stdscr, yMax, xMax);
 
-  int height = 7, width=message.length() +4;
-  int start_y = (yMax - height)/2;
-  int star_x = (xMax - width);
+    int height = 7, width = message.length() + 4;
+    int start_y = (yMax - height) / 2;
+    int start_x = (xMax - width) / 2; // Centrar horizontalmente
 
-  //CODIGO PARA CREAR LA VENTANA EMERGENTE
-  WINDOW *popup = newwin(height, width, start_y, star_x);
-  box(popup, 0, 0);
+    // Crear la ventana emergente
+    WINDOW *popup = newwin(height, width, start_y, start_x);
+    box(popup, 0, 0);
 
-  //POSICION DE LA VENTANA EMERGENTE
-  mvwprintw(popup, height / 2, 2, "%s", message.c_str());
-  mvwprintw(popup, height -2, 2, "ENTER para continuar"); //Mensaje adicional
+    // Mensaje en la ventana emergente
+    mvwprintw(popup, height / 2 - 1, 2, "%s", message.c_str());
 
-  wrefresh(popup);
-
-  getch();
-  delwin(popup);
+    wrefresh(popup);
+    delwin(popup);
 }
 
-void loginUserScreen()
-{
-  //INICIA NCURSES
-  initscr();
-  noecho();
-  curs_set(0);
-  keypad(stdscr, TRUE);
-  
-  int yMax, xMax;
-  getmaxyx(stdscr, yMax, xMax);
+void loginUserScreen() {
 
-  //CREACION DE LA VENTANA
-  WINDOW * win = newwin(yMax, xMax, 0, 0);
-  box(win, 0, 0);
+    int yMax, xMax;
+    getmaxyx(stdscr, yMax, xMax);
 
-  //Dibujar escena
-  drawHouse( win, 15, 2 );
-  drawCastle( win, 10, 45 );
-  //OPCIONES DEL MENU
-  mvwprintw( win, 3, 20, "Bienvenido para continuar inicia sesion!");
+    // Crear la ventana principal
+    WINDOW *win = newwin(yMax, xMax, 0, 0);
+    box(win, 0, 0);
 
-  mvwprintw(win, 6, 10, "Usuario");
-  mvwprintw(win, 6, 25, "Contraseña");
+    mvwprintw(win, 3, 20, "Bienvenido, para continuar inicia sesión!");
+     //Dibujar escena
+    drawHouse( win, 15, 2 );
+    drawCastle( win, 10, 55 );
 
- 
+    wrefresh(win);
+    // Dimensiones y posiciones de las cajas de texto
+    int height = 3, width = 20;
+    int start_y1 = (yMax - height) / 2;
+    int start_x1 = (xMax - width) / 2;
 
-  //LOOP
-  int ch;
-  while (ch = wgetch(win))
-  {
-    switch (ch)
-    {
-      case KEY_LEFT:
-        wattron(win, A_STANDOUT);
-        mvwprintw(win, 6, 10, "Usuario");
-        wattroff(win, A_STANDOUT);
-      break;
-      case KEY_RIGHT:
-        wattron(win, A_STANDOUT);
-        mvwprintw(win, 6, 25, "Contraseña");
-        wattroff(win, A_STANDOUT);
-      break;
-      default:
-        mvwprintw(win, 6, 10, "Usuario");
-        mvwprintw(win, 6, 14, "Contraseña");
-      break;
+    int start_y2 = start_y1 + 4;
+
+    // Crear cajas de texto independientes
+    WINDOW *txt_box1 = newwin(height, width, start_y1, start_x1);
+    box(txt_box1, 0, 0);
+    mvwprintw(txt_box1, 0, 2, "Usuario");
+    wrefresh(txt_box1);
+
+    WINDOW *txt_box2 = newwin(height, width, start_y2, start_x1);
+    box(txt_box2, 0, 0);
+    mvwprintw(txt_box2, 0, 2, "Contraseña");
+    wrefresh(txt_box2);
+
+    // Entrada de texto
+    char user_input[256] = {0};
+    char password_input[256] = {0};
+
+    // Leer entrada del usuario
+    echo();
+    mvwgetnstr(txt_box1, 1, 2, user_input, sizeof(user_input) - 1); // Leer usuario
+    noecho();
+    mvwgetnstr(txt_box2, 1, 2, password_input, sizeof(password_input) - 1); // Leer contraseña
+
+    // Validar credenciales (puedes reemplazar con tu lógica real)
+    if (string(user_input) != "admin" || string(password_input) != "1234") {
+        showMessage("Usuario inválido");
+    } else {
+        showMessage("¡Inicio de sesión exitoso!");
+        this_thread::sleep_for( chrono::milliseconds(1500));
+        routerMenu = 3;
     }
-  }
 
-
-  //MOSTRAR EL MENSAJE EMERGENTE
-  //NO FUNCIONA TODAVIA LA VENTANA EMERGENTE PORQUE CUANDO SE ACTIVARA CUANDO EL USUARIO O CONTRASENA SEA LA INCORRECTA
-  show_popup("Usuario invalido");
-  show_popup("Contraseña invalida");
-
-  wgetch(win);
-  //Finaliza ncurses
-  getch();
-  endwin();
+    // Finalizar ncurses
+    delwin(txt_box1);
+    delwin(txt_box2);
+    delwin(win);
+    endwin();
 }
+

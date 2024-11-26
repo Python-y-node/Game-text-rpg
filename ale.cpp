@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void mostrarInstrucciones();
+void mostrarInstrucciones(WINDOW*juego);
 int turnoJugador(int intento, int jugador);
 int turnoHerrero(int herrero);
 int elegirGanador(int jugador, int herrero);
@@ -35,8 +35,11 @@ int main()
     WINDOW *juego = newwin(yMax, xMax, 0, 0);
     box(juego, 0, 0);
 
-    Player(4,5,"static", FALSE, FALSE) ;
-    basePlayerNoHat(juego, 10, 30);
+    Player(juego, 10,30,"static", FALSE, FALSE) ;
+    basePlayerNoHat(juego,8.5, 70);
+
+
+      mostrarInstrucciones(juego);
 
     wrefresh(juego);
 
@@ -47,7 +50,7 @@ int main()
     endwin();
 
 
-    mostrarInstrucciones();
+  
     
        do {
         
@@ -70,7 +73,7 @@ int main()
     } while (empate);
 
     if( isMoving == true ){
-        Player(4,5,"dinamic", FALSE, FALSE) ;
+        Player(juego, 4,5,"dinamic", FALSE, FALSE) ;
     }
     refresh();
     getch();
@@ -79,24 +82,24 @@ int main()
     return 0;
 }
 
-void mostrarInstrucciones(){
+void mostrarInstrucciones(WINDOW*juego){
 
-     attron(A_BOLD);
+     wattron(juego, A_BOLD);
 
     start_color();
 
     init_pair(1, COLOR_CYAN, COLOR_BLACK); // Definir par, texto cyan fondo negro
 
-    attron(COLOR_PAIR(1));
+    wattron(juego, COLOR_PAIR(1));
 
-    printw("'Bienvenido a mi tienda, enfrentate conmigo en un juego de piedra papel y tijera y consigue un escudo... solo si me ganas jajaja'\n");
-    refresh();
-    getch();
-    attroff(COLOR_PAIR(1));
+    mvwprintw(juego, 2, 5, "'Bienvenido a mi tienda, enfrentate conmigo en un juego de piedra papel y tijera y consigue un escudo... solo si me ganas jajaja'\n");
+    wrefresh(juego);
+    wgetch(juego);
+    wattroff(juego, COLOR_PAIR(1));
 
-    printw("\n*************************\n");
-    printw("Piedra - Papel - Tijera\n");
-    printw("*************************\n");
+    mvwprintw(juego , 7, 6, "\n*************************\n");
+    mvwprintw(juego , 7 , 8, "Piedra - Papel - Tijera\n");
+    mvwprintw(juego, 7, 10,"*************************\n");
 
 }
 
