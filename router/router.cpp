@@ -35,6 +35,7 @@ void router(){
     //     }
     // }
 
-    finalFightScreen();
+    // finalFightScreen();
+    blacksmithScreen();
     
 }

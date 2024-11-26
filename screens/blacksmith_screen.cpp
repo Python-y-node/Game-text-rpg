@@ -1,9 +1,11 @@
-#include "animacion.h"
-#include "animacion2.h"
+
+
 #include <iostream>
 #include <ctime>
 #include <limits>
 #include <ncurses.h>
+
+#include "animations/index.h"
 
 using namespace std;
 
@@ -12,20 +14,13 @@ int turnoJugador(int intento, int jugador);
 int turnoHerrero(int herrero);
 int elegirGanador(int jugador, int herrero);
 
-int main()
+void blacksmithScreen()
 {
     int jugador = 0, herrero = 0 , empate = 0;
     int yMax, xMax;
     int start_x, start_y;
     char intento ; // Variable para capturar la opción del jugador como carácter
 
-    // Inicializar ncurses
-    initscr();
-    cbreak();             // Desactiva el buffering de línea
-    noecho();             // No mostrar los caracteres que ingresa el usuario
-    keypad(stdscr, TRUE); // Habilitar teclas especiales
-
-    
 
   //CODIGO PARA CREAR LA VENTANA EMERGENTE
    getmaxyx(stdscr, yMax, xMax);
@@ -72,14 +67,10 @@ int main()
         }
     } while (empate);
 
-    if( isMoving == true ){
-        Player(juego, 4,5,"dinamic", FALSE, FALSE) ;
-    }
     refresh();
     getch();
     endwin();
 
-    return 0;
 }
 
 void mostrarInstrucciones(WINDOW*juego){
@@ -208,7 +199,7 @@ int turnoHerrero(int herrero){
 
     printw("\nPresiona cualquier tecla para salir...");
 
-    isMoving = true;
+
 
     return 0;
 }

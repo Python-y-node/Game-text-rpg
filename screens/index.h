@@ -6,5 +6,6 @@
 #include "home_screen.cpp"
 #include "login_user_screen.cpp"
 #include "menu_screen.cpp"
+#include "blacksmith_screen.cpp"
 
 #endif 

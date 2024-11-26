@@ -5,6 +5,7 @@
 #include "boss_animation.cpp"
 #include "scene_animation.cpp"
 #include "troll_animation.cpp"
+#include "blacksmit_animation.cpp"
 
 #endif // ANIMATIONS_H!
 

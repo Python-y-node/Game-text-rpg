@@ -6,13 +6,5 @@
 
 UserType temporalUser;
 int routerMenu =0;
-<<<<<<< HEAD
-bool isMoving = false;
-=======
-
-
-
 
 #endif // !LOADER_H
-
->>>>>>> main
