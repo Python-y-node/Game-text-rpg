@@ -99,7 +99,7 @@ int main() {
 
         //Evaluamos la opcin que el cliente ha ingresado
         switch (opcion) {
-        case 1:
+        case 1: {
             cout << "Username: " << endl;
             cin >> user;
             cout << "Password: " << endl;
@@ -114,8 +114,8 @@ int main() {
                 cout << "Usuario o contraseña incorrecta, por favor intente de nuevo." << endl;
             }
             break;
-
-        case 2:
+        }
+        case 2: {
             cout << "Ingrese su usuario: " << endl;
             cin >> user;
             cout << "Ingrese su contraseña: " << endl;
@@ -130,7 +130,7 @@ int main() {
                 cout << "El usuario ya está registrado, por favor intente con otro nombre de usuario." << endl;
             }
             break;
-
+        }
         case 3:
             cout << "¡Haz salido correctamente!" << endl;
             break;
