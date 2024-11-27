@@ -34,6 +34,7 @@ void router(){
     //         homeScreen();
     //     }
     // }
-    blackSmithScreen();
-    
+   // blackSmithScreen();
+
+    wizardScreen();
 }

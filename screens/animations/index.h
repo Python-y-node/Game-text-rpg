@@ -9,5 +9,7 @@
 #include "blacksmith_animation.cpp"
 #include "wizard_animation.cpp"
 #include "card_animation.cpp"
+#include "troll_animation.cpp"
+#include "soldier_animation.cpp"
 
 #endif // ANIMATIONS_H!
