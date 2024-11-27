@@ -3,37 +3,42 @@
 
 using namespace std;
 
-void cardAnimation(WINDOW*juego2, int y, int x);
+void cardAnimation(WINDOW* window, int y, int x);
 
 
-void cardAnimation(WINDOW*juego2, int y, int x){
+void cardAnimation(WINDOW* window, int y, int x){
+
+    init_pair(23, COLOR_RED, COLOR_BLACK);
+
     // Parte izquierda del escudo
-    mvwaddch(juego2, y + 4, x - 2, ACS_HLINE);
-    mvwaddch(juego2, y + 4, x - 1, ACS_HLINE);
-    mvwaddch(juego2, y + 4, x - 3, ACS_HLINE);
-    mvwaddch(juego2, y + 4, x - 4, ACS_ULCORNER);
-    mvwaddch(juego2, y + 4, x, ACS_HLINE);
-    mvwaddch(juego2, y + 4, x + 1, ACS_URCORNER);
+    mvwaddch(window, y, x - 2, ACS_HLINE);
+    mvwaddch(window, y , x - 1, ACS_HLINE);
+    mvwaddch(window, y , x - 3, ACS_HLINE);
+    mvwaddch(window, y , x - 4, ACS_ULCORNER);
+    mvwaddch(window, y , x, ACS_HLINE);
+    mvwaddch(window, y , x + 1, ACS_URCORNER);
 
     // Parte derecha del escudo
-    mvwaddch(juego2, y + 5, x + 1, ACS_VLINE);
-    mvwaddch(juego2, y + 6, x + 1, ACS_VLINE);
-    mvwaddch(juego2, y + 7, x + 1, ACS_LRCORNER);
+    mvwaddch(window, y + 1, x + 1, ACS_VLINE);
+    mvwaddch(window, y + 2, x + 1, ACS_VLINE);
+    mvwaddch(window, y + 3, x + 1, ACS_LRCORNER);
 
     // Parte izquierda del escudo
-    mvwaddch(juego2, y + 5, x - 4, ACS_VLINE);
-    mvwaddch(juego2, y + 6, x - 4, ACS_VLINE);
-    mvwaddch(juego2, y + 7, x - 4, ACS_LLCORNER);
+    mvwaddch(window, y + 1, x - 4, ACS_VLINE);
+    mvwaddch(window, y + 2, x - 4, ACS_VLINE);
+    mvwaddch(window, y + 3, x - 4, ACS_LLCORNER);
 
     // Parte inferior del escudo
-    mvwaddch(juego2, y + 7, x, ACS_HLINE);
-    mvwaddch(juego2, y + 7, x - 2, ACS_HLINE);
-    mvwaddch(juego2, y + 7, x - 1, ACS_HLINE);
-    mvwaddch(juego2, y + 7, x - 3, ACS_HLINE);
+    mvwaddch(window, y + 3, x, ACS_HLINE);
+    mvwaddch(window, y + 3, x - 2, ACS_HLINE);
+    mvwaddch(window, y + 3, x - 1, ACS_HLINE);
+    mvwaddch(window, y + 3, x - 3, ACS_HLINE);
 
-    // Cuadro del centro (diamantes)
-    mvwaddch(juego2, y + 5, x - 1, ACS_DIAMOND);
-    mvwaddch(juego2, y + 5, x - 2, ACS_DIAMOND);
-    mvwaddch(juego2, y + 6, x - 1, ACS_DIAMOND);
-    mvwaddch(juego2, y + 6, x - 2, ACS_DIAMOND);
+    wattron(window, COLOR_PAIR(23));
+        // Cuadro del centro (diamantes)
+        mvwaddch(window, y + 1 , x - 1, ACS_DIAMOND);
+        mvwaddch(window, y + 1, x - 2, ACS_DIAMOND);
+        mvwaddch(window, y + 2, x - 1, ACS_DIAMOND);
+        mvwaddch(window, y + 2, x - 2, ACS_DIAMOND);
+    wattroff(window, COLOR_PAIR(23));
 }

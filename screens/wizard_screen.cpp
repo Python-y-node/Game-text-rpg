@@ -14,29 +14,33 @@ void inicializar_juego(int &item) {
 
 
 // Función para pedir el intento del usuario
-void pedir_intento(WINDOW *juego2, int &intento, int item) {
+void pedir_intento(WINDOW *juego2, int item) {
+    
+    int key ;
+    
+    while (( key = wgetch(juego2)) != 113) {
+        
+        if (key > 48 && key < 52 ) {
 
-    cardAnimation(juego2, 20, 70);   
-    cardAnimation(juego2, 20, 76);  
-    cardAnimation(juego2, 20, 82);  
-    mvwprintw(juego2,28 , 67.75, " 1     2     3");
-
-    mvwprintw(juego2, 10, 15, "Introduce el número de la carta donde crees que está el poder (1, 2 o 3): ");
-    wrefresh(juego2);
-    intento = -1;
-
-    while (true) {
-        char c = wgetch(juego2);
-        if (c >= '1' && c <= '3') {
-            intento = c - '0';
-            mvwprintw(juego2, 12, 15, "Elegiste la columna %d.", intento);
-            wrefresh(juego2);
+            mvwprintw(juego2, 16, 22, "                                  ");
+            mvwprintw(juego2,17,22, "                    ");
+            
+            wattron(juego2, COLOR_PAIR(24));
+              wattron(juego2, A_BOLD);
+                mvwprintw(juego2, 19, 24, "Elegiste la columna %d.", key - 48);
+              wattroff(juego2, A_BOLD);
+            wattroff(juego2, COLOR_PAIR(24));
+            
             break;
         } else {
-            mvwprintw(juego2, 14, 15, "Opción inválida. Debes elegir un número entre 1 y 3.");
-            wrefresh(juego2);
+            mvwprintw(juego2, 16, 22, "Opción inválida. Debes elegir un");
+            mvwprintw(juego2, 17, 22, "número entre 1 y 3.");
+           
         }
+        wrefresh(juego2);
+
     }
+
 }
 
 // Función principal del juego
@@ -48,44 +52,37 @@ void jugar(WINDOW *juego2) {
     matriz[item] = 1;
 
     // Configurar colores
-    start_color();
-    init_pair(1, COLOR_CYAN, COLOR_BLACK);
 
     wattron(juego2, COLOR_PAIR(1));
-    mvwprintw(juego2, 2, 5, "Bienvenido a mis aposentos. Se que viniste en busca de mi poder para cumplir tu aventura.\n");
-    mvwprintw(juego2, 4, 5, "Te tengo una propuesta. Qué tal si jugamos un juego");
+        mvwprintw(juego2, 2, 3, "Bienvenido a mis aposentos. Se que viniste en busca de mi poder para");
+        mvwprintw(juego2, 3, 3, "cumplir tu aventura.Te tengo una propuesta. Qué tal si jugamos un juego");
     wattroff(juego2, COLOR_PAIR(1));
-    wrefresh(juego2);
-    
-    wgetch(juego2);
+  
 
 
     int intento;
-    pedir_intento(juego2, intento, item);
+    pedir_intento(juego2, item);
 
+<<<<<<< HEAD
     wclear(juego2);
+=======
+>>>>>>> bde09cd631b368597e36c26997df309a9cd08bfd
     box(juego2, 0, 0);
 
-    wattron(juego2, COLOR_PAIR(1));
-      wizard_animation(juego2, 23.5, 110);
     if (intento - 1 == item) {
-        mvwprintw(juego2, 14, 15, "¡Felicidades! Has ganado. Por lo tanto, te entrego mi poder para que puedas continuar.");
+        mvwprintw(juego2, 17, 24, "¡Felicidades! Has ganado. Por lo tanto te");
+        mvwprintw(juego2, 18, 24, "entrego mi poder para que puedas continuar.");
     } else {
-        mvwprintw(juego2, 14, 40, "Lo siento, pero has fallado. No has mostrado ser digno de mi poder.");
+        mvwprintw(juego2, 17, 24, "Lo siento, pero has fallado. No has ");
+        mvwprintw(juego2, 18, 24, "mostrado ser digno de mi poder.");
     }
     
 
-    mvwprintw(juego2, 35, 15, "Hasta la próxima, Aventurero.");
+    mvwprintw(juego2, 20, 24, "Hasta la próxima, Aventurero.");
 
-    wattroff(juego2, COLOR_PAIR(1));
-
-    mvwprintw(juego2, 38, 15, "Presiona cualquier tecla para salir.");
-    wrefresh(juego2);
-
-    wgetch(juego2); // Esperar a que el usuario presione una tecla
-    endwin();       // Finaliza ncurses
 }
 
+<<<<<<< HEAD
 void wizardScreen(){
     int yMax, xMax;
 
@@ -93,7 +90,13 @@ void wizardScreen(){
     initscr();
     cbreak();
     keypad(stdscr, TRUE);
+=======
+void wizardScreen() {
+    
+>>>>>>> bde09cd631b368597e36c26997df309a9cd08bfd
     start_color();
+    init_pair(1, COLOR_CYAN, COLOR_BLACK);
+    int yMax, xMax;
 
     // Obtener dimensiones de la pantalla
     getmaxyx(stdscr, yMax, xMax);
@@ -101,9 +104,28 @@ void wizardScreen(){
     // Crear ventana emergente
     WINDOW *juego2 = newwin(yMax, xMax, 0, 0);
     box(juego2, 0, 0);
-    wizard_animation(juego2, 23.5, 110);
-    Player(juego2, 27, 30, "static", FALSE, FALSE);
+    wizardAnimation(juego2,10, 65);
+    Player(juego2, 14, 10, "static", FALSE, FALSE);
+
+    cardAnimation(juego2, 10, 32);   
+    cardAnimation(juego2, 10, 38);  
+    cardAnimation(juego2, 10, 44);  
+    mvwprintw(juego2, 14 , 29, " 1     2     3");
+
+    mvwprintw(juego2, 7, 20, "Introduce el número de la carta donde");
+    mvwprintw( juego2, 8, 20, " crees que está el poder (1, 2 o 3):");
+    wrefresh(juego2);
 
     jugar(juego2); // Iniciar el juego
+<<<<<<< HEAD
     
+=======
+
+    wgetch(juego2);
+    routerMenu = 4;
+    delwin(juego2);
+    
+    endwin();
+   
+>>>>>>> bde09cd631b368597e36c26997df309a9cd08bfd
 }

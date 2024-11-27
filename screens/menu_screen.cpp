@@ -6,7 +6,6 @@
 #include "animations/index.h"
 #include "../loader/loader.h"
 
-
 void menuScreen()
 {
 
@@ -15,22 +14,22 @@ void menuScreen()
   int yMax, xMax;
   getmaxyx(stdscr, yMax, xMax);
 
-  //CREACION DE LA VENTANA
-  WINDOW * win = newwin(yMax, xMax, 0, 0);
+  // CREACION DE LA VENTANA
+  WINDOW *win = newwin(yMax, xMax, 0, 0);
   box(win, 0, 0);
 
-  //OPCIONES DEL MENU
-  wattron( win, A_STANDOUT );
+  // OPCIONES DEL MENU
+  wattron(win, A_STANDOUT);
   mvwprintw(win, 3, 5, "AQUI TIENE QUE IR EL TITULO DEL VIDEOJUEGO");
-  wattroff( win, A_STANDOUT );
+  wattroff(win, A_STANDOUT);
 
   mvwprintw(win, 10, 10, "Iniciar sesion (i).");
   mvwprintw(win, 10, 30, "Crear usuario (c).");
 
   drawTree(win, 15, 2);
-  drawCastle(win, 10, 51),
+  drawCastle(win, 10, 51);
   drawTree(win, 15, 42);
-  //LOOP
+  // LOOP
   int ch;
   int option = 0;
 
@@ -38,47 +37,51 @@ void menuScreen()
   {
     switch (ch)
     {
-      case 105:
-        wattron(win, A_STANDOUT);
-        wattron(win, COLOR_PAIR(1));
-        mvwprintw(win, 10, 10, "Iniciar sesion (i).");
-        wattroff(win, COLOR_PAIR(1));
-        wattroff(win, A_STANDOUT);
+    case 105:
+      wattron(win, A_STANDOUT);
+      wattron(win, COLOR_PAIR(1));
+      mvwprintw(win, 10, 10, "Iniciar sesion (i).");
+      wattroff(win, COLOR_PAIR(1));
+      wattroff(win, A_STANDOUT);
 
-        mvwprintw(win, 10, 30, "Crear usuario (c).");
-        option = 1;
-        
-      break;
-      case 99:
+      mvwprintw(win, 10, 30, "Crear usuario (c).");
+      option = 1;
 
-        wattron(win, A_STANDOUT);
-        wattron(win, COLOR_PAIR(1));
-        mvwprintw(win, 10, 30, "Crear usuario (c).");
-        wattroff(win, COLOR_PAIR(1));
-        wattroff(win, A_STANDOUT);
+      break;
+    case 99:
 
-        mvwprintw(win, 10, 10, "Iniciar sesion (i).");
-        option = 2;
+      wattron(win, A_STANDOUT);
+      wattron(win, COLOR_PAIR(1));
+      mvwprintw(win, 10, 30, "Crear usuario (c).");
+      wattroff(win, COLOR_PAIR(1));
+      wattroff(win, A_STANDOUT);
+
+      mvwprintw(win, 10, 10, "Iniciar sesion (i).");
+      option = 2;
       break;
-      case 10:
-         if(option == 1){
-          routerMenu = 1;
-         } else if( option == 2 ){
-          routerMenu = 2;
-         }
+    case 10:
+      if (option == 1)
+      {
+        routerMenu = 1;
+      }
+      else if (option == 2)
+      {
+        routerMenu = 2;
+      }
       break;
-      default:
-        mvwprintw(win, 10, 10, "Iniciar sesion (i).");
-        mvwprintw(win, 10, 30, "Crear usuario (c).");
+    default:
+      mvwprintw(win, 10, 10, "Iniciar sesion (i).");
+      mvwprintw(win, 10, 30, "Crear usuario (c).");
       break;
     }
-    
+
     wrefresh(win);
-    if( ch == 10 ){
+    if (ch == 10)
+    {
       break;
     }
   }
-  
+
   clear();
   endwin();
 }

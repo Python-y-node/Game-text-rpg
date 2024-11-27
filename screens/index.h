@@ -8,6 +8,11 @@
 #include "menu_screen.cpp"
 #include "blacksmith_screen.cpp"
 #include "wizard_screen.cpp"
+<<<<<<< HEAD
 #include "story_start_screen.cpp"
+=======
+#include "menu_game_screen.cpp"
+#include "troll_bridge_screen.cpp"
+>>>>>>> bde09cd631b368597e36c26997df309a9cd08bfd
 
 #endif 
