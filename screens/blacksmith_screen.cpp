@@ -18,7 +18,6 @@ void blackSmithScreen()
     int yMax, xMax;
     char intento;
 
-
 // Inicializar ncurses
     initscr();
     cbreak();
