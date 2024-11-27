@@ -8,19 +8,19 @@ void drawTroll(WINDOW *win, int y, int x)
 
     // Cuello y cuerpo
     wattron(win, COLOR_PAIR(2)); // Color para el cuerpo
-    mvwprintw(win, 10, 90, "     /\\______/\\      ");
-    mvwprintw(win, 11, 90, "     |  0  0   |       ");
-    mvwprintw(win, 12, 90, "       |         |       ");
-    mvwprintw(win, 13, 90, "     |_/\\/\\/\\__|    ");
-    mvwprintw(win, 14, 90, "     |_________|       ");
+    mvwprintw(win, y, x, "     /\\______/\\      ");
+    mvwprintw(win, y + 1, x, "     |  0  0   |       ");
+    mvwprintw(win, y + 2, x, "       |         |       ");
+    mvwprintw(win, y + 3, x, "     |_/\\/\\/\\__|    ");
+    mvwprintw(win, y + 4, x, "     |_________|       ");
     wattroff(win, COLOR_PAIR(2));
 
     // Piernas y pies
     wattron(win, COLOR_PAIR(3)); // Color para las piernas
-    mvwprintw(win, 15, 90, "       |    |           ");
-    mvwprintw(win, 16, 90, "     /       \\        ");
-    mvwprintw(win, 17, 90, "    /         \\       ");
-    mvwprintw(win, 18, 90, "   (           )      ");
-    mvwprintw(win, 19, 90, "    \\_________/       ");
+    mvwprintw(win, y + 5, x, "       |    |           ");
+    mvwprintw(win, y + 6, x, "     /       \\        ");
+    mvwprintw(win, y + 7, x, "    /         \\       ");
+    mvwprintw(win, y + 8, x, "   (           )      ");
+    mvwprintw(win, y + 9, x, "    \\_________/       ");
     wattroff(win, COLOR_PAIR(3));
 }

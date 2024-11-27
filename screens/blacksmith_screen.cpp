@@ -68,6 +68,7 @@ void blackSmithScreen()
        
     }
     wgetch(window);
+    routerMenu = 4;
 
     // Finalizar ncurses
     endwin();

@@ -9,6 +9,6 @@
 #include "blacksmith_screen.cpp"
 #include "wizard_screen.cpp"
 #include "menu_game_screen.cpp"
-
+#include "troll_bridge_screen.cpp"
 
 #endif 

@@ -35,7 +35,7 @@ void menuGameScreen()
 
   keypad(menuP, true); // Nos permite ocupar flechas
 
-  string choices[3] = {"Ir donde el herrero", "Ir donde el mago", "Ir con el final boss"};
+  string choices[3] = {"Ir donde el herrero", "Ir donde el mago", "Ir con el troll"};
   int choice;
 
   int highlight = 0;

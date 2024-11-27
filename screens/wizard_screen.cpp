@@ -105,7 +105,9 @@ void wizardScreen() {
     jugar(juego2); // Iniciar el juego
 
     wgetch(juego2);
-
+    routerMenu = 4;
+    delwin(juego2);
+    
     endwin();
    
 }

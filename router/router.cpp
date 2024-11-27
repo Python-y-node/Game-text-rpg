@@ -51,6 +51,11 @@ void router(){
         if( routerMenu == 7){
             clear();
             refresh();
+            trollBridgeScreen();
+        }
+        if( routerMenu == 8){
+            clear();
+            refresh();
             finalFightScreen();
         }
     }
