@@ -22,7 +22,7 @@ void menuGameScreen()
 
   basePlayerNoHat(ScreenMenu, 9, 35);
   wizardAnimation(ScreenMenu, 8, 45);
-  Player(ScreenMenu, 12, 15, "static", FALSE, FALSE);
+  Player(ScreenMenu, 12, 15, "static");
   drawTree(ScreenMenu, 5, 2);
   drawTree(ScreenMenu, 12, 60);
   drawHouse(ScreenMenu, 3, 65);
@@ -78,18 +78,18 @@ void menuGameScreen()
     {
       if (highlight == 0)
       {
-        cout << "entra";
-        routerMenu = 5;
+    
+        routerMenu = 6;
         break;
       }
       else if (highlight == 1)
       {
-        routerMenu = 6;
+        routerMenu = 7;
         break;
       }
       else if (highlight == 2)
       {
-        routerMenu = 7;
+        routerMenu = 8;
         break;
       }
     };

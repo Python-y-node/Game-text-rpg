@@ -4,17 +4,18 @@
 #include <ncurses.h> // Para ncurses
 #include "animations/index.h" //Para ocupar las animaciones
 
+#include "../loader/loader.h"
 
 using namespace std;
 
 // Función para iniciar el juego
-void inicializar_juego(int &item) {
-    item = rand() % 3; // Número aleatorio entre 0 y 2
-}
+// void inicializar_juego(int &item) {
+//     item = rand() % 3; // Número aleatorio entre 0 y 2
+// }
 
 
 // Función para pedir el intento del usuario
-void pedir_intento(WINDOW *juego2, int item) {
+int pedir_intento(WINDOW *juego2) {
     
     int key ;
     
@@ -40,7 +41,8 @@ void pedir_intento(WINDOW *juego2, int item) {
         wrefresh(juego2);
 
     }
-
+    
+    return key;
 }
 
 // Función principal del juego
@@ -48,8 +50,8 @@ void jugar(WINDOW *juego2) {
     srand(static_cast<unsigned int>(time(0))); // Semilla para números aleatorios
     int matriz[3] = {0};
     int item;
-    inicializar_juego(item);
-    matriz[item] = 1;
+    // inicializar_juego(item);
+    // matriz[item] = 1;
 
     // Configurar colores
 
@@ -61,17 +63,15 @@ void jugar(WINDOW *juego2) {
 
 
     int intento;
-    pedir_intento(juego2, item);
+    intento = pedir_intento(juego2);
 
-<<<<<<< HEAD
-    wclear(juego2);
-=======
->>>>>>> bde09cd631b368597e36c26997df309a9cd08bfd
     box(juego2, 0, 0);
 
-    if (intento - 1 == item) {
+    if (intento == 50) {
         mvwprintw(juego2, 17, 24, "¡Felicidades! Has ganado. Por lo tanto te");
         mvwprintw(juego2, 18, 24, "entrego mi poder para que puedas continuar.");
+        haveSwordPlayer = true;
+        plusAttack = 850;
     } else {
         mvwprintw(juego2, 17, 24, "Lo siento, pero has fallado. No has ");
         mvwprintw(juego2, 18, 24, "mostrado ser digno de mi poder.");
@@ -82,18 +82,8 @@ void jugar(WINDOW *juego2) {
 
 }
 
-<<<<<<< HEAD
-void wizardScreen(){
-    int yMax, xMax;
-
-    // Inicializar ncurses
-    initscr();
-    cbreak();
-    keypad(stdscr, TRUE);
-=======
 void wizardScreen() {
     
->>>>>>> bde09cd631b368597e36c26997df309a9cd08bfd
     start_color();
     init_pair(1, COLOR_CYAN, COLOR_BLACK);
     int yMax, xMax;
@@ -105,7 +95,7 @@ void wizardScreen() {
     WINDOW *juego2 = newwin(yMax, xMax, 0, 0);
     box(juego2, 0, 0);
     wizardAnimation(juego2,10, 65);
-    Player(juego2, 14, 10, "static", FALSE, FALSE);
+    Player(juego2, 14, 10, "static");
 
     cardAnimation(juego2, 10, 32);   
     cardAnimation(juego2, 10, 38);  
@@ -117,15 +107,11 @@ void wizardScreen() {
     wrefresh(juego2);
 
     jugar(juego2); // Iniciar el juego
-<<<<<<< HEAD
-    
-=======
 
     wgetch(juego2);
-    routerMenu = 4;
+    routerMenu = 5;
     delwin(juego2);
     
+    passedWithWizard = true;
     endwin();
-   
->>>>>>> bde09cd631b368597e36c26997df309a9cd08bfd
 }

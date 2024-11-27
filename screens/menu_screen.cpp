@@ -24,8 +24,7 @@ void menuScreen()
   wattroff(win, A_STANDOUT);
 
   mvwprintw(win, 10, 10, "Iniciar sesion (i).");
-  mvwprintw(win, 10, 30, "Crear usuario (c).");
-
+ 
   drawTree(win, 15, 2);
   drawCastle(win, 10, 51);
   drawTree(win, 15, 42);
@@ -43,21 +42,8 @@ void menuScreen()
       mvwprintw(win, 10, 10, "Iniciar sesion (i).");
       wattroff(win, COLOR_PAIR(1));
       wattroff(win, A_STANDOUT);
-
-      mvwprintw(win, 10, 30, "Crear usuario (c).");
       option = 1;
 
-      break;
-    case 99:
-
-      wattron(win, A_STANDOUT);
-      wattron(win, COLOR_PAIR(1));
-      mvwprintw(win, 10, 30, "Crear usuario (c).");
-      wattroff(win, COLOR_PAIR(1));
-      wattroff(win, A_STANDOUT);
-
-      mvwprintw(win, 10, 10, "Iniciar sesion (i).");
-      option = 2;
       break;
     case 10:
       if (option == 1)
@@ -71,7 +57,6 @@ void menuScreen()
       break;
     default:
       mvwprintw(win, 10, 10, "Iniciar sesion (i).");
-      mvwprintw(win, 10, 30, "Crear usuario (c).");
       break;
     }
 

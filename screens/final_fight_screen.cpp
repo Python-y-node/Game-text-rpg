@@ -14,27 +14,27 @@ void finalFightScreen(){
     //Le crea un marco a la ventana
     box(window, 0,0);
      
-    Player( window, 4, 8, "static", true, true); 
+    Player( window, 4, 8, "static" ); 
 
     Boss( window, 3, 50);
     
     wattron(window, COLOR_PAIR(1));
        wattron( window, A_BOLD);
             drawTree(window, 5, 70);
-            mvwprintw(window, 13, 10, "%d", playerMaxLife);
+            mvwprintw(window, 13, 10, "%d", playerMaxLife + plusLife);
        wattroff( window, A_BOLD);
     wattroff( window, COLOR_PAIR(1));
 
     wattron(window, COLOR_PAIR(5));
        wattron( window, A_BOLD);
-            mvwprintw(window, 13, 55, "%d", bossMaxLife);
+            mvwprintw(window, 13, 55, "%d", bossMaxLife + plusLife);
        wattroff( window, A_BOLD);
     wattroff( window, COLOR_PAIR(5));
 
     mvwprintw(window, 15, 4, "Espadazo(e) \t Bola de fuejo(f)");
 
     char options;
-
+  
     move(18, 4);
     while( ( options = wgetch(window) ) != 'q' ){
         
@@ -70,23 +70,35 @@ void finalFightScreen(){
         default:
             break;
         }
-        std::this_thread::sleep_for( std::chrono::milliseconds(800));
-        if ( options == 'f')  attackCursedArrows(window);
-        else if(options == 'e') lavaBreathAttack(window); 
+        if( bossMaxLife > 0 ){
+            std::this_thread::sleep_for( std::chrono::milliseconds(800));
+            if ( options == 'f')  attackCursedArrows(window);
+            else if(options == 'e') lavaBreathAttack(window); 
 
-        Player( window, 4, 8, "static", true, true);
+            Player( window, 4, 8, "static");
 
-        //cambiar la vida del player
-        wattron(window, COLOR_PAIR(1));
-        wattron( window, A_BOLD);
-                mvwprintw(window, 13, 10, "    ");
-                mvwprintw(window, 13, 10, "%d", playerMaxLife);
-        wattroff( window, A_BOLD);
-        wattroff( window, COLOR_PAIR(1));
+            //cambiar la vida del player
+            wattron(window, COLOR_PAIR(1));
+            wattron( window, A_BOLD);
+                    mvwprintw(window, 13, 10, "    ");
+                    mvwprintw(window, 13, 10, "%d", playerMaxLife);
+            wattroff( window, A_BOLD);
+            wattroff( window, COLOR_PAIR(1));
 
-        Boss( window, 3, 50);
+            Boss( window, 3, 50);
+        }else {
+            isBossDied = true;
+            bossMaxLife = 0;
+            mvwprintw(window, 13, 55, "0  ");
+            mvwprintw( window, 5, 50, "    X     X ");
+            break;
+        }
         wrefresh(window);
     }
 
+    mvwprintw( window, 18, 20, "Has ganado, Has liberado a nuestro pueblo.");
+    wrefresh(window);
+    this_thread::sleep_for(chrono::milliseconds(2000));
+    routerMenu = 10;
     endwin();
 }

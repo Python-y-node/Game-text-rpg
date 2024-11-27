@@ -56,12 +56,12 @@ void loginUserScreen() {
     int start_y2 = start_y1 + 4;
 
     // Crear cajas de texto independientes
-    WINDOW *txt_box1 = newwin(height, width, start_y1, start_x1);
+    WINDOW *txt_box1 = newwin(height, width, 12, 18);
     box(txt_box1, 0, 0);
     mvwprintw(txt_box1, 0, 1, "Usuario");
     wrefresh(txt_box1);
 
-    WINDOW *txt_box2 = newwin(height, width, start_y2, start_x1);
+    WINDOW *txt_box2 = newwin(height, width, 16, 18);
     box(txt_box2, 0, 0);
     mvwprintw(txt_box2, 0, 1, "Clave");
     wrefresh(txt_box2);

@@ -17,7 +17,7 @@ void trollBridgeScreen()
   box(win, 0, 0);
 
   // IMPLEMENTACION DEL PERSONAJE PRINCIPAL
-  basePlayer(win, 10, 8, TRUE, TRUE);
+  Player(win, 10, 8, "static");
   mvwprintw(win, 1, 5, "Troll: ");
   mvwprintw(win, 2, 5, "Has llegado a mi puente, todo aquel que quiera pasar, tendra que resolver ");
   mvwprintw(win, 3, 5, "mi acertijo. Si lo logras acertar te dejare pasar, sino, lo unico que te ");
@@ -156,7 +156,7 @@ void trollBridgeScreen()
 
   }
 
-  ( isAnswer ) ? routerMenu = 8 : routerMenu = 4;
+  ( isAnswer ) ? routerMenu = 9 : routerMenu = 5;
 
   delwin(win);
   delwin(win_options);

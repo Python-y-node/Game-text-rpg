@@ -4,6 +4,8 @@
 #include <ncurses.h>
 #include "animations/index.h"
 
+#include "../loader/loader.h"
+
 using namespace std;
 
 int turnoHerrero(WINDOW*window, int herrero);
@@ -29,7 +31,7 @@ void blackSmithScreen()
     box(window, 0, 0);
 
     
-    Player(window, 8, 8, "static", FALSE, FALSE);
+    Player(window, 8, 8, "static");
     basePlayerNoHat(window, 7, 65);
     
     
@@ -69,8 +71,8 @@ void blackSmithScreen()
        
     }
     wgetch(window);
-    routerMenu = 4;
-
+    routerMenu = 5;
+    passedWithBlacksmith = true;
     // Finalizar ncurses
     endwin();
 }
@@ -101,7 +103,7 @@ void showInstrucctions( WINDOW*window ){
        mvwprintw( window, 6, 60, "\\ |");
        mvwprintw( window, 7, 61, "\\|");
     wattroff(window, COLOR_PAIR(7));
-
+    wattroff(window, A_BOLD);
    
 }
 
@@ -131,17 +133,21 @@ void deleteOptionMenu(WINDOW*window){
 
 void showElectionMessage( WINDOW* window, int playerChoice, int blacksmithChoice ){
         mvwprintw(window, 10, 20, "Has elegido: ");   
+        init_pair(30, COLOR_RED, COLOR_BLACK);
+
+       
         switch (playerChoice) {
-        case 1:
+        case 49:
             mvwprintw(window, 11, 22, "Piedra");
             break;
-        case 2:
+        case 50:
             mvwprintw(window, 11, 22, "Papel");
             break;
-        case 3:
+        case 51:
             mvwprintw(window, 11, 22, "Tijera");
             break;
         }
+      
 
         mvwprintw(window, 12, 20, "El Herrero eligió: ");
  
@@ -164,6 +170,8 @@ void showElectionMessage( WINDOW* window, int playerChoice, int blacksmithChoice
             mvwprintw(window, 8, 17, "'¡Rayos, me has vencido! Te he ");
             mvwprintw(window, 9,17, "otorgado un escudo.'");
             wattroff(window, COLOR_PAIR(7));
+            haveShieldPlayer = true;
+            plusLife = 500;
         } else {
             
             wattron(window, COLOR_PAIR(7));

@@ -308,7 +308,7 @@ void removePlayer(WINDOW* window, int y, int x, bool hasSword, bool hasShield)
     }
 }
 
-void Player(WINDOW* window ,int initialPositionY, int initialPositionX, std::string typePlayer, bool hasSword, bool hasShield)
+void Player(WINDOW* window ,int initialPositionY, int initialPositionX, std::string typePlayer)
 {
 
     int maxPosition = 70;
@@ -316,7 +316,7 @@ void Player(WINDOW* window ,int initialPositionY, int initialPositionX, std::str
 
     if (typePlayer == "static")
     {
-        basePlayer(window, initialPositionY, initialPositionX, hasSword, hasShield);
+        basePlayer(window, initialPositionY, initialPositionX, haveSwordPlayer, haveShieldPlayer);
     }
     else if (typePlayer == "dinamic")
     {
@@ -332,8 +332,8 @@ void Player(WINDOW* window ,int initialPositionY, int initialPositionX, std::str
                 }
                 else
                 {
-                    removePlayer(window, initialPositionY, initialPositionX - 1, hasSword, hasShield);
-                    basePlayer(window, initialPositionY, initialPositionX, hasSword, hasShield);
+                    removePlayer(window, initialPositionY, initialPositionX - 1, haveSwordPlayer, haveShieldPlayer);
+                    basePlayer(window, initialPositionY, initialPositionX, haveSwordPlayer, haveShieldPlayer);
                     initialPositionX++;
                     wrefresh(window);
                 }
@@ -345,8 +345,8 @@ void Player(WINDOW* window ,int initialPositionY, int initialPositionX, std::str
                 }
                 else
                 {
-                    removePlayer(window, initialPositionY, initialPositionX + 1, hasSword, hasShield);
-                    basePlayer(window, initialPositionY, initialPositionX, hasSword, hasShield);
+                    removePlayer(window, initialPositionY, initialPositionX + 1, haveSwordPlayer, haveShieldPlayer);
+                    basePlayer(window, initialPositionY, initialPositionX, haveSwordPlayer, haveShieldPlayer);
                     initialPositionX--;
                     wrefresh(window);
                 }
@@ -436,7 +436,7 @@ void swordStroke(WINDOW* window){
        if(move == 30) break;
     }
 
-    bossMaxLife -=70;
+    bossMaxLife -=(70 + plusAttack);
 }
 
 void ball(WINDOW* window, int y, int x){
@@ -545,5 +545,5 @@ void fireBall(WINDOW* window){
 
        if(move == 30) break;
     }
-    bossMaxLife -=170;
+    bossMaxLife -=(170 + plusAttack);
 }

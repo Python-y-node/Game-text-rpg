@@ -1,5 +1,7 @@
 #include <ncurses.h>
 
+#include "../../loader/loader.h"
+
 void Boss(WINDOW* window, int y, int x){
 
     init_pair(1, COLOR_GREEN, COLOR_BLACK);
@@ -8,7 +10,13 @@ void Boss(WINDOW* window, int y, int x){
     
     wattron( window, A_BOLD);
         wattron( window, COLOR_PAIR(5));
-            mvwprintw( window, y + 2, x, "   (0)   (0)");
+            
+            if( isBossDied != true){
+                mvwprintw( window, y + 2, x, "   (0)   (0)");
+            }else{
+                mvwprintw( window, y + 2, x, "    X     X ");
+   
+            }
             mvwprintw( window, y + 3, x, " /\\         /\\ ");
             mvwprintw( window, y + 4, x, "/__\\/\\___/\\/__\\ ");
         wattroff( window, COLOR_PAIR(5));

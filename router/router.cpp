@@ -25,7 +25,9 @@ void router(){
             loginUserScreen();
         }
         if( routerMenu == 2 ){
-            createUserScreen();
+            clear();
+            refresh();
+            homeScreen();
         }
         if( routerMenu == 3 ){
             clear();
@@ -35,27 +37,51 @@ void router(){
         if( routerMenu == 4 ){
             clear();
             refresh();
+            storyStartScreen();
+        }
+        if( routerMenu == 5 ){
+            clear();
+            refresh();
             menuGameScreen();
         }
-        if( routerMenu == 5){
-            clear();
-            refresh();
-            blackSmithScreen();
-        }
         if( routerMenu == 6){
-            clear();
-            refresh();
-            wizardScreen();
+            if(passedWithBlacksmith == true){
+                clear();
+                refresh();
+                errorScreen();
+            }
+            else {
+                clear();
+                refresh();
+                blackSmithScreen();
+            }
         }
         if( routerMenu == 7){
-            clear();
-            refresh();
-            trollBridgeScreen();
+            if( passedWithWizard == true ){
+                clear();
+                refresh();
+                errorScreen();
+            }
+            else{
+                clear();
+                refresh();
+                wizardScreen();
+            }
         }
         if( routerMenu == 8){
             clear();
             refresh();
+            trollBridgeScreen();
+        }
+        if( routerMenu == 9){
+            clear();
+            refresh();
             finalFightScreen();
+        }
+         if( routerMenu == 10){
+            clear();
+            refresh();
+            creditsScreen();
         }
     }
    

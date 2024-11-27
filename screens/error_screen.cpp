@@ -4,16 +4,9 @@
 
 using namespace std;
 
-int main() {
+void errorScreen() {
 
     int yMax, xMax;
-
-    
-    initscr();
-    cbreak();
-    noecho();
-    keypad(stdscr, TRUE);
-
     getmaxyx(stdscr, yMax, xMax);
 
     start_color();
@@ -27,10 +20,7 @@ int main() {
     wattroff(errorScreen,A_BOLD);
 
     wrefresh(errorScreen);
-
-    
+    routerMenu = 5;
     wgetch(errorScreen);
     endwin();
-
-    return 0;
 }
