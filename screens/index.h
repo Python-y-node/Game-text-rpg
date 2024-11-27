@@ -7,5 +7,5 @@
 #include "login_user_screen.cpp"
 #include "menu_screen.cpp"
 #include "blacksmith_screen.cpp"
-
+#include "wozard_screen.cpp"
 #endif 
