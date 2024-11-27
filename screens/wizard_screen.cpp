@@ -63,7 +63,7 @@ void jugar(WINDOW *juego2) {
     int intento;
     pedir_intento(juego2, intento, item);
 
-      wclear(juego2);
+    wclear(juego2);
     box(juego2, 0, 0);
 
     wattron(juego2, COLOR_PAIR(1));
@@ -86,7 +86,7 @@ void jugar(WINDOW *juego2) {
     endwin();       // Finaliza ncurses
 }
 
-int main() {
+void wizardScreen(){
     int yMax, xMax;
 
     // Inicializar ncurses
@@ -105,5 +105,5 @@ int main() {
     Player(juego2, 27, 30, "static", FALSE, FALSE);
 
     jugar(juego2); // Iniciar el juego
-    return 0;
+    
 }

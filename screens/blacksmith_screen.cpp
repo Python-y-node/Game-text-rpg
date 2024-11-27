@@ -69,14 +69,14 @@ do {
 
 void mostrarInstrucciones(WINDOW*juego){
 
-     wattron(juego, A_BOLD);
+    wattron(juego, A_BOLD);
 
     init_pair(7, COLOR_CYAN, COLOR_BLACK); // Definir par, texto cyan fondo negro
 
     wattron(juego, COLOR_PAIR(7));
 
     mvwprintw(juego, 2, 5, "'Bienvenido a mi tienda, enfrentate conmigo en un juego de piedra papel y tijera y consigue un escudo... solo si me ganas jajaja'\n");
-      wattroff(juego, COLOR_PAIR(7));
+    wattroff(juego, COLOR_PAIR(7));
     wrefresh(juego);
     wgetch(juego);
    

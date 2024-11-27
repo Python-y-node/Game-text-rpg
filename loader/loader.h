@@ -5,7 +5,7 @@
 
 
 UserType temporalUser;
-int routerMenu =0;
+int routerMenu = 4 ;
 
 //informacion del player
 string playeName = "Steve";
