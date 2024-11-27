@@ -13,7 +13,7 @@ void trollBridgeScreen()
   int yMax, xMax;
   getmaxyx(stdscr, yMax, xMax);
   WINDOW *win = newwin(yMax, xMax, 0, 0);
-  drawTroll(win, 8, 60);
+  drawTroll(win, 11, 66);
   box(win, 0, 0);
 
   // IMPLEMENTACION DEL PERSONAJE PRINCIPAL

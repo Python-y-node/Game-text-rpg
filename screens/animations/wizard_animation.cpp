@@ -26,7 +26,6 @@ void wizardAnimation(WINDOW*window, int y, int x) {
         mvwaddch(window, y + 3, x + 6, ACS_HLINE);
         mvwaddch(window, y + 3, x + 7, ACS_HLINE);
 
-<<<<<<< HEAD
          //Varita
         mvwaddch(window, y + 7, x + 8, ACS_VLINE);
         mvwaddch(window, y + 6, x + 8, ACS_VLINE);
@@ -59,32 +58,6 @@ void wizardAnimation(WINDOW*window, int y, int x) {
         mvwaddch(window, y + 12, x + 4, ACS_HLINE);
         mvwaddch(window, y + 12, x + 5, ACS_HLINE);
         mvwaddch(window, y + 12, x + 6, ACS_LRCORNER);
-=======
-    // ojos
-    mvwaddch(juego2, y + 4, x + 2, '0');
-    mvwaddch(juego2, y + 4, x + 4, '0');
-
-    // bigote
-    mvwaddch(juego2, y + 5, x + 1, ACS_HLINE);
-    mvwaddch(juego2, y + 5, x + 2, ACS_HLINE);
-    mvwaddch(juego2, y + 5, x + 3, '_');
-    mvwaddch(juego2, y + 5, x + 4, ACS_HLINE);
-    mvwaddch(juego2, y + 5, x + 5, ACS_HLINE);
-
-    // cara
-    mvwaddch(juego2, y + 6, x, ACS_LLCORNER);
-    mvwaddch(juego2, y + 6, x + 5, ACS_LRCORNER);
-
-    // cuerpo
-    mvwaddch(juego2, y + 7, x + 6, ACS_HLINE);
-    mvwaddch(juego2, y + 7, x - 1, ACS_HLINE);
-    mvwaddch(juego2, y + 9, x, ACS_LLCORNER);
-    mvwaddch(juego2, y + 9, x + 1, ACS_HLINE);
-    mvwaddch(juego2, y + 9, x + 2, ACS_HLINE);
-    mvwaddch(juego2, y + 9, x + 3, ACS_HLINE);
-    mvwaddch(juego2, y + 9, x + 4, ACS_HLINE);
-    mvwaddch(juego2, y + 9, x + 5, ACS_LRCORNER);
->>>>>>> 3d0c0f2ecef2eb5a8bca818494a191c8bfd282aa
 
         // Eyes
         mvwaddch(window, y + 4, x + 2, '@');
@@ -105,7 +78,6 @@ void wizardAnimation(WINDOW*window, int y, int x) {
         mvwaddch(window, y + 8, x + 7, ACS_VLINE);
         mvwaddch(window, y + 9, x + 7, ACS_LRCORNER);
 
-<<<<<<< HEAD
         //brazo izquierdo
         mvwaddch(window,  y + 8, x - 2, ACS_VLINE);
         mvwaddch(window,  y + 8, x, ACS_VLINE);
@@ -116,13 +88,7 @@ void wizardAnimation(WINDOW*window, int y, int x) {
         mvwaddch(window, y + 6, x + 5, ACS_LRCORNER);
 
     wattroff( window, COLOR_PAIR(22));
-=======
-    // piernas
-    mvwaddch(juego2, y + 10, x, ACS_VLINE);
-    mvwaddch(juego2, y + 10, x + 5, ACS_VLINE);
-    mvwaddch(juego2, y + 11, x, ACS_VLINE);
-    mvwaddch(juego2, y + 11, x + 5, ACS_VLINE);
->>>>>>> 3d0c0f2ecef2eb5a8bca818494a191c8bfd282aa
+
 
 }
 
