@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 void trollBridgeScreen()
 {
   initscr();
@@ -13,14 +12,12 @@ void trollBridgeScreen()
   curs_set(0);
   keypad(stdscr, TRUE);
 
-
   // Creacion de ventana para colocar el troll
   int yMax, xMax;
   getmaxyx(stdscr, yMax, xMax);
   WINDOW *win = newwin(yMax, xMax, 0, 0);
   drawTroll(win, 5, 90);
   box(win, 0, 0);
-
 
   // IMPLEMENTACION DEL PERSONAJE PRINCIPAL
   basePlayer(win, 10, 20, TRUE, TRUE);
@@ -33,33 +30,36 @@ void trollBridgeScreen()
   mvwprintw(win, 12, 35, "No tengo cuerpo, pero te sigo a todas partes. ¿Qué soy?");
   wrefresh(win);
 
-
   // Variables de la ventana
   int height, width, start_y, start_x;
   height = 5;
   width = 60;
   start_y = start_x = 24;
 
-
   // Creacion de la ventana de ataques
   WINDOW *win_options = newwin(height, width, start_y, start_x);
   box(win_options, 0, 0);
   wrefresh(win_options);
 
+  // El usuario tiene que presionar ENTER para que aparezca el acertijo
+  mvwprintw(win_options, 2, 5, "Presiona ENTER para continuar");
+  wrefresh(win_options);
+  int ch;
+  while ((ch = wgetch(win)) != 10)
+  {
 
-  // Opciones para atacar y sus posiciones dentro de la ventana win_options
+  }
+
   // COLOCAR EL ACERTIJO Y QUE ESTAS SEAN LAS OPCIONES DE RESPUESTA
   mvwprintw(win_options, 2, 5, "Un eco(1)");
   mvwprintw(win_options, 2, 15, "Un espejo(2)");
   mvwprintw(win_options, 2, 30, "Un reflejo(3)");
   mvwprintw(win_options, 2, 45, "Una sombra(4)");
 
-  //Variables para las opciones
+  // Variables para las opciones
   bool firstTry = false;
 
-
   // Seleccion de ataque
-  int ch;
   while (ch = wgetch(win_options))
   {
     switch (ch)
@@ -103,11 +103,37 @@ void trollBridgeScreen()
       mvwprintw(win_options, 2, 45, "Una sombra(4)");
       break;
     }
-    if (ch == 49)
-    {
-      mvwprintw(win_options, 2, 5, "Maldito! Has acertado mi acertijo!");
 
-      wrefresh(win_options);
+    // Intentos del personaje
+    int intentos = 2;
+    while ((ch = wgetch(win_options)) && intentos > 0)
+    {
+      // Limpiar la ventana de opciones
+      mvwprintw(win_options, 2, 5, "                     ");
+      mvwprintw(win_options, 2, 15, "                    ");
+      mvwprintw(win_options, 2, 30, "                    ");
+      mvwprintw(win_options, 2, 45, "                    ");
+
+      if (ch == 49) // Respuesta correcta
+      {
+        mvwprintw(win_options, 2, 5, "¡Maldito! Has acertado mi acertijo!");
+        wrefresh(win_options);
+        break;
+      }
+      else
+      {
+        intentos--; // Restar un intento
+        if (intentos > 0)
+        {
+          mvwprintw(win_options, 2, 5, "JAJAJA! Te queda un intento, insecto.");
+        }
+        else
+        {
+          mvwprintw(win_options, 2, 5, "Tu oportunidad se acabo.");
+          mvwprintw(win_options, 3, 5, "Ahora lo unico que te espera es la muerte!");
+        }
+        wrefresh(win_options);
+      }
     }
   }
   wgetch(win_options);

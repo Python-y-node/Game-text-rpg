@@ -2,20 +2,25 @@
 
 void drawTroll(WINDOW *win, int y, int x)
 {
-    mvwprintw(win, y, x,     "      @@@@@@@");
-    mvwprintw(win, y + 1, x, "     @       @");
-    mvwprintw(win, y + 2, x, "    @  O   O  @");
-    mvwprintw(win, y + 3, x, "    @    ^    @");
-    mvwprintw(win, y + 4, x, "     @  '-'  @");
-    mvwprintw(win, y + 5, x, "      @@@@@@@");
-    mvwprintw(win, y + 6, x, "       || ||");
-    mvwprintw(win, y + 7, x, "     // | | \\\\");
-    mvwprintw(win, y + 8, x, "    //  | |  \\\\");
-    mvwprintw(win, y + 9, x, "   ||   | |   ||");
-    mvwprintw(win, y + 10, x,"    \\\\  | |  //");
-    mvwprintw(win, y + 11, x,"     \\\\_|_|_//");
-    mvwprintw(win, y + 12, x,"      /     \\");
-    mvwprintw(win, y + 13, x,"     |       |");
-    mvwprintw(win, y + 14, x,"     |  ---  |");
-    mvwprintw(win, y + 15, x,"     |_______|");
+    //Colores
+    init_pair(10, COLOR_GREEN, COLOR_BLACK);
+    init_pair(11, COLOR_RED, COLOR_BLACK);
+
+    // Cuello y cuerpo
+    wattron(win, COLOR_PAIR(2)); // Color para el cuerpo
+    mvwprintw(win, 10, 90, "     /\\______/\\      ");
+    mvwprintw(win, 11, 90, "     |  0  0   |       ");
+    mvwprintw(win, 12, 90, "       |         |       ");
+    mvwprintw(win, 13, 90, "     |_/\\/\\/\\__|    ");
+    mvwprintw(win, 14, 90, "     |_________|       ");
+    wattroff(win, COLOR_PAIR(2));
+
+    // Piernas y pies
+    wattron(win, COLOR_PAIR(3)); // Color para las piernas
+    mvwprintw(win, 15, 90, "       |    |           ");
+    mvwprintw(win, 16, 90, "     /       \\        ");
+    mvwprintw(win, 17, 90, "    /         \\       ");
+    mvwprintw(win, 18, 90, "   (           )      ");
+    mvwprintw(win, 19, 90, "    \\_________/       ");
+    wattroff(win, COLOR_PAIR(3));
 }
