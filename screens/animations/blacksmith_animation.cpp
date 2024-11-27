@@ -8,7 +8,7 @@ void basePlayerNoHat(WINDOW*juego, int y, int x);
 
 void basePlayerNoHat(WINDOW* juego, int y, int x) {
 
-   // Head
+   // cabeza
 mvwaddch(juego, y, x, ACS_ULCORNER);
 mvwaddch(juego, y, x + 1, ACS_HLINE);
 mvwaddch(juego, y, x + 2, ACS_HLINE);
@@ -19,28 +19,28 @@ mvwaddch(juego, y, x + 5, ACS_URCORNER);
 mvwaddch(juego, y + 1, x, ACS_VLINE);
 mvwaddch(juego, y + 1, x + 5, ACS_VLINE);
 
-// Unibrow (line above the eyes)
-mvwaddch(juego, y + 1, x + 1, ACS_HLINE);  // Start of the unibrow
+// Unibrow 
+mvwaddch(juego, y + 1, x + 1, ACS_HLINE);  
 mvwaddch(juego, y + 1, x + 2, ACS_HLINE);
 mvwaddch(juego, y + 1, x + 3, ACS_HLINE);
 mvwaddch(juego, y + 1, x + 4, ACS_HLINE);
 
-// Eyes
+// ojo
 mvwaddch(juego, y + 2, x + 2, '0');
 mvwaddch(juego, y + 2, x + 4, '0');
 
-// Mustache (moved to row y + 3)
+// bigote
 mvwaddch(juego, y + 3, x + 1, ACS_HLINE);
 mvwaddch(juego, y + 3, x + 2, ACS_HLINE);
 mvwaddch(juego, y + 3, x + 3, '_');
 mvwaddch(juego, y + 3, x + 4, ACS_HLINE);
 mvwaddch(juego, y + 3, x + 5, ACS_HLINE);
 
-// Chin
+// barbilla
 mvwaddch(juego, y + 4, x, ACS_LLCORNER);
 mvwaddch(juego, y + 4, x + 5, ACS_LRCORNER);
 
-// Body (Shifted body down)
+// cuerpo
 mvwaddch(juego, y + 5, x + 6, ACS_HLINE);
 mvwaddch(juego, y + 5, x - 1, ACS_HLINE);
 mvwaddch(juego, y + 7, x, ACS_LLCORNER);
@@ -52,12 +52,12 @@ mvwaddch(juego, y + 7, x + 5, ACS_LRCORNER);
 
 
 
-// Right arm (shifted down)
+// brazo derecho
 mvwaddch(juego, y + 6, x + 5, ACS_VLINE);
 mvwaddch(juego, y + 6, x + 7, ACS_VLINE);
 mvwaddch(juego, y + 7, x + 7, ACS_LRCORNER);
 
-// Legs (shifted down)
+// piernas
 mvwaddch(juego, y + 8, x, ACS_VLINE);
 mvwaddch(juego, y + 8, x + 5, ACS_VLINE);
 mvwaddch(juego, y + 9, x, ACS_VLINE);

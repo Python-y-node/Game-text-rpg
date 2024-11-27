@@ -20,6 +20,7 @@ void router(){
             menuScreen();
         }
 
+<<<<<<< HEAD
         if( routerMenu == 1 ){
             clear();
             refresh();
@@ -61,4 +62,23 @@ void router(){
     }
      //loginUserScreen();
    
+=======
+    //     if( routerMenu == 1 ){
+    //         clear();
+    //         refresh();
+    //         loginUserScreen();
+    //     }
+    //     if( routerMenu == 2 ){
+    //         createUserScreen();
+    //     }
+    //     if( routerMenu == 3 ){
+    //         clear();
+    //         refresh();
+    //         homeScreen();
+    //     }
+    // }
+   // blackSmithScreen();
+
+    wizardScreen();
+>>>>>>> 3d0c0f2ecef2eb5a8bca818494a191c8bfd282aa
 }
