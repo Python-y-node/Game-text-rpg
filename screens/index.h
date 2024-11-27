@@ -8,4 +8,6 @@
 #include "menu_screen.cpp"
 #include "blacksmith_screen.cpp"
 #include "wizard_screen.cpp"
+#include "menu_game_screen.cpp"
+
 #endif 
