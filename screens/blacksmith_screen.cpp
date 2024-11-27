@@ -77,9 +77,11 @@ void blackSmithScreen()
 
 
 
+
 void showInstrucctions( WINDOW*window ){
 
     wattron(window, A_BOLD);
+
 
     init_pair(7, COLOR_CYAN, COLOR_BLACK); // Definir par, texto cyan fondo negro
 
@@ -99,6 +101,7 @@ void showInstrucctions( WINDOW*window ){
        mvwprintw( window, 6, 60, "\\ |");
        mvwprintw( window, 7, 61, "\\|");
     wattroff(window, COLOR_PAIR(7));
+
    
 }
 

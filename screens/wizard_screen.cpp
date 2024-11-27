@@ -63,6 +63,10 @@ void jugar(WINDOW *juego2) {
     int intento;
     pedir_intento(juego2, item);
 
+<<<<<<< HEAD
+    wclear(juego2);
+=======
+>>>>>>> bde09cd631b368597e36c26997df309a9cd08bfd
     box(juego2, 0, 0);
 
     if (intento - 1 == item) {
@@ -78,8 +82,18 @@ void jugar(WINDOW *juego2) {
 
 }
 
+<<<<<<< HEAD
+void wizardScreen(){
+    int yMax, xMax;
+
+    // Inicializar ncurses
+    initscr();
+    cbreak();
+    keypad(stdscr, TRUE);
+=======
 void wizardScreen() {
     
+>>>>>>> bde09cd631b368597e36c26997df309a9cd08bfd
     start_color();
     init_pair(1, COLOR_CYAN, COLOR_BLACK);
     int yMax, xMax;
@@ -103,6 +117,9 @@ void wizardScreen() {
     wrefresh(juego2);
 
     jugar(juego2); // Iniciar el juego
+<<<<<<< HEAD
+    
+=======
 
     wgetch(juego2);
     routerMenu = 4;
@@ -110,4 +127,5 @@ void wizardScreen() {
     
     endwin();
    
+>>>>>>> bde09cd631b368597e36c26997df309a9cd08bfd
 }

@@ -1,16 +1,16 @@
 #include "../loader/loader.h"
-
-//importacion de pantallas
+    // importacion de pantallas
 #include "../screens/index.h"
 
 void router(){
 
-    initscr();              // Inicializar ncurses
-    noecho();               // No mostrar texto mientras se escribe
+    initscr();             //  Inicializar ncurses
+    noecho();                //No mostrar texto mientras se escribe
     curs_set(0);            // Ocultar el cursor
     start_color();
     curs_set(0);
     cbreak();
+
 
     while (routerMenu >= 0)
     {
@@ -59,4 +59,5 @@ void router(){
         }
     }
    
+
 }
