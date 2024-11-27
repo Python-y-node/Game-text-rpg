@@ -4,67 +4,70 @@
 #include <ncurses.h>
 #include "animations/index.h"
 
-
 using namespace std;
 
-void mostrarInstrucciones(WINDOW*juego);
+int turnoHerrero(WINDOW*window, int herrero);
 
-int turnoJugador(WINDOW*juego, int intento, int jugador);
-int turnoHerrero(WINDOW*juego, int herrero);
-int elegirGanador(WINDOW*juego, int jugador, int herrero);
+void deleteOptionMenu(WINDOW*window);
+void showInstrucctions( WINDOW*window );
+void showElectionMessage( WINDOW* window, int playerChoice, int blacksmithChoice );
+void deleteElectionMessage( WINDOW* window, int playerChoice, int blacksmithChoice );
+void showOptionMenu(WINDOW* window);
 
 void blackSmithScreen()
 {
-    int jugador = 0, herrero = 0 , empate = 0;
+    int jugador = 0, herrero = 0 ;
     int yMax, xMax;
     char intento;
-
-
-// Inicializar ncurses
-    initscr();
-    cbreak();
-    noecho();
-    keypad(stdscr, TRUE);
-    start_color();
 
     // Obtener dimensiones de la pantalla
     getmaxyx(stdscr, yMax, xMax);
 
 
     // Crear ventana emergente
-    WINDOW *juego = newwin(yMax, xMax, 0, 0);
-    box(juego, 0, 0);
-
+    WINDOW *window = newwin(yMax, xMax, 0, 0);
+    box(window, 0, 0);
 
     
-    Player(juego, 27, 30, "static", FALSE, FALSE);
-    basePlayerNoHat(juego, 26.5, 110);
+    Player(window, 8, 8, "static", FALSE, FALSE);
+    basePlayerNoHat(window, 7, 65);
     
     
-    mostrarInstrucciones(juego);
+    showInstrucctions(window); 
+    showOptionMenu(window);
 
-    // Limpiar ventana después de las instrucciones para iniciar juego
-    wrefresh(juego); 
+    wrefresh(window);
     
-do {
+    int playersChoice;
 
-    jugador = turnoJugador(juego, jugador, intento);
-    herrero = turnoHerrero(juego, herrero);
+    while(( playersChoice = wgetch(window)) != 113 ){
+         herrero = turnoHerrero(window, herrero);
+        
+        if( playersChoice > 48 || playersChoice > 51){
+                if (jugador == herrero) {
+                
+                wattron(window, COLOR_PAIR(7));
+                mvwprintw(window, 7, 20, "'¡Es un empate! Juguemos otra vez.'");
+                wattroff(window, COLOR_PAIR(7));
+                deleteElectionMessage(window, playersChoice, herrero);
+                wrefresh(window);
 
-    // en caso de empate
-    if (jugador == herrero) {
-        wattron(juego, COLOR_PAIR(7));
-        mvwprintw(juego, 20, 50, "'¡Es un empate! Juguemos otra vez.'");
-        wattroff(juego, COLOR_PAIR(7));
-        wrefresh(juego);
-        wgetch(juego); // Esperar entrada antes de repetir
-        empate = true;
-    } else {
-        empate = false;
-        elegirGanador(juego, jugador, herrero); 
-        wrefresh(juego);
+            } else {
+                deleteOptionMenu(window);
+                wrefresh(window);
+                showElectionMessage(window, playersChoice, herrero); 
+                wrefresh(window);
+                break;
+            }
+        }else{
+            deleteOptionMenu(window);
+            mvwprintw(window, 7, 18, "Opcion invalida ingresa un numero entre 1 y 3.");
+            wrefresh(window);
+            showOptionMenu(window);
+        }
+       
     }
-} while (empate );
+    wgetch(window);
 
     // Finalizar ncurses
     endwin();
@@ -72,140 +75,152 @@ do {
 
 
 
-void mostrarInstrucciones(WINDOW*juego){
+void showInstrucctions( WINDOW*window ){
 
-     wattron(juego, A_BOLD);
+    wattron(window, A_BOLD);
 
     init_pair(7, COLOR_CYAN, COLOR_BLACK); // Definir par, texto cyan fondo negro
 
-    wattron(juego, COLOR_PAIR(7));
+    wattron(window, COLOR_PAIR(7));
+       mvwprintw(window, 2, 10, "----------------------------------------------------");
+       mvwprintw( window, 3, 10, "|");
+       mvwprintw( window, 4, 10, "|");
+       mvwprintw( window, 5, 10, "|");
 
-    mvwprintw(juego, 2, 5, "'Bienvenido a mi tienda, enfrentate conmigo en un juego de piedra papel y tijera y consigue un escudo... solo si me ganas jajaja'\n");
-      wattroff(juego, COLOR_PAIR(7));
-    wrefresh(juego);
-    wgetch(juego);
+       mvwprintw( window, 3, 11, "Bienvenido a mi tienda, enfrentate conmigo en un");
+       mvwprintw( window, 4, 11, "window de piedra papel y tijera y consigue un escudo");
+       mvwprintw( window, 5, 11 , "... solo si me ganas :D");
+       mvwprintw( window, 3, 62, "|");
+       mvwprintw( window, 4, 62, "|"); 
+       mvwprintw( window, 5, 62, "|");      
+       mvwprintw(window, 6, 10, "--------------------------------------------------");
+       mvwprintw( window, 6, 60, "\\ |");
+       mvwprintw( window, 7, 61, "\\|");
+    wattroff(window, COLOR_PAIR(7));
    
-
 }
 
-int turnoJugador(WINDOW *juego, int intento, int jugador) {
-    do {
-        // Mostrar opciones al jugador
-        mvwprintw(juego, 10, 55, "*********************************\n");
-        mvwprintw(juego, 11, 60, "Piedra - Papel - Tijera\n");
-        mvwprintw(juego, 12, 55, "*********************************\n");
-        mvwprintw(juego, 16, 55, "Elige tu opción:\n");
-        mvwprintw(juego, 18, 55, "Seleccione '1' para elegir Piedra\n");
-        mvwprintw(juego, 20, 55, "Seleccione '2' para elegir Papel\n");
-        mvwprintw(juego, 22, 55, "Seleccione '3' para elegir Tijera\n");
 
-        wrefresh(juego);
+void showOptionMenu(WINDOW* window){
 
-        // Capturar entrada del usuario
-        intento = wgetch(juego);
+        mvwprintw(window, 7, 18, "                                              ");
+    // Mostrar opciones al jugador
+        mvwprintw(window, 8, 20, "*********************************");
+        mvwprintw(window, 9, 20, "Piedra - Papel - Tijera");
+        mvwprintw(window, 10, 20, "*********************************");
+        mvwprintw(window, 12, 20, "Elige tu opción:");
+        mvwprintw(window, 14, 20, "Seleccione '1' para elegir Piedra");
+        mvwprintw(window, 16, 20, "Seleccione '2' para elegir Papel");
+        mvwprintw(window, 18, 20, "Seleccione '3' para elegir Tijera");
+}
 
-        // Validar la entrada del usuario
+void deleteOptionMenu(WINDOW*window){
+        mvwprintw(window, 8, 20, "                                 ");
+        mvwprintw(window, 9, 20, "                       ");
+        mvwprintw(window, 10, 20, "                                 ");
+        mvwprintw(window, 12, 20, "                ");
+        mvwprintw(window, 14, 20, "                                 ");
+        mvwprintw(window, 16, 20, "                                ");
+        mvwprintw(window, 18, 20, "                                 ");
+}
 
-        if (intento == '1')
-            jugador = 1;
-        else if (intento == '2')
-            jugador = 2;
-        else if (intento == '3')
-            jugador = 3;
-        else {
-            // Mostrar mensaje de 
-             init_pair(8, COLOR_YELLOW, COLOR_BLACK);
-            wattron(juego, COLOR_PAIR(8));
-            mvwprintw(juego, 24, 55, "Opción inválida. Intente de nuevo.");
-            wattroff(juego, COLOR_PAIR(8));
-            wrefresh(juego);
-            continue; // Pedir otra entrada
-        }
-
-        // Limpiar la ventana para mostrar la elección
-        wclear(juego);
-        box(juego, 0, 0);
-
-        // Mostrar la opción elegida
-        mvwprintw(juego, 15, 55, "Has elegido: ");
-            wattron(juego, COLOR_PAIR(8));
-        switch (jugador) {
+void showElectionMessage( WINDOW* window, int playerChoice, int blacksmithChoice ){
+        mvwprintw(window, 10, 20, "Has elegido: ");   
+        switch (playerChoice) {
         case 1:
-            mvwprintw(juego, 15, 79, "Piedra");
+            mvwprintw(window, 11, 22, "Piedra");
             break;
         case 2:
-            mvwprintw(juego, 15, 79, "Papel");
+            mvwprintw(window, 11, 22, "Papel");
             break;
         case 3:
-            mvwprintw(juego, 15, 79, "Tijera");
+            mvwprintw(window, 11, 22, "Tijera");
             break;
         }
 
-        wattroff(juego, COLOR_PAIR(8));
+        mvwprintw(window, 12, 20, "El Herrero eligió: ");
+ 
+        switch ( blacksmithChoice )
+        {
+        case 1:
+            mvwprintw(window, 13, 22, "Piedra");
+            break;
+        case 2:
+            mvwprintw(window, 13, 22, "Papel");
+            break;
+        case 3:
+            mvwprintw(window, 13, 22, "Tijera");
+            break;
+        }
 
-        wrefresh(juego);
+        if ((playerChoice == 1 && blacksmithChoice == 3) || (playerChoice == 2 && blacksmithChoice == 1) || (playerChoice == 3 && blacksmithChoice == 2)) {
+            
+            wattron(window, COLOR_PAIR(7));
+            mvwprintw(window, 8, 17, "'¡Rayos, me has vencido! Te he ");
+            mvwprintw(window, 9,17, "otorgado un escudo.'");
+            wattroff(window, COLOR_PAIR(7));
+        } else {
+            
+            wattron(window, COLOR_PAIR(7));
+            mvwprintw(window, 8, 17, "'¡Te he vencido esta vez... será a la");
+            mvwprintw(window, 9,17, "  próxima. Buena suerte!'");
+            wattroff(window, COLOR_PAIR(7));
+        }
 
-    } while (jugador != 1 && jugador != 2 && jugador != 3);
+    
+        mvwprintw(window, 15, 17, "Presiona cualquier tecla para continuar...");
+        wrefresh(window);
+}
 
+void deleteElectionMessage( WINDOW* window, int playerChoice, int blacksmithChoice ){
+        
+        mvwprintw(window, 10, 20, "             ");   
+       
+        switch (playerChoice) {
+        case 1:
+            mvwprintw(window, 11, 22, "      ");
+            break;
+        case 2:
+            mvwprintw(window, 11, 22, "     ");
+            break;
+        case 3:
+            mvwprintw(window, 11, 22, "      ");
+            break;
+        }
 
-    return jugador;
+        mvwprintw(window, 12, 20, "                   ");
+
+        switch ( blacksmithChoice )
+        {
+        case 1:
+            mvwprintw(window, 13, 22, "      ");
+            break;
+        case 2:
+            mvwprintw(window, 13, 22, "     ");
+            break;
+        case 3:
+            mvwprintw(window, 13, 22, "      ");
+            break;
+        }
+
+        if ((playerChoice == 1 && blacksmithChoice == 3) || (playerChoice == 2 && blacksmithChoice == 1) || (playerChoice == 3 && blacksmithChoice == 2)) {
+
+            mvwprintw(window, 8, 17, "                               ");
+            mvwprintw(window, 9,17, "                    ");
+          
+        } else {
+            
+            mvwprintw(window, 8, 17, "                                     ");
+            mvwprintw(window, 9,17, "                         ");
+        }
 }
 
 
-
-int turnoHerrero(WINDOW*juego, int herrero){
+int turnoHerrero(WINDOW*window, int herrero){
 
     // Generar la elección aleatoria del herrero (opción del programa)
     srand(time(0));
     herrero = rand() % 3 + 1; // Genera un número aleatorio entre 1 y 3
 
-    // Mostrar la opción del herrero
-
-    mvwprintw(juego, 17, 55, "El Herrero eligió: ");
- 
-    wattron(juego, COLOR_PAIR(8));
-
-
-    switch (herrero)
-    {
-    case 1:
-        mvwprintw(juego, 17, 80, "Piedra\n");
-        break;
-    case 2:
-        mvwprintw(juego, 17, 80, "Papel\n");
-        break;
-    case 3:
-        mvwprintw(juego, 17, 80, "Tijera\n");
-        break;
-    }
-      wattroff(juego, COLOR_PAIR(8));
-
     return herrero;
-}
-
-
-int elegirGanador(WINDOW *juego, int jugador, int herrero) {
-  
-
-    // Determinar el ganador
-    if ((jugador == 1 && herrero == 3) || (jugador == 2 && herrero == 1) || (jugador == 3 && herrero == 2)) {
-        // Jugador gana
-        wattron(juego, COLOR_PAIR(7));
-        mvwprintw(juego, 20, 45, "'¡Rayos, me has vencido! Te he otorgado un escudo.'");
-        wattroff(juego, COLOR_PAIR(7));
-    } else {
-        // Herrero gana
-        wattron(juego, COLOR_PAIR(7));
-        mvwprintw(juego, 20, 40, "'¡Te he vencido esta vez... será a la próxima. Buena suerte!'");
-        wattroff(juego, COLOR_PAIR(7));
-    }
-
-    // Instrucción adicional para el usuario
-    mvwprintw(juego, 35, 24, "Presiona cualquier tecla para continuar...");
-    wrefresh(juego);
-
-    // Esperar a que el jugador presione una tecla
-    wgetch(juego);
-
-    return 0;
 }
