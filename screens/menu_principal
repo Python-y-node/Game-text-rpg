@@ -1,0 +1,4 @@
+#include <iostream>
+#include <ncurses.h> // Para ncurses
+#include "animations/index.h" //Para ocupar las animaciones
+
