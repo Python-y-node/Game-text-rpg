@@ -7,20 +7,26 @@
 //importar variable del router 
  #include "../loader/loader.h"
 
+//importar services para login
+#include "../services/user_services.cpp"
+
 void showMessage(const string message) {
+    init_pair(1, COLOR_YELLOW, COLOR_BLACK);
+    
     int yMax, xMax;
     getmaxyx(stdscr, yMax, xMax);
-
-    int height = 7, width = message.length() + 4;
+   
+    int height = 7, width = message.length() + 8;
     int start_y = (yMax - height) / 2;
     int start_x = (xMax - width) / 2; // Centrar horizontalmente
 
     // Crear la ventana emergente
     WINDOW *popup = newwin(height, width, start_y, start_x);
     box(popup, 0, 0);
-
-    // Mensaje en la ventana emergente
-    mvwprintw(popup, height / 2 - 1, 2, "%s", message.c_str());
+    
+    wattron(popup, COLOR_PAIR(1));
+     mvwprintw(popup, height / 2 - 1, 2, "%s", message.c_str());
+    wattroff(popup, COLOR_PAIR(1));
 
     wrefresh(popup);
     delwin(popup);
@@ -30,6 +36,7 @@ void loginUserScreen() {
 
     int yMax, xMax;
     getmaxyx(stdscr, yMax, xMax);
+    bool validUser = false;
 
     // Crear la ventana principal
     WINDOW *win = newwin(yMax, xMax, 0, 0);
@@ -51,27 +58,30 @@ void loginUserScreen() {
     // Crear cajas de texto independientes
     WINDOW *txt_box1 = newwin(height, width, start_y1, start_x1);
     box(txt_box1, 0, 0);
-    mvwprintw(txt_box1, 0, 2, "Usuario");
+    mvwprintw(txt_box1, 0, 1, "Usuario");
     wrefresh(txt_box1);
 
     WINDOW *txt_box2 = newwin(height, width, start_y2, start_x1);
     box(txt_box2, 0, 0);
-    mvwprintw(txt_box2, 0, 2, "Contraseña");
+    mvwprintw(txt_box2, 0, 1, "Clave");
     wrefresh(txt_box2);
 
     // Entrada de texto
-    char user_input[256] = {0};
-    char password_input[256] = {0};
+    char usernameInput[256] = {0};
+    char passwordInput[256] = {0};
 
     // Leer entrada del usuario
     echo();
-    mvwgetnstr(txt_box1, 1, 2, user_input, sizeof(user_input) - 1); // Leer usuario
+    mvwgetnstr(txt_box1, 1, 2, usernameInput, sizeof(usernameInput) - 1); // Leer usuario
+   
+    mvwgetnstr(txt_box2, 1, 2, passwordInput, sizeof(passwordInput) - 1); // Leer contraseña
     noecho();
-    mvwgetnstr(txt_box2, 1, 2, password_input, sizeof(password_input) - 1); // Leer contraseña
-
     // Validar credenciales (puedes reemplazar con tu lógica real)
-    if (string(user_input) != "admin" || string(password_input) != "1234") {
+    validUser = userLogin(usernameInput, passwordInput);
+
+    if ( validUser != true) {
         showMessage("Usuario inválido");
+        this_thread::sleep_for( chrono::milliseconds(1000));
     } else {
         showMessage("¡Inicio de sesión exitoso!");
         this_thread::sleep_for( chrono::milliseconds(1500));
@@ -82,6 +92,7 @@ void loginUserScreen() {
     delwin(txt_box1);
     delwin(txt_box2);
     delwin(win);
+
     endwin();
 }
 

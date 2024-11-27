@@ -5,7 +5,7 @@
 
 
 UserType temporalUser;
-int routerMenu = 4;
+int routerMenu = 0;
 
 
 //informacion del player

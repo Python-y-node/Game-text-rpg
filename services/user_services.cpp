@@ -2,11 +2,14 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <filesystem>
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
 // Ruta del archivo
-const string USERS_FILE = "../db/users.txt";
+string USERS_FILE = filesystem::current_path().string()  + "/services/db/users.txt";
 
 // Función para verificar si un usuario ya existe
 bool userExits(const string &username)
@@ -41,28 +44,30 @@ bool userExits(const string &username)
 }
 
 // Función para verificar si el usuario y la contraseña coinciden
-bool userLogin(const string &username, const string &password)
+bool userLogin(string username, string password)
 {
-    fstream userFile;
     string line;
 
-    userFile.open(USERS_FILE, ios::in); // Abrir archivo en modo lectura
-    if (!userFile)
-    {
-        cerr << "Error: No se ha podido abrir el archivo de usuarios (" << USERS_FILE << ")." << endl;
+    ifstream userFile(USERS_FILE); // Abrir archivo en modo lectura
+
+    if (!userFile.is_open() )
+    {  
         return false;
     }
 
     while (getline(userFile, line))
     {
-        size_t usernamePos = line.find("username: ");
+        
+        size_t usernamePos = line.find_first_of(":");
         size_t commaPos = line.find(",");
-        size_t passwordPos = line.find("password: ");
+        size_t passwordPos = line.find(":", commaPos);
+        size_t finalPosition = line.find_last_not_of(" ");
 
         if (usernamePos != string::npos && commaPos != string::npos && passwordPos != string::npos)
         {
-            string archivoUser = line.substr(usernamePos + 10, commaPos - (usernamePos + 10)); // Extrae el nombre de usuario
-            string archivoPassword = line.substr(passwordPos + 10); // Extrae la contraseña
+            string archivoUser = line.substr(usernamePos + 1 , ( commaPos - usernamePos - 1)); // Extrae el nombre de usuario
+            string archivoPassword = line.substr(passwordPos + 1,( finalPosition - passwordPos) ); // Extrae la contraseña
+            
             if (archivoUser == username && archivoPassword == password)
             {
                 userFile.close();
@@ -110,38 +115,3 @@ bool createUser(const string &username, const string &password)
     return true; // Usuario registrado exitosamente
 }
 
-int main()
-{
-    string username, password;
-
-    cout << "Ingrese su usuario: ";
-    cin >> username;
-
-    cout << "Ingrese su contraseña: ";
-    cin >> password;
-
-    if (userExits(username))
-    {
-        if (userLogin(username, password))
-        {
-            cout << "Ingreso exitoso!" << endl;
-        }
-        else
-        {
-            cout << "Contraseña incorrecta." << endl;
-        }
-    }
-    else
-    {
-        if (createUser(username, password))
-        {
-            cout << "Usuario registrado exitosamente!" << endl;
-        }
-        else
-        {
-            cout << "No se ha podido registrar el usuario." << endl;
-        }
-    }
-
-    return 0;
-}
