@@ -8,9 +8,9 @@ void router(){
     initscr();              // Inicializar ncurses
     noecho();               // No mostrar texto mientras se escribe
     curs_set(0);            // Ocultar el cursor
-    keypad(stdscr, TRUE);   // Activar teclas especiales
     start_color();
     curs_set(0);
+    cbreak();
 
     // while (routerMenu >= 0)
     // {
