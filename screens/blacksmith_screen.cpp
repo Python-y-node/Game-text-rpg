@@ -43,8 +43,8 @@ void blackSmithScreen()
     while(( playersChoice = wgetch(window)) != 113 ){
          herrero = turnoHerrero(window, herrero);
         
-        if( playersChoice > 48 || playersChoice > 51){
-                if (jugador == herrero) {
+        if( playersChoice > 48 && playersChoice < 52){
+            if (playersChoice == herrero) {
                 
                 wattron(window, COLOR_PAIR(7));
                 mvwprintw(window, 7, 20, "'¡Es un empate! Juguemos otra vez.'");
@@ -59,10 +59,11 @@ void blackSmithScreen()
                 wrefresh(window);
                 break;
             }
-        }else{
+        }else {
             deleteOptionMenu(window);
             mvwprintw(window, 7, 18, "Opcion invalida ingresa un numero entre 1 y 3.");
             wrefresh(window);
+            this_thread::sleep_for( chrono::milliseconds(1000));
             showOptionMenu(window);
         }
        
