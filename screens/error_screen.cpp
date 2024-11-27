@@ -21,14 +21,10 @@ int main() {
     box(errorScreen, 0, 0);
 
     init_pair(8, COLOR_YELLOW, COLOR_BLACK); 
-    wattron(aceptar,COLOR_PAIR(8)) ;
-    mvwprintw(errorScreen, 5, 40, "Ya has pasado por aqui, continua tu camino por otro lado...");
-    
-
-    
-
-
-    
+    wattron(errorScreen,COLOR_PAIR(8)) ;
+    wattron(errorScreen,A_BOLD) ;
+    mvwprintw(errorScreen, 15, 8, "Ya has pasado por aqui, continua tu camino por otro lado...");
+    wattroff(errorScreen,A_BOLD);
 
     wrefresh(errorScreen);
 
